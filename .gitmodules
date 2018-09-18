@@ -1,0 +1,3 @@
+[submodule "omap-image-builder"]
+	path = omap-image-builder
+	url = https://github.com/RobertCNelson/omap-image-builder.git
