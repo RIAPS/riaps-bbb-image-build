@@ -19,9 +19,5 @@ git apply omap-image-builder.patch
 # Build image for BBB
 IMG=$(\ls deploy)
 cd deploy/$IMG
-sudo fallocate -l 4GB $IMG.img
-LOOP=$(sudo losetup -f)     # Allocate a loopback device for image
-sudo losetup $LOOP $IMG.img # Mount disk image to loopback device
-sudo ./setup_sdcard.sh --mmc $LOOP --dtb beaglebone
-sudo losetup -d $LOOP
-mv $IMG.img ../../../
+sudo ./setup_sdcard.sh --img-4gb $IMG --dtb beaglebone
+mv *.img ../../../
