@@ -24,4 +24,4 @@ LOOP=$(sudo losetup -f)     # Allocate a loopback device for image
 sudo losetup $LOOP $IMG.img # Mount disk image to loopback device
 sudo ./setup_sdcard.sh --mmc $LOOP --dtb beaglebone
 sudo losetup -d $LOOP
-cp $IMG.img ../../../
+mv $IMG.img ../../../
