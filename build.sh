@@ -2,7 +2,7 @@
 # Build RIAPS BBB image
 
 # Make sure that omap-image-builder submodule is initialized
-git submodule init
+git submodule update --init
 
 # Copy RIAPS files into omap-image-builder repo
 cp riaps-bionic.conf omap-image-builder/configs/
