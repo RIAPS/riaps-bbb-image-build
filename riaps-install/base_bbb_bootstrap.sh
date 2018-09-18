@@ -25,14 +25,19 @@ rt_kernel_install() {
 }
 
 user_func() {
-    getent group gpio || sudo groupadd gpio
-    sudo usermod -aG sudo $RIAPSAPPDEVELOPER
-    sudo usermod -aG dialout $RIAPSAPPDEVELOPER
-    sudo usermod -aG gpio  $RIAPSAPPDEVELOPER
-    sudo usermod -aG pwm $RIAPSAPPDEVELOPER
-    sudo -H -u $RIAPSAPPDEVELOPER mkdir -p /home/$RIAPSAPPDEVELOPER/riaps_apps
-    cp etc/sudoers.d/riaps /etc/sudoers.d/riaps
-    echo "setup user accounts"
+  if ! id -u $RIAPSAPPDEVELOPER > /dev/null 2>&1; then
+      echo "The user does not exist; setting user account up now"
+      sudo useradd -m -c "RIAPS App Developer" $RIAPSAPPDEVELOPER -s /bin/bash -d /home/$RIAPSAPPDEVELOPER
+      sudo echo -e "riaps\nriaps" | sudo passwd $RIAPSAPPDEVELOPER
+      getent group gpio || sudo groupadd gpio
+      sudo usermod -aG sudo $RIAPSAPPDEVELOPER
+      sudo usermod -aG dialout $RIAPSAPPDEVELOPER
+      sudo usermod -aG gpio  $RIAPSAPPDEVELOPER
+      sudo usermod -aG pwm $RIAPSAPPDEVELOPER
+      sudo -H -u $RIAPSAPPDEVELOPER mkdir -p /home/$RIAPSAPPDEVELOPER/riaps_apps
+      cp etc/sudoers.d/riaps /etc/sudoers.d/riaps
+      echo "created user accounts"
+  fi
 }
 
 # Needed to allow apt-get update to work properly
