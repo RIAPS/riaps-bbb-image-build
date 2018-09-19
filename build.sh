@@ -3,6 +3,7 @@
 
 # Make sure that omap-image-builder submodule is initialized
 git submodule update --init
+git submodule foreach git reset --hard # Reset any changes to submodules
 
 # Copy RIAPS files into omap-image-builder repo
 cp riaps-bionic.conf omap-image-builder/configs/
