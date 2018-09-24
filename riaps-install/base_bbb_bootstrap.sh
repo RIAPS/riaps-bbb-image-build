@@ -54,8 +54,6 @@ python_install() {
     echo "installed pydev"
 
     sudo pip3 install cython --verbose
-    sudo wget https://raw.githubusercontent.com/fabioz/PyDev.Debugger/master/setup_cython.py -P /usr/local/lib/python3.5/dist-packages/
-    sudo python3 /usr/local/lib/python3.5/dist-packages/setup_cython.py build_ext --inplace
     echo "installed cython"
 
     sudo pip3 install 'paramiko==2.4.1' 'cryptography==2.1.4' --verbose
@@ -73,12 +71,11 @@ watchdog_timers() {
 }
 
 quota_install() {
-    sudo apt-get install quota -y
     sed -i "/mmcblk0p1/c\/dev/mmcblk0p1 / ext4 noatime,errors=remount-ro,usrquota,grpquota 0 1" /etc/fstab
     echo "setup quotas"
 }
 
-motd_update() {
+setup_splash() {
     echo "################################################################################" > motd
     echo "# Acknowledgment:  The information, data or work presented herein was funded   #" >> motd
     echo "# in part by the Advanced Research Projects Agency - Energy (ARPA-E), U.S.     #" >> motd
@@ -88,6 +85,16 @@ motd_update() {
     echo "################################################################################" >> motd
     sudo mv motd /etc/motd
     echo "setup motd screen"
+    # Issue.net
+    echo "Ubuntu 18.04.1 LTS" > issue.net
+    echo "" >> issue.net
+    echo "RIAPS console Ubuntu Image $time">> issue.net
+    echo "">> issue.net
+    echo "Support/FAQ: http://elinux.org/BeagleBoardUbuntu">> issue.net
+    echo "">> issue.net
+    echo "default username:password is [riaps:riaps]">> issue.net
+    sudo mv issue.net /etc/issue.net
+    echo "setup splash screen"
 }
 
 setup_hostname() {
@@ -122,20 +129,15 @@ setup_ssh_keys() {
     sudo -H -u $1 cat /home/$1/.ssh/bbb_initial.pub >> /home/$1/.ssh/authorized_keys
     sudo chown $1:$1 /home/$1/.ssh/authorized_keys
     sudo -H -u $1 chmod 600 /home/$1/.ssh/authorized_keys
-
     echo "Added unsecured public key to authorized keys for $1"
 }
 
 setup_riaps_repo() {
     # Add RIAPS repository
     echo "add repo to sources"
-    sudo add-apt-repository -r "deb [arch=armhf] https://riaps.isis.vanderbilt.edu/aptrepo/ bionic main" || true
     sudo add-apt-repository "deb [arch=armhf] https://riaps.isis.vanderbilt.edu/aptrepo/ bionic main"
     echo "get riaps public key"
     wget -qO - https://riaps.isis.vanderbilt.edu/keys/riapspublic.key | sudo apt-key add -
-    #wget -q --no-check-certificate - https://riaps.isis.vanderbilt.edu/keys/riapspublic.key
-    echo "adding riaps public key"
-    #sudo apt-key add riapspublic.key
     sudo apt-get update
     echo "riaps aptrepo setup"
 }
@@ -147,7 +149,7 @@ freqgov_off
 python_install
 watchdog_timers
 quota_install $RIAPSAPPDEVELOPER
-motd_update
+setup_splash
 setup_hostname
 setup_network
 setup_ssh_keys $RIAPSAPPDEVELOPER
