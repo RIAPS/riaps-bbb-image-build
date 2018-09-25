@@ -1,16 +1,3 @@
-diff --git a/scripts/chroot.sh b/scripts/chroot.sh
-index 05a318aa..a7a8f6ef 100755
---- a/scripts/chroot.sh
-+++ b/scripts/chroot.sh
-@@ -1300,7 +1300,7 @@ cat > "${DIR}/cleanup_script.sh" <<-__EOF__
- 
- 	if [ -f /usr/bin/connmanctl ] ; then
- 		rm -rf /etc/resolv.conf.bak || true
--		rm -rf /etc/resolv.conf || true
-+		# rm -rf /etc/resolv.conf || true
- 		ln -s /run/connman/resolv.conf /etc/resolv.conf
- 	fi
- 
 diff --git a/scripts/install_dependencies.sh b/scripts/install_dependencies.sh
 index ebe22455..4e6e1cf2 100755
 --- a/scripts/install_dependencies.sh

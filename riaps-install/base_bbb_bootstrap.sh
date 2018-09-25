@@ -94,14 +94,6 @@ setup_hostname() {
     echo "setup hostname"
 }
 
-setup_network() {
-    echo "replacing resolv.conf"
-    touch /etc/resolv.conf
-    cp /etc/resolv.conf /etc/resolv.conf.preriaps
-    cp  etc/resolv-riaps.conf /etc/resolv.conf
-    echo "replaced resolv.conf"
-}
-
 # This function requires that bbb_initial.pub from https://github.com/RIAPS/riaps-integration/blob/master/riaps-x86runtime/bbb_initial_keys/id_rsa.pub
 # be placed on the bbb as this script is run
 setup_ssh_keys() {
@@ -132,6 +124,5 @@ python_install
 watchdog_timers
 setup_splash
 setup_hostname
-setup_network
 setup_ssh_keys $RIAPSAPPDEVELOPER
 #setup_riaps_repo
