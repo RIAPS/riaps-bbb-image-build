@@ -88,7 +88,7 @@ setup_splash() {
     # Issue.net
     echo "Ubuntu 18.04.1 LTS" > issue.net
     echo "" >> issue.net
-    echo "RIAPS console Ubuntu Image $time">> issue.net
+    echo "RIAPS console Ubuntu Image ${time}">> issue.net
     echo "">> issue.net
     echo "Support/FAQ: http://elinux.org/BeagleBoardUbuntu">> issue.net
     echo "">> issue.net
@@ -123,12 +123,12 @@ setup_network() {
 # This function requires that bbb_initial.pub from https://github.com/RIAPS/riaps-integration/blob/master/riaps-x86runtime/bbb_initial_keys/id_rsa.pub
 # be placed on the bbb as this script is run
 setup_ssh_keys() {
-    sudo -H -u $1 mkdir -p /home/$1/.ssh
-    sudo cp bbb_initial_keys/bbb_initial.pub /home/$1/.ssh/bbb_initial.pub
-    sudo chown $1:$1 /home/$1/.ssh/bbb_initial.pub
-    sudo -H -u $1 cat /home/$1/.ssh/bbb_initial.pub >> /home/$1/.ssh/authorized_keys
-    sudo chown $1:$1 /home/$1/.ssh/authorized_keys
-    sudo -H -u $1 chmod 600 /home/$1/.ssh/authorized_keys
+    mkdir -p /home/$1/.ssh
+    cp bbb_initial_keys/bbb_initial.pub /home/$1/.ssh/bbb_initial.pub
+    chown $1:$1 /home/$1/.ssh/bbb_initial.pub
+    cat /home/$1/.ssh/bbb_initial.pub >> /home/$1/.ssh/authorized_keys
+    chown $1:$1 /home/$1/.ssh/authorized_keys
+    chmod 600 /home/$1/.ssh/authorized_keys
     echo "Added unsecured public key to authorized keys for $1"
 }
 
