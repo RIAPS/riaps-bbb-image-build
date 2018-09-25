@@ -11,11 +11,10 @@ cp riaps-bionic.conf omap-image-builder/configs/
 cp riaps_setup.sh omap-image-builder/target/chroot/
 cp riaps.sh omap-image-builder/target/chroot/
 cp -r riaps-install omap-image-builder/
-cp omap-image-builder.patch omap-image-builder/
 
 # Build ubuntu filesystem
 cd omap-image-builder
-git apply omap-image-builder.patch
+git apply ../omap-image-builder.patch
 ./RootStock-NG.sh -c riaps-bionic
 
 # Build image for BBB

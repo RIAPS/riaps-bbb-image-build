@@ -70,11 +70,6 @@ watchdog_timers() {
     echo "added watchdog timer values"
 }
 
-quota_install() {
-    sed -i "/mmcblk0p1/c\/dev/mmcblk0p1 / ext4 noatime,errors=remount-ro,usrquota,grpquota 0 1" /etc/fstab
-    echo "setup quotas"
-}
-
 setup_splash() {
     echo "################################################################################" > motd
     echo "# Acknowledgment:  The information, data or work presented herein was funded   #" >> motd
@@ -106,13 +101,6 @@ setup_hostname() {
 }
 
 setup_network() {
-    echo "replacing network/interfaces with network/interfaces-riaps"
-    echo "copying old network/interfaces to network/interfaces.preriaps"
-    touch /etc/network/interfaces
-    cp /etc/network/interfaces /etc/network/interfaces.preriaps
-    cp etc/network/interfaces-riaps /etc/network/interfaces
-    echo "replaced network interfaces"
-
     echo "replacing resolv.conf"
     touch /etc/resolv.conf
     cp /etc/resolv.conf /etc/resolv.conf.preriaps
@@ -148,7 +136,6 @@ user_func
 freqgov_off
 python_install
 watchdog_timers
-quota_install $RIAPSAPPDEVELOPER
 setup_splash
 setup_hostname
 setup_network
