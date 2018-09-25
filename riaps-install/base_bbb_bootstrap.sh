@@ -80,16 +80,10 @@ setup_splash() {
     echo "################################################################################" >> motd
     sudo mv motd /etc/motd
     echo "setup motd screen"
-    # Issue.net
-    echo "Ubuntu 18.04.1 LTS" > issue.net
-    echo "" >> issue.net
-    echo "RIAPS console Ubuntu Image ${time}">> issue.net
-    echo "">> issue.net
-    echo "Support/FAQ: http://elinux.org/BeagleBoardUbuntu">> issue.net
-    echo "">> issue.net
-    echo "default username:password is [riaps:riaps]">> issue.net
-    sudo mv issue.net /etc/issue.net
-    echo "setup splash screen"
+    # Enable Issue.net
+    sed -i '/Banner/d' /etc/ssh/sshd_config # Remove default banner configuration
+    echo " " >> /etc/ssh/sshd_config
+    echo "Banner /etc/issue.net" >> /etc/ssh/sshd_config # Enable banner
 }
 
 setup_hostname() {
