@@ -21,5 +21,5 @@ git apply ../omap-image-builder.patch
 IMG=$(\ls deploy)
 cd deploy/$IMG
 sudo ./setup_sdcard.sh --img-4gb $IMG --dtb beaglebone
-zip $IMG.zip $IMG.img
+zip $IMG.zip *.img
 mv *.zip ../../../
