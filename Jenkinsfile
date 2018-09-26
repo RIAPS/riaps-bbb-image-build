@@ -13,7 +13,7 @@ pipeline {
   }
   post {
     success {
-      archiveArtifacts artifacts: '*.img', fingerprint: true
+      archiveArtifacts artifacts: '*.zip', fingerprint: true
     }
   }
 }
