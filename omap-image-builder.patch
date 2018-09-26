@@ -11,19 +11,8 @@ index ebe22455..4e6e1cf2 100755
  			dpkg -l | grep qemu-user-static >/dev/null || deb_pkgs="${deb_pkgs}qemu-user-static "
  			dpkg -l | grep $(dpkg --print-architecture) | grep -v "qemu-" | grep qemu >/dev/null || deb_pkgs="${deb_pkgs}qemu "
  		fi
-diff --git a/tools/hwpack/beaglebone.conf b/tools/hwpack/beaglebone.conf
-index 7031c3ef..4a4e5dd7 100644
---- a/tools/hwpack/beaglebone.conf
-+++ b/tools/hwpack/beaglebone.conf
-@@ -32,3 +32,5 @@ SERIAL="ttyO0"
- drm_device_identifier="HDMI-A-1"
- 
- conf_eeprom_compare="335"
-+
-+DISABLE_ETH=0
-\ No newline at end of file
 diff --git a/tools/setup_sdcard.sh b/tools/setup_sdcard.sh
-index ffed9126..786059eb 100755
+index ffed9126..7a6f9d05 100755
 --- a/tools/setup_sdcard.sh
 +++ b/tools/setup_sdcard.sh
 @@ -1436,7 +1436,7 @@ populate_rootfs () {
@@ -35,3 +24,35 @@ index ffed9126..786059eb 100755
  			fi
  		fi
  
+@@ -1458,29 +1458,8 @@ populate_rootfs () {
+ 				echo "" >> ${wfile}
+ 				echo "# The primary network interface" >> ${wfile}
+ 
+-				if [ "${DISABLE_ETH}" ] ; then
+-					echo "#auto eth0" >> ${wfile}
+-					echo "#iface eth0 inet dhcp" >> ${wfile}
+-				else
+-					echo "auto eth0"  >> ${wfile}
+-					echo "iface eth0 inet dhcp" >> ${wfile}
+-				fi
+-
+-				#if we have systemd & wicd-gtk, disable eth0 in /etc/network/interfaces
+-				if [ -f ${TEMPDIR}/disk/lib/systemd/systemd ] ; then
+-					if [ -f ${TEMPDIR}/disk/usr/bin/wicd-gtk ] ; then
+-						sed -i 's/auto eth0/#auto eth0/g' ${wfile}
+-						sed -i 's/allow-hotplug eth0/#allow-hotplug eth0/g' ${wfile}
+-						sed -i 's/iface eth0 inet dhcp/#iface eth0 inet dhcp/g' ${wfile}
+-					fi
+-				fi
+-
+-				#if we have connman, disable eth0 in /etc/network/interfaces
+-				if [ -f ${TEMPDIR}/disk/etc/init.d/connman ] ; then
+-					sed -i 's/auto eth0/#auto eth0/g' ${wfile}
+-					sed -i 's/allow-hotplug eth0/#allow-hotplug eth0/g' ${wfile}
+-					sed -i 's/iface eth0 inet dhcp/#iface eth0 inet dhcp/g' ${wfile}
+-				fi
++				echo "auto eth0"  >> ${wfile}
++				echo "iface eth0 inet dhcp" >> ${wfile}
+ 
+ 				echo "# Example to keep MAC address between reboots" >> ${wfile}
+ 				echo "#hwaddress ether DE:AD:BE:EF:CA:FE" >> ${wfile}

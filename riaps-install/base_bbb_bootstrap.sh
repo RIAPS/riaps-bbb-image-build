@@ -80,7 +80,7 @@ setup_splash() {
     echo "################################################################################" >> motd
     sudo mv motd /etc/motd
     echo "setup motd screen"
-    # Enable Issue.net
+    # Enable issue.net, which is autopopulated by omap-image-builder
     sed -i '/Banner/d' /etc/ssh/sshd_config # Remove default banner configuration
     echo " " >> /etc/ssh/sshd_config
     echo "Banner /etc/issue.net" >> /etc/ssh/sshd_config # Enable banner
