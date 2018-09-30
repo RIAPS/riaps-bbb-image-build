@@ -116,6 +116,11 @@ setup_riaps_repo() {
     echo "riaps aptrepo setup"
 }
 
+install_riaps() {
+    sudo apt-get install riaps-externals-armhf riaps-core-armhf riaps-pycom-armhf riaps-systemd-armhf riaps-timesync-armhf -y
+    echo "installed RIAPS platform"
+}
+
 # Start of script actions
 check_os_version
 user_func
@@ -125,4 +130,5 @@ watchdog_timers
 setup_splash
 setup_hostname
 setup_ssh_keys $RIAPSAPPDEVELOPER
-#setup_riaps_repo
+setup_riaps_repo
+install_riaps
