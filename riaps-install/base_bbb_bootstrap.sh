@@ -108,11 +108,10 @@ setup_ssh_keys() {
 
 setup_riaps_repo() {
     # Add RIAPS repository
-    echo "add repo to sources"
-    sudo add-apt-repository "deb [arch=armhf] https://riaps.isis.vanderbilt.edu/aptrepo/ bionic main"
     echo "get riaps public key"
     wget -qO - https://riaps.isis.vanderbilt.edu/keys/riapspublic.key | sudo apt-key add -
-    sudo apt-get update
+    echo "add repo to sources"
+    sudo add-apt-repository "deb [arch=armhf] https://riaps.isis.vanderbilt.edu/aptrepo/ bionic main"
     echo "riaps aptrepo setup"
 }
 
