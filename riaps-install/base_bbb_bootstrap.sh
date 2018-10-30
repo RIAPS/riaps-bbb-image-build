@@ -34,6 +34,10 @@ user_func() {
     sudo usermod -aG pwm $RIAPSAPPDEVELOPER
 
     sudo -H -u $RIAPSAPPDEVELOPER mkdir -p /home/$RIAPSAPPDEVELOPER/riaps_apps
+    sudo cp riaps_install_bbb.sh /home/$RIAPSAPPDEVELOPER/
+    sudo chmod 500 /home/$RIAPSAPPDEVELOPER/riaps_install_bbb.sh
+    sudo chown $RIAPSAPPDEVELOPER:$RIAPSAPPDEVELOPER /home/$RIAPSAPPDEVELOPER/riaps_install_bbb.sh
+
     cp etc/sudoers.d/riaps /etc/sudoers.d/riaps
     echo "setup user account"
 }
@@ -42,6 +46,7 @@ freqgov_off() {
     touch /etc/default/cpufrequtils
     echo "GOVERNOR=\"performance\"" | tee -a /etc/default/cpufrequtils
     sudo systemctl disable ondemand
+    sudo systemctl enable cpufrequtils
     echo "setup frequency and governor"
 }
 
