@@ -17,6 +17,7 @@ git checkout <tag>            # Where <tag> is the version which you want to mov
 # Now the riaps-bbb-image-build repo will recognize that omap-image-builder is a newer version
 # A commit on riaps-bbb-image-build will now pin this new version
 ```
+- When moving to a new kernel version, the version number simply needs to be updated and the new version will be installed. In riaps-bionic.conf, **repo_rcnee_pkg_list** and **repo_rcnee_pkg_version** need to contain the new kernel version.
 
 ## File explantion
 - riaps-bionic.conf: This file is modeled after the files inside omap-image-builder/config. It tells the builder which packages need to be installed in the newly generated image.
