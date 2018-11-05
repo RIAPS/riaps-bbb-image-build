@@ -136,3 +136,6 @@ setup_hostname
 setup_ssh_keys $RIAPSAPPDEVELOPER
 setup_riaps_repo
 install_riaps
+
+# Delete all of the install files from the image
+sudo rm -rf /opt/riaps-install
