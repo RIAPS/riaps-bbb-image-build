@@ -1,7 +1,7 @@
 [Unit]
 Description=Set hostname based on Ethernet MAC address
-Before=network-online.target
-Requires=network-online.target
+Before=avahi-daemon.service
+Requires=avahi-daemon.service
 
 [Service]
 Type=oneshot
