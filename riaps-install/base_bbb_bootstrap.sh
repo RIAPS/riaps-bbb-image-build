@@ -91,14 +91,6 @@ setup_splash() {
     echo "Banner /etc/issue.net" >> /etc/ssh/sshd_config # Enable banner
 }
 
-setup_hostname() {
-    cp usr/bin/set_unique_hostname /usr/bin/set_unique_hostname
-    cp etc/systemd/system/sethostname.service /etc/systemd/system/.
-    sudo systemctl daemon-reload
-    sudo systemctl enable sethostname.service
-    echo "setup hostname"
-}
-
 # This function requires that bbb_initial.pub from https://github.com/RIAPS/riaps-integration/blob/master/riaps-x86runtime/bbb_initial_keys/id_rsa.pub
 # be placed on the bbb as this script is run
 setup_ssh_keys() {
@@ -132,7 +124,6 @@ freqgov_off
 python_install
 watchdog_timers
 setup_splash
-setup_hostname
 setup_ssh_keys $RIAPSAPPDEVELOPER
 setup_riaps_repo
 install_riaps
