@@ -23,6 +23,13 @@ check_os_version() {
     true
 }
 
+create_swapfile () {
+    sudo fallocate -l 1G /swapfile
+    sudo dd if=/dev/zero of=/swapfile bs=1024 count=1048576
+    sudo chmod 600 /swapfile
+    sudo mkswap /swapfile
+}
+
 user_func() {
     getent group gpio || sudo groupadd gpio
     getent group dialout || sudo groupadd dialout
@@ -119,6 +126,7 @@ install_riaps() {
 
 # Start of script actions
 check_os_version
+create_swapfile
 user_func
 freqgov_off
 python_install
