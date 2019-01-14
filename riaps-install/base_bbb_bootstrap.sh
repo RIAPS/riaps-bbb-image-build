@@ -23,6 +23,13 @@ check_os_version() {
     true
 }
 
+create_swapfile () {
+    sudo fallocate -l 1G /swapfile
+    sudo dd if=/dev/zero of=/swapfile bs=1024 count=1048576
+    sudo chmod 600 /swapfile
+    sudo mkswap /swapfile
+}
+
 user_func() {
     getent group gpio || sudo groupadd gpio
     getent group dialout || sudo groupadd dialout
@@ -34,6 +41,10 @@ user_func() {
     sudo usermod -aG pwm $RIAPSAPPDEVELOPER
 
     sudo -H -u $RIAPSAPPDEVELOPER mkdir -p /home/$RIAPSAPPDEVELOPER/riaps_apps
+    sudo cp riaps_install_bbb.sh /home/$RIAPSAPPDEVELOPER/
+    sudo chmod 500 /home/$RIAPSAPPDEVELOPER/riaps_install_bbb.sh
+    sudo chown $RIAPSAPPDEVELOPER:$RIAPSAPPDEVELOPER /home/$RIAPSAPPDEVELOPER/riaps_install_bbb.sh
+
     cp etc/sudoers.d/riaps /etc/sudoers.d/riaps
     echo "setup user account"
 }
@@ -42,6 +53,7 @@ freqgov_off() {
     touch /etc/default/cpufrequtils
     echo "GOVERNOR=\"performance\"" | tee -a /etc/default/cpufrequtils
     sudo systemctl disable ondemand
+    sudo systemctl enable cpufrequtils
     echo "setup frequency and governor"
 }
 
@@ -53,7 +65,7 @@ python_install() {
     sudo pip3 install pydevd
     echo "installed pydev"
 
-    sudo pip3 install cython --verbose
+    sudo pip3 install 'git+https://github.com/cython/cython.git@0.28.5' --verbose
     echo "installed cython"
 
     sudo pip3 install 'paramiko==2.4.1' 'cryptography==2.1.4' --verbose
@@ -86,14 +98,6 @@ setup_splash() {
     echo "Banner /etc/issue.net" >> /etc/ssh/sshd_config # Enable banner
 }
 
-setup_hostname() {
-    cp usr/bin/set_unique_hostname /usr/bin/set_unique_hostname
-    cp etc/systemd/system/sethostname.service /etc/systemd/system/.
-    sudo systemctl daemon-reload
-    sudo systemctl enable sethostname.service
-    echo "setup hostname"
-}
-
 # This function requires that bbb_initial.pub from https://github.com/RIAPS/riaps-integration/blob/master/riaps-x86runtime/bbb_initial_keys/id_rsa.pub
 # be placed on the bbb as this script is run
 setup_ssh_keys() {
@@ -122,12 +126,15 @@ install_riaps() {
 
 # Start of script actions
 check_os_version
+create_swapfile
 user_func
 freqgov_off
 python_install
 watchdog_timers
 setup_splash
-setup_hostname
 setup_ssh_keys $RIAPSAPPDEVELOPER
 setup_riaps_repo
 install_riaps
+
+# Delete all of the install files from the image
+sudo rm -rf /opt/riaps-install
