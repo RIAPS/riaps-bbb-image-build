@@ -23,12 +23,6 @@ check_os_version() {
     true
 }
 
-create_swapfile () {
-    sudo fallocate -l 1G /swapfile
-    sudo chmod 600 /swapfile
-    sudo mkswap /swapfile
-}
-
 user_func() {
     getent group gpio || sudo groupadd gpio
     getent group dialout || sudo groupadd dialout
@@ -69,6 +63,18 @@ python_install() {
 
     sudo pip3 install 'paramiko==2.4.1' 'cryptography==2.1.4' --verbose
     echo "installed paramiko and cryptography"
+}
+
+spdlog_install() {
+    PREVIOUS_PWD=$PWD
+    TMP=`mktemp -d`
+    sudo pip3 install 'pybind11==2.2.4'
+	git clone https://github.com/RIAPS/spdlog-python.git $TMP/spdlog-python
+	cd $TMP/spdlog-python
+	git clone -b v0.17.0 --depth 1 https://github.com/gabime/spdlog.git
+	sudo python3 setup.py install
+    cd $PREVIOUS_PWD
+    sudo rm -rf $TMP
 }
 
 watchdog_timers() {
@@ -125,10 +131,10 @@ install_riaps() {
 
 # Start of script actions
 check_os_version
-create_swapfile
 user_func
 freqgov_off
 python_install
+spdlog_install
 watchdog_timers
 setup_splash
 setup_ssh_keys $RIAPSAPPDEVELOPER
