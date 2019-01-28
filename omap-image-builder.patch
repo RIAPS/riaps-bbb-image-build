@@ -12,7 +12,7 @@ index ebe22455..44fccdbb 100755
  			dpkg -l | grep $(dpkg --print-architecture) | grep -v "qemu-" | grep qemu >/dev/null || deb_pkgs="${deb_pkgs}qemu "
  		fi
 diff --git a/tools/setup_sdcard.sh b/tools/setup_sdcard.sh
-index ffed9126..2c20a6c2 100755
+index ffed9126..2f4efd39 100755
 --- a/tools/setup_sdcard.sh
 +++ b/tools/setup_sdcard.sh
 @@ -1295,7 +1295,7 @@ populate_rootfs () {
@@ -33,15 +33,7 @@ index ffed9126..2c20a6c2 100755
  			fi
  		fi
  
-@@ -1445,6 +1445,7 @@ populate_rootfs () {
- 		fi
- 
- 		echo "debugfs  /sys/kernel/debug  debugfs  defaults  0  0" >> ${wfile}
-+		echo "/swapfile swap swap defaults 0 0" >> ${wfile}
- 
- 		if [ "x${DISABLE_ETH}" != "xskip" ] ; then
- 			wfile="${TEMPDIR}/disk/etc/network/interfaces"
-@@ -1458,29 +1459,8 @@ populate_rootfs () {
+@@ -1458,29 +1458,8 @@ populate_rootfs () {
  				echo "" >> ${wfile}
  				echo "# The primary network interface" >> ${wfile}
  
