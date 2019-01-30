@@ -112,6 +112,7 @@ setup_ssh_keys() {
     cat /home/$1/.ssh/bbb_initial.pub >> /home/$1/.ssh/authorized_keys
     chown $1:$1 /home/$1/.ssh/authorized_keys
     chmod 600 /home/$1/.ssh/authorized_keys
+    rm /home/$1/.ssh/bbb_initial.pub
     echo "Added unsecured public key to authorized keys for $1"
 }
 
