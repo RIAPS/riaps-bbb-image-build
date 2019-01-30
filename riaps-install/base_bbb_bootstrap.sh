@@ -23,13 +23,6 @@ check_os_version() {
     true
 }
 
-create_swapfile () {
-    sudo fallocate -l 1G /swapfile
-    sudo dd if=/dev/zero of=/swapfile bs=1024 count=1048576
-    sudo chmod 600 /swapfile
-    sudo mkswap /swapfile
-}
-
 user_func() {
     getent group gpio || sudo groupadd gpio
     getent group dialout || sudo groupadd dialout
@@ -72,6 +65,18 @@ python_install() {
     echo "installed paramiko and cryptography"
 }
 
+spdlog_install() {
+    PREVIOUS_PWD=$PWD
+    TMP=`mktemp -d`
+    sudo pip3 install 'pybind11==2.2.4'
+	git clone https://github.com/RIAPS/spdlog-python.git $TMP/spdlog-python
+	cd $TMP/spdlog-python
+	git clone -b v0.17.0 --depth 1 https://github.com/gabime/spdlog.git
+	sudo python3 setup.py install
+    cd $PREVIOUS_PWD
+    sudo rm -rf $TMP
+}
+
 watchdog_timers() {
     echo " " >> /etc/sysctl.conf
     echo "###################################################################" >> /etc/sysctl.conf
@@ -107,6 +112,7 @@ setup_ssh_keys() {
     cat /home/$1/.ssh/bbb_initial.pub >> /home/$1/.ssh/authorized_keys
     chown $1:$1 /home/$1/.ssh/authorized_keys
     chmod 600 /home/$1/.ssh/authorized_keys
+    rm /home/$1/.ssh/bbb_initial.pub
     echo "Added unsecured public key to authorized keys for $1"
 }
 
@@ -126,10 +132,10 @@ install_riaps() {
 
 # Start of script actions
 check_os_version
-create_swapfile
 user_func
 freqgov_off
 python_install
+spdlog_install
 watchdog_timers
 setup_splash
 setup_ssh_keys $RIAPSAPPDEVELOPER

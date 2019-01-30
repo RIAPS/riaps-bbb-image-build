@@ -1,17 +1,21 @@
+diff --git a/scripts/install_dependencies.sh b/scripts/install_dependencies.sh
+index ebe22455..44fccdbb 100755
+--- a/scripts/install_dependencies.sh
++++ b/scripts/install_dependencies.sh
+@@ -33,7 +33,7 @@ debootstrap_is_installed () {
+ 		if [ "x${host_arch}" != "xaarch64" ] ; then
+ 			echo "QEMU is un-reliable, thus no longer supported... Spend some Money and buy a real ARMHF device to run this script."
+ 			#FIXME: comment out the next line to use QEMU
+-			exit 2
++			#exit 2
+ 			dpkg -l | grep qemu-user-static >/dev/null || deb_pkgs="${deb_pkgs}qemu-user-static "
+ 			dpkg -l | grep $(dpkg --print-architecture) | grep -v "qemu-" | grep qemu >/dev/null || deb_pkgs="${deb_pkgs}qemu "
+ 		fi
 diff --git a/tools/setup_sdcard.sh b/tools/setup_sdcard.sh
-index de775d52..b4d10c89 100755
+index ffed9126..7a6f9d05 100755
 --- a/tools/setup_sdcard.sh
 +++ b/tools/setup_sdcard.sh
-@@ -1306,7 +1306,7 @@ populate_rootfs () {
- 		fi
- 	fi
- 
--	cmdline="coherent_pool=1M net.ifnames=0 quiet"
-+	cmdline="coherent_pool=1M net.ifnames=0 quiet security=apparmor"
- 	if [ "x${enable_cape_universal}" = "xenable" ] ; then
- 		cmdline="${cmdline} cape_universal=enable"
- 	fi
-@@ -1447,7 +1447,7 @@ populate_rootfs () {
+@@ -1436,7 +1436,7 @@ populate_rootfs () {
  			if [ "${BTRFS_FSTAB}" ] ; then
  				echo "${rootfs_drive}  /  btrfs  defaults,noatime  0  1" >> ${wfile}
  			else
@@ -20,15 +24,7 @@ index de775d52..b4d10c89 100755
  			fi
  		fi
  
-@@ -1456,6 +1456,7 @@ populate_rootfs () {
- 		fi
- 
- 		echo "debugfs  /sys/kernel/debug  debugfs  defaults  0  0" >> ${wfile}
-+		echo "/swapfile swap swap defaults 0 0" >> ${wfile}
- 
- 		if [ "x${DISABLE_ETH}" != "xskip" ] ; then
- 			wfile="${TEMPDIR}/disk/etc/network/interfaces"
-@@ -1469,29 +1470,8 @@ populate_rootfs () {
+@@ -1458,29 +1458,8 @@ populate_rootfs () {
  				echo "" >> ${wfile}
  				echo "# The primary network interface" >> ${wfile}
  
