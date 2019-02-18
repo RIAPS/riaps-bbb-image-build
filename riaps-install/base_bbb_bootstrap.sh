@@ -65,6 +65,11 @@ python_install() {
     echo "installed paramiko and cryptography"
 }
 
+# Remove specific crypto packages that conflict with riaps-pycom pycryptodomex package installation
+crypto_remove() {
+    sudo apt remove python3-crypto python3-keyrings.alt -y
+}
+
 spdlog_install() {
     PREVIOUS_PWD=$PWD
     TMP=`mktemp -d`
@@ -135,6 +140,7 @@ check_os_version
 user_func
 freqgov_off
 python_install
+crypto_remove
 spdlog_install
 watchdog_timers
 setup_splash
