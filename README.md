@@ -19,7 +19,7 @@ git checkout <tag>            # Where <tag> is the version which you want to mov
 ```
 - When moving to a new kernel version, the version number simply needs to be updated and the new version will be installed. In riaps-bionic.conf, **repo_rcnee_pkg_list** and **repo_rcnee_pkg_version** need to contain the new kernel version.
 
-## File explantion
+## File explanation
 - riaps-bionic.conf: This file is modeled after the files inside omap-image-builder/config. It tells the builder which packages need to be installed in the newly generated image.
 - riaps-install/: This folder will be copied into the image at /opt/riaps-install/. Any files which need to be avaible from inside the image, need to be inside this folder.
 - riaps_setup.sh: Script which is automatically called from outside the chroot, before the image is fully setup. This script can copy files such as riaps-install/ into the chroot directory.
