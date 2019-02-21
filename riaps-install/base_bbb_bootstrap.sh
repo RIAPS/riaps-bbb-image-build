@@ -112,12 +112,9 @@ setup_splash() {
 # be placed on the bbb as this script is run
 setup_ssh_keys() {
     mkdir -p /home/$1/.ssh
-    cp bbb_initial_keys/bbb_initial.pub /home/$1/.ssh/bbb_initial.pub
-    chown $1:$1 /home/$1/.ssh/bbb_initial.pub
-    cat /home/$1/.ssh/bbb_initial.pub >> /home/$1/.ssh/authorized_keys
-    chown $1:$1 /home/$1/.ssh/authorized_keys
+    cat bbb_initial_keys/bbb_initial.pub >> /home/$1/.ssh/authorized_keys
     chmod 600 /home/$1/.ssh/authorized_keys
-    rm /home/$1/.ssh/bbb_initial.pub
+    chown -R $1:$1 /home/$1/.ssh
     echo "Added unsecured public key to authorized keys for $1"
 }
 
