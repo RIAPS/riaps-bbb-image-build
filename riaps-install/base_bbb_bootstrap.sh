@@ -65,6 +65,11 @@ python_install() {
     echo "installed paramiko and cryptography"
 }
 
+# Remove specific crypto package that conflict with riaps-pycom "pycryptodomex" package installation
+crypto_remove() {
+    sudo apt remove python3-crypto -y
+}
+
 spdlog_install() {
     PREVIOUS_PWD=$PWD
     TMP=`mktemp -d`
@@ -107,12 +112,9 @@ setup_splash() {
 # be placed on the bbb as this script is run
 setup_ssh_keys() {
     mkdir -p /home/$1/.ssh
-    cp bbb_initial_keys/bbb_initial.pub /home/$1/.ssh/bbb_initial.pub
-    chown $1:$1 /home/$1/.ssh/bbb_initial.pub
-    cat /home/$1/.ssh/bbb_initial.pub >> /home/$1/.ssh/authorized_keys
-    chown $1:$1 /home/$1/.ssh/authorized_keys
+    cat bbb_initial_keys/bbb_initial.pub >> /home/$1/.ssh/authorized_keys
     chmod 600 /home/$1/.ssh/authorized_keys
-    rm /home/$1/.ssh/bbb_initial.pub
+    chown -R $1:$1 /home/$1/.ssh
     echo "Added unsecured public key to authorized keys for $1"
 }
 
@@ -135,6 +137,7 @@ check_os_version
 user_func
 freqgov_off
 python_install
+crypto_remove
 spdlog_install
 watchdog_timers
 setup_splash

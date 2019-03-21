@@ -12,9 +12,18 @@ index ebe22455..44fccdbb 100755
  			dpkg -l | grep $(dpkg --print-architecture) | grep -v "qemu-" | grep qemu >/dev/null || deb_pkgs="${deb_pkgs}qemu "
  		fi
 diff --git a/tools/setup_sdcard.sh b/tools/setup_sdcard.sh
-index ffed9126..7a6f9d05 100755
+index ffed9126..2f4efd39 100755
 --- a/tools/setup_sdcard.sh
 +++ b/tools/setup_sdcard.sh
+@@ -1295,7 +1295,7 @@ populate_rootfs () {
+ 		fi
+ 	fi
+ 
+-	cmdline="coherent_pool=1M net.ifnames=0 quiet"
++	cmdline="coherent_pool=1M net.ifnames=0 quiet security=apparmor"
+ 	if [ "x${enable_cape_universal}" = "xenable" ] ; then
+ 		cmdline="${cmdline} cape_universal=enable"
+ 	fi
 @@ -1436,7 +1436,7 @@ populate_rootfs () {
  			if [ "${BTRFS_FSTAB}" ] ; then
  				echo "${rootfs_drive}  /  btrfs  defaults,noatime  0  1" >> ${wfile}
