@@ -61,7 +61,7 @@ python_install() {
     sudo pip3 install 'git+https://github.com/cython/cython.git@0.28.5' --verbose
     echo "installed cython"
 
-    sudo pip3 install 'paramiko==2.4.1' 'cryptography==2.1.4' --verbose
+    sudo pip3 install 'paramiko==2.6.0' 'cryptography==2.7' --verbose
     echo "installed paramiko and cryptography"
 }
 
@@ -128,7 +128,7 @@ setup_riaps_repo() {
 }
 
 install_riaps() {
-    sudo apt-get install riaps-externals-armhf riaps-core-armhf riaps-pycom-armhf riaps-systemd-armhf riaps-timesync-armhf -y
+    sudo apt-get install riaps-externals-armhf riaps-core-armhf riaps-pycom-armhf riaps-timesync-armhf -y
     echo "installed RIAPS platform"
 }
 
