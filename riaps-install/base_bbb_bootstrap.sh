@@ -159,12 +159,12 @@ crypto_remove
 pybind11_install
 spdlog_install
 apparmor_monkeys_install
-pycom_pip_pkgs
+#pycom_pip_pkgs
 watchdog_timers
 setup_splash
 setup_ssh_keys $RIAPSAPPDEVELOPER
 setup_riaps_repo
-install_riaps
+#install_riaps
 
 # Delete all of the install files from the image
 sudo rm -rf /opt/riaps-install
