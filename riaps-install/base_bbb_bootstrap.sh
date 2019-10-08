@@ -63,9 +63,6 @@ python_install() {
 
     sudo pip3 install 'paramiko==2.6.0' 'cryptography==2.7' --verbose
     echo "installed paramiko and cryptography"
-
-    sudo pip3 install libpython3-dev --verbose
-    echo "install libpython3-dev"
 }
 
 # Remove specific crypto package that conflict with riaps-pycom "pycryptodomex" package installation
