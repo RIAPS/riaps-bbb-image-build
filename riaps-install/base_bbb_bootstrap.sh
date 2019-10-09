@@ -214,6 +214,13 @@ externals_cmake_install(){
     echo "cmake install complete"
 }
 
+# To regain disk space on the BBB, remove packages that were installed as part of the build process (i.e. -dev)
+remove_pkgs_used_to_build(){
+    sudo apt-get remove libboost-all-dev libffi-dev libgnutls28-dev libncurses5-dev
+    sudo apt-get remove libpcap-dev libreadline-dev libssl-dev libsystemd-dev
+    sudo apt-get remove libzmq3-dev libmsgpack-dev nettle-dev
+}
+
 
 # Start of script actions
 check_os_version
@@ -234,6 +241,7 @@ pyzmq_install
 czmq_pybindings_install
 zyre_pybindings_install
 pycapnp_install
+remove_pkgs_used_to_build
 #install_riaps
 
 # Delete all of the install files from the image
