@@ -68,18 +68,41 @@ python_install() {
 # Remove specific crypto package that conflict with riaps-pycom "pycryptodomex" package installation
 crypto_remove() {
     sudo apt remove python3-crypto -y
+    echo "removed python3-crypto"
+}
+
+pybind11_install() {
+    sudo pip3 install 'pybind11==2.2.4'
+    echo "install pybind11"
 }
 
 spdlog_install() {
     PREVIOUS_PWD=$PWD
     TMP=`mktemp -d`
-    sudo pip3 install 'pybind11==2.2.4'
-	git clone https://github.com/RIAPS/spdlog-python.git $TMP/spdlog-python
-	cd $TMP/spdlog-python
-	git clone -b v0.17.0 --depth 1 https://github.com/gabime/spdlog.git
-	sudo python3 setup.py install
+    git clone https://github.com/RIAPS/spdlog-python.git $TMP/spdlog-python
+    cd $TMP/spdlog-python
+    git clone -b v0.17.0 --depth 1 https://github.com/gabime/spdlog.git
+    sudo python3 setup.py install
     cd $PREVIOUS_PWD
     sudo rm -rf $TMP
+    echo "installed spdlog"
+}
+
+apparmor_monkeys_install() {
+    PREVIOUS_PWD=$PWD
+    TMP=`mktemp -d`
+    git clone https://github.com/RIAPS/apparmor_monkeys.git $TMP/apparmor_monkeys
+    cd $TMP/apparmor_monkeys
+    sudo python3 setup.py install
+    cd $PREVIOUS_PWD
+    sudo rm -rf $TMP
+    echo "installed apparmor_monkeys"
+}
+
+pycom_pip_pkgs() {
+    sudo pip3 install 'Adafruit_BBIO == 1.1.1' 'pydevd==1.8.0' 'rpyc==4.1.0' 'redis==2.10.6' 'hiredis == 0.2.0' 'netifaces==0.10.7' 'paramiko==2.6.0' 'cryptography==2.7' 'cgroups==0.1.0' 'cgroupspy==0.1.6' 'psutil==5.4.2' 'butter==0.12.6' 'lmdb==0.94' 'fabric3==1.14.post1' 'pyroute2==0.5.2' 'minimalmodbus==0.7' 'pyserial==3.4' 'pybind11==2.2.4' 'toml==0.10.0' 'pycryptodomex==3.7.3' --verbose
+    sudo pip3 install --ignore-installed 'PyYAML==5.1.1'
+    echo "installed pip packages used by riaps-pycom"
 }
 
 watchdog_timers() {
@@ -106,6 +129,7 @@ setup_splash() {
     sed -i '/Banner/d' /etc/ssh/sshd_config # Remove default banner configuration
     echo " " >> /etc/ssh/sshd_config
     echo "Banner /etc/issue.net" >> /etc/ssh/sshd_config # Enable banner
+    echo "setup splash screen"
 }
 
 # This function requires that bbb_initial.pub from https://github.com/RIAPS/riaps-integration/blob/master/riaps-x86runtime/bbb_initial_keys/id_rsa.pub
@@ -128,9 +152,75 @@ setup_riaps_repo() {
 }
 
 install_riaps() {
-    sudo apt-get install riaps-externals-armhf riaps-core-armhf riaps-pycom-armhf riaps-timesync-armhf -y
+    sudo apt-get install riaps-core-armhf riaps-pycom-armhf riaps-timesync-armhf -y
     echo "installed RIAPS platform"
 }
+
+pyzmq_install() {
+    PREVIOUS_PWD=$PWD
+    TMP=`mktemp -d`
+    git clone https://github.com/zeromq/pyzmq.git $TMP/pyzmq
+    cd $TMP/pyzmq
+    git checkout v17.1.2
+    sudo python3 setup.py install
+    cd $PREVIOUS_PWD
+    sudo rm -rf $TMP
+    echo "installed pyzmq"
+}
+
+#install bindings for czmq. Must be run after pyzmq, czmq install.
+czmq_pybindings_install(){
+    PREVIOUS_PWD=$PWD
+    TMP=`mktemp -d`
+    git clone https://github.com/zeromq/czmq.git $TMP/czmq_pybindings
+    cd $TMP/czmq_pybindings/bindings/python
+    git checkout 9ee60b18e8bd8ed4adca7fdaff3e700741da706e
+    sudo pip3 install . --verbose
+    cd $PREVIOUS_PWD
+    sudo rm -rf $TMP
+    echo "installed CZMQ pybindings"
+}
+
+#install bindings for zyre. Must be run after zyre, pyzmq install.
+zyre_pybindings_install(){
+    PREVIOUS_PWD=$PWD
+    TMP=`mktemp -d`
+    git clone https://github.com/zeromq/zyre.git $TMP/zyre_pybindings
+    cd $TMP/zyre_pybindings/bindings/python
+    git checkout b36470e70771a329583f9cf73598898b8ee05d14
+    sudo pip3 install . --verbose
+    cd $PREVIOUS_PWD
+    sudo rm -rf $TMP
+    echo "installed Zyre pybindings"
+}
+
+#link pycapnp with installed library. Must be run after capnproto install.
+pycapnp_install() {
+    CFLAGS=-I/usr/local/include LDFLAGS=-L/usr/local/lib pip3 install 'pycapnp==0.6.3'
+    echo "linked pycapnp with capnproto"
+}
+
+# install external packages using cmake
+# libraries installed: capnproto, lmdb, libnethogs, CZMQ, Zyre, opendht, libsoc
+externals_cmake_install(){
+    PREVIOUS_PWD=$PWD
+    mkdir -p /tmp/3rdparty/build
+    cp CMakeLists.txt /tmp/3rdparty/.
+    cd /tmp/3rdparty/build
+    cmake ..
+    make
+    cd $PREVIOUS_PWD
+    sudo rm -rf /tmp/3rdparty/
+    echo "cmake install complete"
+}
+
+# To regain disk space on the BBB, remove packages that were installed as part of the build process (i.e. -dev)
+remove_pkgs_used_to_build(){
+    sudo apt-get remove libboost-all-dev libffi-dev libgnutls28-dev libncurses5-dev -y
+    sudo apt-get remove libpcap-dev libreadline-dev libsystemd-dev -y
+    sudo apt-get remove libzmq3-dev libmsgpack-dev nettle-dev -y
+}
+
 
 # Start of script actions
 check_os_version
@@ -138,12 +228,21 @@ user_func
 freqgov_off
 python_install
 crypto_remove
+pybind11_install
 spdlog_install
+apparmor_monkeys_install
+pycom_pip_pkgs
 watchdog_timers
 setup_splash
 setup_ssh_keys $RIAPSAPPDEVELOPER
 setup_riaps_repo
-install_riaps
+externals_cmake_install
+pyzmq_install
+czmq_pybindings_install
+zyre_pybindings_install
+pycapnp_install
+remove_pkgs_used_to_build
+#install_riaps
 
 # Delete all of the install files from the image
 sudo rm -rf /opt/riaps-install
