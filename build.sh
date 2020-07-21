@@ -7,7 +7,8 @@ git submodule foreach git reset --hard # Reset any changes to submodules
 rm -rf omap-image-builder/deploy/      # Remove any existing builds
 
 # Copy RIAPS files into omap-image-builder repo
-cp riaps-bionic.conf omap-image-builder/configs/
+#MM - cp riaps-bionic.conf omap-image-builder/configs/
+cp riaps-focal.conf omap-image-builder/configs/
 cp riaps_setup.sh omap-image-builder/target/chroot/
 cp riaps.sh omap-image-builder/target/chroot/
 cp -r riaps-install omap-image-builder/
@@ -15,7 +16,8 @@ cp -r riaps-install omap-image-builder/
 # Build ubuntu filesystem
 cd omap-image-builder
 git apply ../omap-image-builder.patch
-./RootStock-NG.sh -c riaps-bionic
+#MM - ./RootStock-NG.sh -c riaps-bionic
+./RootStock-NG.sh -c riaps-focal
 
 # Build image for BBB
 IMG=$(\ls deploy)
