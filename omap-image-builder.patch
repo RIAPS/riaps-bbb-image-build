@@ -1,7 +1,7 @@
 diff --git a/tools/setup_sdcard.sh b/tools/setup_sdcard.sh
 index 3323db7b..83e6782e 100755
---- a/tools/setup_sdcard_org.sh	2020-07-22 13:33:50.000000000 -0500
-+++ b/tools/setup_sdcard.sh	2020-07-22 13:34:01.000000000 -0500
+--- a/tools/setup_sdcard.sh
++++ b/tools/setup_sdcard.sh
 @@ -1301,7 +1301,7 @@
  		fi
  	fi
