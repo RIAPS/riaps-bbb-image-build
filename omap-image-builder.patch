@@ -1,42 +1,29 @@
-diff --git a/scripts/install_dependencies.sh b/scripts/install_dependencies.sh
-index ebe22455..44fccdbb 100755
---- a/scripts/install_dependencies.sh
-+++ b/scripts/install_dependencies.sh
-@@ -33,7 +33,7 @@ debootstrap_is_installed () {
- 		if [ "x${host_arch}" != "xaarch64" ] ; then
- 			echo "QEMU is un-reliable, thus no longer supported... Spend some Money and buy a real ARMHF device to run this script."
- 			#FIXME: comment out the next line to use QEMU
--			exit 2
-+			#exit 2
- 			dpkg -l | grep qemu-user-static >/dev/null || deb_pkgs="${deb_pkgs}qemu-user-static "
- 			dpkg -l | grep $(dpkg --print-architecture) | grep -v "qemu-" | grep qemu >/dev/null || deb_pkgs="${deb_pkgs}qemu "
- 		fi
 diff --git a/tools/setup_sdcard.sh b/tools/setup_sdcard.sh
-index ffed9126..2f4efd39 100755
+index 3323db7b..83e6782e 100755
 --- a/tools/setup_sdcard.sh
 +++ b/tools/setup_sdcard.sh
-@@ -1295,7 +1295,7 @@ populate_rootfs () {
+@@ -1301,7 +1301,7 @@ populate_rootfs () {
  		fi
  	fi
- 
--	cmdline="coherent_pool=1M net.ifnames=0 quiet"
-+	cmdline="coherent_pool=1M net.ifnames=0 quiet security=apparmor"
- 	if [ "x${enable_cape_universal}" = "xenable" ] ; then
- 		cmdline="${cmdline} cape_universal=enable"
- 	fi
-@@ -1436,7 +1436,7 @@ populate_rootfs () {
+
+-	cmdline="coherent_pool=1M net.ifnames=0"
++	cmdline="coherent_pool=1M net.ifnames=0 security=apparmor"
+
+ 	if [ ! "x${rng_core}" = "x" ] ; then
+ 		cmdline="${cmdline} ${rng_core}"
+@@ -1435,7 +1435,7 @@ populate_rootfs () {
  			if [ "${BTRFS_FSTAB}" ] ; then
  				echo "${rootfs_drive}  /  btrfs  defaults,noatime  0  1" >> ${wfile}
  			else
 -				echo "${rootfs_drive}  /  ${ROOTFS_TYPE}  noatime,errors=remount-ro  0  1" >> ${wfile}
-+				echo "${rootfs_drive}  /  ${ROOTFS_TYPE}  noatime,errors=remount-ro,usrquota,grpquota 0 1" >> ${wfile}
++				echo "${rootfs_drive}  /  ${ROOTFS_TYPE}  noatime,errors=remount-ro,usrquota,grpquota  0  1" >> ${wfile}
  			fi
  		fi
- 
-@@ -1458,29 +1458,8 @@ populate_rootfs () {
+
+@@ -1457,29 +1457,8 @@ populate_rootfs () {
  				echo "" >> ${wfile}
  				echo "# The primary network interface" >> ${wfile}
- 
+
 -				if [ "${DISABLE_ETH}" ] ; then
 -					echo "#auto eth0" >> ${wfile}
 -					echo "#iface eth0 inet dhcp" >> ${wfile}
@@ -60,8 +47,8 @@ index ffed9126..2f4efd39 100755
 -					sed -i 's/allow-hotplug eth0/#allow-hotplug eth0/g' ${wfile}
 -					sed -i 's/iface eth0 inet dhcp/#iface eth0 inet dhcp/g' ${wfile}
 -				fi
-+				echo "auto eth0"  >> ${wfile}
++				echo "auto eth0" >> ${wfile}
 +				echo "iface eth0 inet dhcp" >> ${wfile}
- 
+
  				echo "# Example to keep MAC address between reboots" >> ${wfile}
  				echo "#hwaddress ether DE:AD:BE:EF:CA:FE" >> ${wfile}
