@@ -61,7 +61,7 @@ python_install() {
     sudo pip3 install 'git+https://github.com/cython/cython.git@0.28.5' --verbose
     echo "installed cython"
 
-    sudo pip3 install 'paramiko==2.6.0' 'cryptography==2.7' --verbose
+    sudo pip3 install 'paramiko==2.7.1' 'cryptography==2.9.2' --verbose
     echo "installed paramiko and cryptography"
 }
 
@@ -100,7 +100,7 @@ apparmor_monkeys_install() {
 }
 
 pycom_pip_pkgs() {
-    sudo pip3 install 'Adafruit_BBIO == 1.1.1' 'pydevd==1.8.0' 'rpyc==4.1.0' 'redis==2.10.6' 'hiredis == 0.2.0' 'netifaces==0.10.7' 'paramiko==2.6.0' 'cryptography==2.7' 'cgroups==0.1.0' 'cgroupspy==0.1.6' 'psutil==5.4.2' 'butter==0.12.6' 'lmdb==0.94' 'fabric3==1.14.post1' 'pyroute2==0.5.2' 'minimalmodbus==0.7' 'pyserial==3.4' 'pybind11==2.2.4' 'toml==0.10.0' 'pycryptodomex==3.7.3' --verbose
+    sudo pip3 install 'Adafruit_BBIO == 1.1.1' 'pydevd==1.8.0' 'rpyc==4.1.0' 'redis==2.10.6' 'hiredis == 0.2.0' 'netifaces==0.10.7' 'cgroups==0.1.0' 'cgroupspy==0.1.6' 'psutil==5.7.0' 'butter==0.12.6' 'lmdb==0.94' 'fabric3==1.14.post1' 'pyroute2==0.5.2' 'minimalmodbus==0.7' 'pyserial==3.4' 'pybind11==2.2.4' 'toml==0.10.0' 'pycryptodomex==3.7.3' --verbose
     sudo pip3 install --ignore-installed 'PyYAML==5.1.1'
     echo "installed pip packages used by riaps-pycom"
 }
@@ -200,6 +200,30 @@ pycapnp_install() {
     echo "linked pycapnp with capnproto"
 }
 
+#install opendht prerequisites - expect libncurses5-dev installed
+opendht_prereqs_install() {
+    # run liblinks script to link gnutls and msgppack
+    PREVIOUS_PWD=$PWD
+    chmod +x $PREVIOUS_PWD/liblinks.sh
+    cd /usr/lib/arm-linux-gnueabihf
+    sudo $PREVIOUS_PWD/liblinks.sh
+    cd $PREVIOUS_PWD
+    echo "installed opendht prerequisites"
+}
+
+# install prctl package
+# not able to do pip3 install 'python-prctl==1.7' on RPi
+prctl_install() {
+    PREVIOUS_PWD=$PWD
+    git clone http://github.com/seveas/python-prctl
+    cd python-prctl/
+    git checkout v1.7
+    python3 setup.py build
+    sudo python3 setup.py install
+    cd $PREVIOUS_PWD
+    echo "installed prctl"
+}
+
 # install external packages using cmake
 # libraries installed: capnproto, lmdb, libnethogs, CZMQ, Zyre, opendht, libsoc
 externals_cmake_install(){
@@ -236,11 +260,13 @@ watchdog_timers
 setup_splash
 setup_ssh_keys $RIAPSAPPDEVELOPER
 setup_riaps_repo
+opendht_prereqs_install
 externals_cmake_install
 pyzmq_install
 czmq_pybindings_install
 zyre_pybindings_install
 pycapnp_install
+prctl_install
 remove_pkgs_used_to_build
 #install_riaps
 
