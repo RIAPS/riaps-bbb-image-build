@@ -58,6 +58,7 @@ install_riaps() {
 
 
 # Start of script actions
+source_scripts
 setup_peripherals
 user_func
 setup_ssh_keys
