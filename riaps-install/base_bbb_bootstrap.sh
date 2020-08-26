@@ -66,7 +66,7 @@ rm_snap_pkg
 freqgov_off
 watchdog_timers
 setup_splash
-#MM TODO: SEE IF THIS IS NEEDED - setup_hostname
+setup_hostname
 python_install
 cython_install
 security_pkg_install
