@@ -147,7 +147,7 @@ setup_riaps_repo() {
     echo "get riaps public key"
     wget -qO - https://riaps.isis.vanderbilt.edu/keys/riapspublic.key | sudo apt-key add -
     echo "add repo to sources"
-    sudo add-apt-repository "deb [arch=armhf] https://riaps.isis.vanderbilt.edu/aptrepo/ bionic main"
+    sudo add-apt-repository "deb [arch=armhf] https://riaps.isis.vanderbilt.edu/aptrepo/ focal main"
     echo "riaps aptrepo setup"
 }
 
