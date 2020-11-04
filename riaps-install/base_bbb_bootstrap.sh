@@ -58,7 +58,7 @@ python_install() {
     sudo pip3 install pydevd
     echo "installed pydev"
 
-    sudo pip3 install 'git+https://github.com/cython/cython.git@0.28.5' --verbose
+    sudo pip3 install 'git+https://github.com/cython/cython.git@0.29.21' --verbose
     echo "installed cython"
 
     sudo pip3 install 'paramiko==2.6.0' 'cryptography==2.7' --verbose
