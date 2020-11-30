@@ -1,14 +1,14 @@
 diff --git a/tools/setup_sdcard.sh b/tools/setup_sdcard.sh
-index 72f52acf..979e8e68 100755
+index 72f52acf..8a592c8a 100755
 --- a/tools/setup_sdcard.sh
 +++ b/tools/setup_sdcard.sh
 @@ -1348,7 +1348,7 @@ populate_rootfs () {
  		fi
  	fi
-
+ 
 -	cmdline="coherent_pool=1M net.ifnames=0"
 +	cmdline="coherent_pool=1M net.ifnames=0 security=apparmor"
-
+ 
  	if [ ! "x${loops_per_jiffy}" = "x" ] ; then
  		cmdline="${cmdline} ${loops_per_jiffy}"
 @@ -1486,7 +1486,7 @@ populate_rootfs () {
@@ -19,11 +19,11 @@ index 72f52acf..979e8e68 100755
 +				echo "${rootfs_drive}  /  ${ROOTFS_TYPE}  noatime,errors=remount-ro,usrquota,grpquota  0  1" >> ${wfile}
  			fi
  		fi
-
+ 
 @@ -1508,29 +1508,8 @@ populate_rootfs () {
  				echo "" >> ${wfile}
  				echo "# The primary network interface" >> ${wfile}
-
+ 
 -				if [ "${DISABLE_ETH}" ] ; then
 -					echo "#auto eth0" >> ${wfile}
 -					echo "#iface eth0 inet dhcp" >> ${wfile}
@@ -47,8 +47,17 @@ index 72f52acf..979e8e68 100755
 -					sed -i 's/allow-hotplug eth0/#allow-hotplug eth0/g' ${wfile}
 -					sed -i 's/iface eth0 inet dhcp/#iface eth0 inet dhcp/g' ${wfile}
 -				fi
-+				echo "auto eth0"  >> ${wfile}
++				echo "auto eth0" >> ${wfile}
 +				echo "iface eth0 inet dhcp" >> ${wfile}
-
+ 
  				echo "# Example to keep MAC address between reboots" >> ${wfile}
  				echo "#hwaddress ether DE:AD:BE:EF:CA:FE" >> ${wfile}
+@@ -1810,7 +1789,7 @@ check_dtb_board () {
+ 
+ usage () {
+ 	echo "usage: sudo $(basename $0) --mmc /dev/sdX --dtb <dev board>"
+-	#tabed to match 
++	#tabed to match
+ 		cat <<-__EOF__
+ 			-----------------------------
+ 			Bugs email: "bugs at rcn-ee.com"
