@@ -33,7 +33,7 @@ user_func() {
     sudo usermod -aG gpio  $RIAPSAPPDEVELOPER
     sudo usermod -aG pwm $RIAPSAPPDEVELOPER
 
-    sudo -H -u $RIAPSAPPDEVELOPER mkdir -p /home/$RIAPSAPPDEVELOPER/riaps_apps
+    #MM(12/1) sudo -H -u $RIAPSAPPDEVELOPER mkdir -p /home/$RIAPSAPPDEVELOPER/riaps_apps
     sudo cp riaps_install_bbb.sh /home/$RIAPSAPPDEVELOPER/
     sudo chmod 500 /home/$RIAPSAPPDEVELOPER/riaps_install_bbb.sh
     sudo chown $RIAPSAPPDEVELOPER:$RIAPSAPPDEVELOPER /home/$RIAPSAPPDEVELOPER/riaps_install_bbb.sh
