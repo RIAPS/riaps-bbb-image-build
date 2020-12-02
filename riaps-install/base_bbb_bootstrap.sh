@@ -248,7 +248,7 @@ pycom_pip_pkgs
 watchdog_timers
 setup_splash
 setup_ssh_keys $RIAPSAPPDEVELOPER
-setup_riaps_repo
+# MM TODO:  need to setup focal apt repo first - setup_riaps_repo
 externals_cmake_install
 pyzmq_install
 czmq_pybindings_install
