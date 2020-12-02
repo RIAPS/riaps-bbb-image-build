@@ -249,12 +249,12 @@ watchdog_timers
 setup_splash
 setup_ssh_keys $RIAPSAPPDEVELOPER
 # MM TODO:  need to setup focal apt repo first - setup_riaps_repo
-externals_cmake_install
-pyzmq_install
-czmq_pybindings_install
-zyre_pybindings_install
+# MM TODO: externals_cmake_install
+# MM TODO: pyzmq_install
+# MM TODO: czmq_pybindings_install
+# MM TODO: zyre_pybindings_install
 pycapnp_install
-remove_pkgs_used_to_build
+# MM TODO: remove_pkgs_used_to_build
 #install_riaps
 
 # Delete all of the install files from the image
