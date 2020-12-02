@@ -253,7 +253,7 @@ setup_ssh_keys $RIAPSAPPDEVELOPER
 # MM TODO: pyzmq_install
 # MM TODO: czmq_pybindings_install
 # MM TODO: zyre_pybindings_install
-pycapnp_install
+# MM TODO: pycapnp_install
 # MM TODO: remove_pkgs_used_to_build
 #install_riaps
 
