@@ -244,7 +244,7 @@ pybind11_install
 spdlog_install
 apparmor_monkeys_install
 pycom_pip_pkgs
-butter_install
+# MM TODO: could not install, try manually - butter_install
 watchdog_timers
 setup_splash
 setup_ssh_keys $RIAPSAPPDEVELOPER
