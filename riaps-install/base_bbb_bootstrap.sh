@@ -101,9 +101,20 @@ apparmor_monkeys_install() {
 
 pycom_pip_pkgs() {
     sudo pip3 install 'Adafruit_BBIO == 1.2.0'
-    sudo pip3 install 'pydevd==1.8.0' 'rpyc==4.1.0' 'redis==2.10.6' 'hiredis == 0.2.0' 'netifaces==0.10.7' 'paramiko==2.6.0' 'cryptography==2.7' 'cgroups==0.1.0' 'cgroupspy==0.1.6' 'psutil==5.4.2' 'butter==0.12.6' 'lmdb==0.94' 'fabric3==1.14.post1' 'pyroute2==0.5.2' 'minimalmodbus==0.7' 'pyserial==3.4' 'pybind11==2.2.4' 'toml==0.10.0' 'pycryptodomex==3.7.3' --verbose
+    sudo pip3 install 'pydevd==1.8.0' 'rpyc==4.1.0' 'redis==2.10.6' 'hiredis == 0.2.0' 'netifaces==0.10.7' 'paramiko==2.6.0' 'cryptography==2.7' 'cgroups==0.1.0' 'cgroupspy==0.1.6' 'lmdb==0.94' 'fabric3==1.14.post1' 'pyroute2==0.5.2' 'minimalmodbus==0.7' 'pyserial==3.4' 'pybind11==2.2.4' 'toml==0.10.0' 'pycryptodomex==3.7.3' --verbose
     sudo pip3 install --ignore-installed 'PyYAML==5.1.1'
+    sudo pip3 install --ignore-installed 'psutil==5.7.0' --verbose
     echo "installed pip packages used by riaps-pycom"
+}
+
+butter_install() {
+    PREVIOUS_PWD=$PWD
+    TMP=`mktemp -d`
+    git clone https://github.com/RIAPS/butter.git $TMP/butter
+    cd $TMP/butter
+    sudo python3 setup.py install
+    cd $PREVIOUS_PWD
+    rm -rf $TMP
 }
 
 watchdog_timers() {
@@ -228,11 +239,12 @@ check_os_version
 user_func
 freqgov_off
 python_install
-crypto_remove
+# Not needed for 20.04 - crypto_remove
 pybind11_install
 spdlog_install
 apparmor_monkeys_install
 pycom_pip_pkgs
+butter_install
 watchdog_timers
 setup_splash
 setup_ssh_keys $RIAPSAPPDEVELOPER
