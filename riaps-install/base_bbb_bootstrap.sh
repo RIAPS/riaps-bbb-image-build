@@ -50,6 +50,22 @@ freqgov_off() {
     echo "setup frequency and governor"
 }
 
+opendht_prereqs_install() {
+    # run liblinks script to link gnutls and msgppack
+    chmod +x /home/$INSTALL_USER$INSTALL_SCRIPT_LOC/liblinks.sh
+    PREVIOUS_PWD=$PWD
+    cd /usr/lib/${ARCHINSTALL}
+    sudo /home/$INSTALL_USER$INSTALL_SCRIPT_LOC/liblinks.sh
+    cd $PREVIOUS_PWD
+    echo ">>>>> installed opendht prerequisites"
+}
+
+setup_hostname() {
+    cp usr/bin/set_unique_hostname /usr/bin/set_unique_hostname
+    sudo chmod +x /usr/bin/set_unique_hostname
+    echo ">>>>> setup hostname"
+}
+
 # Install packages that take a long time compiling on the BBBs to minimize user RIAPS installation time
 python_install() {
     sudo pip3 install --upgrade pip
@@ -60,9 +76,6 @@ python_install() {
 
     sudo pip3 install 'git+https://github.com/cython/cython.git@0.29.21' --verbose
     echo "installed cython"
-
-    sudo pip3 install 'paramiko==2.6.0' 'cryptography==2.7' --verbose
-    echo "installed paramiko and cryptography"
 }
 
 # Remove specific crypto package that conflict with riaps-pycom "pycryptodomex" package installation
@@ -101,7 +114,7 @@ apparmor_monkeys_install() {
 
 pycom_pip_pkgs() {
     sudo pip3 install 'Adafruit_BBIO == 1.2.0'
-    sudo pip3 install 'pydevd==1.8.0' 'rpyc==4.1.0' 'redis==2.10.6' 'hiredis == 0.2.0' 'netifaces==0.10.7' 'paramiko==2.6.0' 'cryptography==2.7' 'cgroups==0.1.0' 'cgroupspy==0.1.6' 'lmdb==0.94' 'fabric3==1.14.post1' 'pyroute2==0.5.2' 'minimalmodbus==0.7' 'pyserial==3.4' 'pybind11==2.2.4' 'toml==0.10.0' 'pycryptodomex==3.7.3' --verbose
+    sudo pip3 install 'pydevd==1.8.0' 'rpyc==4.1.5' 'redis==2.10.6' 'hiredis == 0.2.0' 'netifaces==0.10.7' 'paramiko==2.7.1' 'cryptography==2.9.2' 'cgroups==0.1.0' 'cgroupspy==0.1.6' 'lmdb==0.94' 'fabric3==1.14.post1' 'pyroute2==0.5.2' 'minimalmodbus==0.7' 'pyserial==3.4' 'pybind11==2.2.4' 'toml==0.10.0' 'pycryptodomex==3.7.3' --verbose
     sudo pip3 install --ignore-installed 'PyYAML==5.1.1'
     sudo pip3 install --ignore-installed 'psutil==5.7.0' --verbose
     echo "installed pip packages used by riaps-pycom"
@@ -115,6 +128,19 @@ butter_install() {
     sudo python3 setup.py install
     cd $PREVIOUS_PWD
     rm -rf $TMP
+}
+
+# Install prctl package
+prctl_install() {
+    PREVIOUS_PWD=$PWD
+    TMP=`mktemp -d`
+    git clone https://github.com/RIAPS/python-prctl.git $TMP/python-prctl
+    cd $TMP/python-prctl/
+    git checkout feature-ambient
+    sudo python3 setup.py install
+    cd $PREVIOUS_PWD
+    sudo rm -rf $TMP
+    echo ">>>>> installed prctl"
 }
 
 watchdog_timers() {
@@ -226,6 +252,26 @@ externals_cmake_install(){
     echo "cmake install complete"
 }
 
+# Create a file that tracks the version installed on the RIAPS node, will help in debugging efforts
+create_riaps_version_file () {
+    sudo -H -u $RIAPSUSER mkdir -p /home/$RIAPSUSER/.riaps
+    sudo echo "RIAPS Version: $RIAPS_VERSION" >> /home/$RIAPSUSER/.riaps/riapsversion.txt
+    sudo echo "Ubuntu Version: $UBUNTU_VERSION_INSTALL" >> /home/$RIAPSUSER/.riaps/riapsversion.txt
+    sudo echo "Application Developer Username: $RIAPSUSER" >> /home/$RIAPSUSER/.riaps/riapsversion.txt
+    sudo chown $RIAPSUSER:$RIAPSUSER /home/$RIAPSUSER/.riaps/riapsversion.txt
+    sudo -H -u $RIAPSUSER chmod 600 /home/$RIAPSUSER/.riaps/riapsversion.txt
+    echo ">>>>> Created RIAPS version log file"
+}# Create a file that tracks the version installed on the RIAPS node, will help in debugging efforts
+create_riaps_version_file () {
+    sudo -H -u $RIAPSUSER mkdir -p /home/$RIAPSUSER/.riaps
+    sudo echo "RIAPS Version: $RIAPS_VERSION" >> /home/$RIAPSUSER/.riaps/riapsversion.txt
+    sudo echo "Ubuntu Version: $UBUNTU_VERSION_INSTALL" >> /home/$RIAPSUSER/.riaps/riapsversion.txt
+    sudo echo "Application Developer Username: $RIAPSUSER" >> /home/$RIAPSUSER/.riaps/riapsversion.txt
+    sudo chown $RIAPSUSER:$RIAPSUSER /home/$RIAPSUSER/.riaps/riapsversion.txt
+    sudo -H -u $RIAPSUSER chmod 600 /home/$RIAPSUSER/.riaps/riapsversion.txt
+    echo ">>>>> Created RIAPS version log file"
+}
+
 # To regain disk space on the BBB, remove packages that were installed as part of the build process (i.e. -dev)
 remove_pkgs_used_to_build(){
     sudo apt-get remove libboost-all-dev libffi-dev libgnutls28-dev libncurses5-dev -y
@@ -238,6 +284,8 @@ remove_pkgs_used_to_build(){
 check_os_version
 user_func
 freqgov_off
+# MM TODO: opendht_prereqs_install
+# MM TODO: setup_hostname???
 python_install
 # Not needed for 20.04 - crypto_remove
 pybind11_install
@@ -245,6 +293,7 @@ spdlog_install
 apparmor_monkeys_install
 pycom_pip_pkgs
 # MM TODO: could not install, try manually - butter_install
+# MM TODO: prctl_install
 watchdog_timers
 setup_splash
 setup_ssh_keys $RIAPSAPPDEVELOPER
@@ -255,6 +304,7 @@ setup_ssh_keys $RIAPSAPPDEVELOPER
 # MM TODO: zyre_pybindings_install
 # MM TODO: pycapnp_install
 # MM TODO: remove_pkgs_used_to_build
+# MM TODO: create_riaps_version_file
 #install_riaps
 
 # Delete all of the install files from the image
