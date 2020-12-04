@@ -293,7 +293,7 @@ spdlog_install
 apparmor_monkeys_install
 pycom_pip_pkgs
 # MM TODO: could not install, try manually - butter_install
-# MM TODO: prctl_install  
+# MM TODO: prctl_install
 watchdog_timers
 setup_splash
 setup_ssh_keys $RIAPSAPPDEVELOPER
