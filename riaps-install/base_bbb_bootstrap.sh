@@ -50,15 +50,15 @@ freqgov_off() {
     echo "setup frequency and governor"
 }
 
-opendht_prereqs_install() {
-    # run liblinks script to link gnutls and msgppack
-    chmod +x /home/$INSTALL_USER$INSTALL_SCRIPT_LOC/liblinks.sh
-    PREVIOUS_PWD=$PWD
-    cd /usr/lib/${ARCHINSTALL}
-    sudo /home/$INSTALL_USER$INSTALL_SCRIPT_LOC/liblinks.sh
-    cd $PREVIOUS_PWD
-    echo ">>>>> installed opendht prerequisites"
-}
+#opendht_prereqs_install() {
+#    # run liblinks script to link gnutls and msgppack
+#    chmod +x /home/$INSTALL_USER$INSTALL_SCRIPT_LOC/liblinks.sh
+#    PREVIOUS_PWD=$PWD
+#    cd /usr/lib/${ARCHINSTALL}
+#    sudo /home/$INSTALL_USER$INSTALL_SCRIPT_LOC/liblinks.sh
+#    cd $PREVIOUS_PWD
+#    echo ">>>>> installed opendht prerequisites"
+#}
 
 setup_hostname() {
     cp usr/bin/set_unique_hostname /usr/bin/set_unique_hostname
@@ -131,17 +131,17 @@ butter_install() {
 }
 
 # Install prctl package
-prctl_install() {
-    PREVIOUS_PWD=$PWD
-    TMP=`mktemp -d`
-    git clone https://github.com/RIAPS/python-prctl.git $TMP/python-prctl
-    cd $TMP/python-prctl/
-    git checkout feature-ambient
-    sudo python3 setup.py install
-    cd $PREVIOUS_PWD
-    sudo rm -rf $TMP
-    echo ">>>>> installed prctl"
-}
+#prctl_install() {
+#    PREVIOUS_PWD=$PWD
+#    TMP=`mktemp -d`
+#    git clone https://github.com/RIAPS/python-prctl.git $TMP/python-prctl
+#    cd $TMP/python-prctl/
+#    git checkout feature-ambient
+#    sudo python3 setup.py install
+#    cd $PREVIOUS_PWD
+#    sudo rm -rf $TMP
+#    echo ">>>>> installed prctl"
+#}
 
 watchdog_timers() {
     echo " " >> /etc/sysctl.conf
@@ -253,15 +253,17 @@ externals_cmake_install(){
 }
 
 # Create a file that tracks the version installed on the RIAPS node, will help in debugging efforts
-create_riaps_version_file () {
-    sudo -H -u $RIAPSUSER mkdir -p /home/$RIAPSUSER/.riaps
-    sudo echo "RIAPS Version: $RIAPS_VERSION" >> /home/$RIAPSUSER/.riaps/riapsversion.txt
-    sudo echo "Ubuntu Version: $UBUNTU_VERSION_INSTALL" >> /home/$RIAPSUSER/.riaps/riapsversion.txt
-    sudo echo "Application Developer Username: $RIAPSUSER" >> /home/$RIAPSUSER/.riaps/riapsversion.txt
-    sudo chown $RIAPSUSER:$RIAPSUSER /home/$RIAPSUSER/.riaps/riapsversion.txt
-    sudo -H -u $RIAPSUSER chmod 600 /home/$RIAPSUSER/.riaps/riapsversion.txt
-    echo ">>>>> Created RIAPS version log file"
-}# Create a file that tracks the version installed on the RIAPS node, will help in debugging efforts
+#create_riaps_version_file () {
+#    sudo -H -u $RIAPSUSER mkdir -p /home/$RIAPSUSER/.riaps
+#    sudo echo "RIAPS Version: $RIAPS_VERSION" >> /home/$RIAPSUSER/.riaps/riapsversion.txt
+#   sudo echo "Ubuntu Version: $UBUNTU_VERSION_INSTALL" >> /home/$RIAPSUSER/.riaps/riapsversion.txt
+#   sudo echo "Application Developer Username: $RIAPSUSER" >> /home/$RIAPSUSER/.riaps/riapsversion.txt
+#    sudo chown $RIAPSUSER:$RIAPSUSER /home/$RIAPSUSER/.riaps/riapsversion.txt
+#    sudo -H -u $RIAPSUSER chmod 600 /home/$RIAPSUSER/.riaps/riapsversion.txt
+#   echo ">>>>> Created RIAPS version log file"
+#}
+
+# Create a file that tracks the version installed on the RIAPS node, will help in debugging efforts
 create_riaps_version_file () {
     sudo -H -u $RIAPSUSER mkdir -p /home/$RIAPSUSER/.riaps
     sudo echo "RIAPS Version: $RIAPS_VERSION" >> /home/$RIAPSUSER/.riaps/riapsversion.txt
