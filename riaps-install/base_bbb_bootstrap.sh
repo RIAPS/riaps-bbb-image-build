@@ -68,7 +68,7 @@ setup_network
 python_install
 cython_install
 # Not needed for 20.04 - crypto_remove
-spdlog_install
+spdlog_python_install
 apparmor_monkeys_install
 pip3_3rd_party_installs
 pycom_pip_pkgs_bbb
