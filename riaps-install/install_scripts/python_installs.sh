@@ -84,15 +84,14 @@ prctl_install() {
 # Installing butter
 # For Python 3.8 (used in Ubuntu 20.04), butter does not install with pip
 butter_install() {
-        # This project is a fork of butter located at http://blitz.works/butter/file/tip at version 0.12.6.
-        PREVIOUS_PWD=$PWD
-        TMP=`mktemp -d`
-        git clone https://github.com/RIAPS/butter.git $TMP/butter
-        cd $TMP/butter
-        sudo python3 setup.py install
-        cd $PREVIOUS_PWD
-        rm -rf $TMP
-    fi
+    # This project is a fork of butter located at http://blitz.works/butter/file/tip at version 0.12.6.
+    PREVIOUS_PWD=$PWD
+    TMP=`mktemp -d`
+    git clone https://github.com/RIAPS/butter.git $TMP/butter
+    cd $TMP/butter
+    sudo python3 setup.py install
+    cd $PREVIOUS_PWD
+    rm -rf $TMP
     echo ">>>>> installed butter"
 }
 
