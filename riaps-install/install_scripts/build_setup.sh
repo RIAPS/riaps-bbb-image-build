@@ -21,7 +21,7 @@ externals_cmake_install(){
     mkdir -p /tmp/3rdparty/build
     cp CMakeLists.txt /tmp/3rdparty/.
     cd /tmp/3rdparty/build
-    cmake -Darch=${NODE_ARCH} ..
+    cmake -Darch=${deb_arch} ..
     make
     cd $PREVIOUS_PWD
     sudo rm -rf /tmp/3rdparty/

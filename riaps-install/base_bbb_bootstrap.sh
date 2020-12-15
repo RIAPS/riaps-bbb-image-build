@@ -13,8 +13,8 @@ if [ -f /etc/oib.project ] ; then
 	. /etc/oib.project
 fi
 
-# Script Variables
-RIAPSUSER=${rfs_username}
+# Indication of base release 20.04 to help in determining if a step in the install scripts are needed.
+REL_BASE_20_04='20.04'
 
 # Source scripts needed for this bootstrap build
 source_scripts() {
@@ -24,14 +24,12 @@ source_scripts() {
     for i in `ls $PWD/$SCRIPTS`; do
         source "$PWD/$SCRIPTS/$i"
     done
-
-    source "$PWD/node_creation_bbb.conf"
     echo ">>>>> sourced install scripts"
 }
 
 pycom_pip_pkgs_bbb() {
     sudo pip3 install 'Adafruit_BBIO == 1.2.0'
-    echo "installed pip packages specifically for BBB"
+    echo ">>>>> installed pip packages specifically for BBB"
 }
 
 setup_splash() {
@@ -43,47 +41,49 @@ setup_splash() {
     echo "# those of the United States Government or any agency thereof.                 #" >> motd
     echo "################################################################################" >> motd
     sudo mv motd /etc/motd
-    echo "setup motd screen"
+    echo ">>>>> setup motd screen"
     # Enable issue.net, which is autopopulated by omap-image-builder
     sed -i '/Banner/d' /etc/ssh/sshd_config # Remove default banner configuration
     echo " " >> /etc/ssh/sshd_config
     echo "Banner /etc/issue.net" >> /etc/ssh/sshd_config # Enable banner
-    echo "setup splash screen"
+    echo ">>>>> setup splash screen"
 }
 
 install_riaps() {
-    sudo apt-get install riaps-core-armhf riaps-pycom-armhf riaps-timesync-armhf -y
-    echo "installed RIAPS platform"
+    sudo apt-get install riaps-core-$deb_arch riaps-pycom-$deb_arch riaps-timesync-$deb_arch -y
+    echo ">>>>> installed RIAPS platform"
 }
 
 
 # Start of script actions
 source_scripts
-# MM TODO: check_os_version
+setup_peripherals
 user_func
+setup_ssh_keys
 freqgov_off
-# MM TODO: opendht_prereqs_install
+watchdog_timers
+setup_splash
 setup_hostname
 setup_network
 python_install
 cython_install
+opendht_prereqs_install
+externals_cmake_install
+pycapnp_install
+pyzmq_install
+czmq_pybindings_install
+zyre_pybindings_install
+apparmor_monkeys_install
+butter_install
 pip3_3rd_party_installs
 pycom_pip_pkgs_bbb
 spdlog_python_install
-apparmor_monkeys_install
-butter_install
 prctl_install
-watchdog_timers
-setup_splash
-setup_ssh_keys
-# MM TODO:  need to setup focal apt repo first - riaps_prereq
-externals_cmake_install
-# MM TODO: pyzmq_install
-# MM TODO: czmq_pybindings_install
-# MM TODO: zyre_pybindings_install
-# MM TODO: pycapnp_install
 # MM TODO: remove_pkgs_used_to_build
-# MM TODO: create_riaps_version_file
+# MM TODO:  need to setup focal apt repo first - riaps_prereq
+create_riaps_version_file
+
+# Current method is to create the base RIAPS image without the RIAPS packages
 #install_riaps
 
 # Delete all of the install files from the image

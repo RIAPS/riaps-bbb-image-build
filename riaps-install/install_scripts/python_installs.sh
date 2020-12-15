@@ -99,12 +99,9 @@ butter_install() {
 pip3_3rd_party_installs(){
     pip3 install 'paramiko==2.7.1' 'cryptography==2.9.2' --verbose
     pip3 install 'pydevd==1.8.0' 'rpyc==4.1.5' 'redis==2.10.6' 'hiredis == 0.2.0' 'netifaces==0.10.7' 'cgroups==0.1.0' 'cgroupspy==0.1.6' 'lmdb==0.94' 'fabric3==1.14.post1' 'pyroute2==0.5.2' 'minimalmodbus==0.7' 'pyserial==3.4' 'pybind11==2.2.4' 'toml==0.10.0' 'pycryptodomex==3.7.3' --verbose
+
     # Python 3.8 has this installed already, need to overwrite
-    if [ $UBUNTU_VERSION_INSTALL = "18.04" ]; then
-        pip3 install 'psutil==5.7.0' --verbose
-    else
-        pip3 install --ignore-installed 'psutil==5.7.0' --verbose
-    fi
+    pip3 install --ignore-installed 'psutil==5.7.0' --verbose
 
     # Package in distro already, leaving it in site-packages
     pip3 install --ignore-installed 'PyYAML==5.1.1'

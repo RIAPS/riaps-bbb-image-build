@@ -5,10 +5,10 @@ set -e
 #install opendht prerequisites - expect libncurses5-dev installed
 opendht_prereqs_install() {
     # run liblinks script to link gnutls and msgppack
-    chmod +x /home/$INSTALL_USER$INSTALL_SCRIPT_LOC/liblinks.sh
     PREVIOUS_PWD=$PWD
-    cd /usr/lib/${ARCHINSTALL}
-    sudo /home/$INSTALL_USER$INSTALL_SCRIPT_LOC/liblinks.sh
+    chmod +x $PREVIOUS_PWD/liblinks.sh
+    cd /usr/lib/arm-linux-gnueabihf
+    sudo $PREVIOUS_PWD/liblinks.sh
     cd $PREVIOUS_PWD
     echo ">>>>> installed opendht prerequisites"
 }
@@ -27,8 +27,6 @@ riaps_prereq() {
     echo ">>>>> get riaps public key"
     wget -qO - https://riaps.isis.vanderbilt.edu/keys/riapspublic.key | sudo apt-key add -
     echo ">>>>> add repo to sources"
-    sudo add-apt-repository -r "deb [arch=${NODE_ARCH}] https://riaps.isis.vanderbilt.edu/aptrepo/ $CURRENT_PACKAGE_REPO main" || true
-    sudo add-apt-repository -n "deb [arch=${NODE_ARCH}] https://riaps.isis.vanderbilt.edu/aptrepo/ $CURRENT_PACKAGE_REPO main"
-    sudo apt-get update
+    sudo add-apt-repository "deb [arch=${deb_arch}] https://riaps.isis.vanderbilt.edu/aptrepo/ $deb_codename main"
     echo ">>>>> riaps aptrepo setup"
 }
