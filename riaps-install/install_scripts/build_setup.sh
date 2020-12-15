@@ -6,8 +6,7 @@ set -e
 # but is needed for RIAPS setup/installation. Therefore, it is installed here to make sure it is available.
 python_install() {
     sudo pip3 install --upgrade pip
-    sudo pip3 install pydevd
-    echo ">>>>> installed python3 and pydev"
+    echo ">>>>> installed upgrade pip3"
 }
 
 cython_install() {
