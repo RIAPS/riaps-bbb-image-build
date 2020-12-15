@@ -77,7 +77,7 @@ watchdog_timers
 setup_splash
 setup_ssh_keys
 # MM TODO:  need to setup focal apt repo first - riaps_prereq
-# MM TODO: externals_cmake_install
+externals_cmake_install
 # MM TODO: pyzmq_install
 # MM TODO: czmq_pybindings_install
 # MM TODO: zyre_pybindings_install
