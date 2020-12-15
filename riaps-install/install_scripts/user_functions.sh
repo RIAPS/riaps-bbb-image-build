@@ -8,7 +8,7 @@ user_func() {
     sudo usermod -aG gpio  $rfs_username
     sudo usermod -aG pwm $rfs_username
 
-    sudo -H -u $rfs_username mkdir -p /home/$rfs_username/riaps_apps
+    #MM TODO:  mkdir Permission issue   sudo -H -u $rfs_username mkdir -p /home/$rfs_username/riaps_apps
     sudo cp riaps_install_bbb.sh /home/$rfs_username/
     sudo chmod 500 /home/$rfs_username/riaps_install_bbb.sh
     sudo chown $rfs_username:$rfs_username /home/$rfs_username/riaps_install_bbb.sh
