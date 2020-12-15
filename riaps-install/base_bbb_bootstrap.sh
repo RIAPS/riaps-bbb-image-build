@@ -67,13 +67,12 @@ setup_hostname
 setup_network
 python_install
 cython_install
-# Not needed for 20.04 - crypto_remove
 pip3_3rd_party_installs
 pycom_pip_pkgs_bbb
 spdlog_python_install
 apparmor_monkeys_install
-# MM TODO: could not install, try manually - butter_install
-# MM TODO: prctl_install
+butter_install
+prctl_install
 watchdog_timers
 setup_splash
 setup_ssh_keys
