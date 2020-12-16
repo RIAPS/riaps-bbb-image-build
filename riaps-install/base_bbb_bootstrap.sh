@@ -68,11 +68,11 @@ setup_network
 python_install
 cython_install
 opendht_prereqs_install
-externals_cmake_install
-pycapnp_install
-pyzmq_install
-czmq_pybindings_install
-zyre_pybindings_install
+#externals_cmake_install
+#pycapnp_install
+#pyzmq_install
+#czmq_pybindings_install
+#zyre_pybindings_install
 apparmor_monkeys_install
 butter_install
 pip3_3rd_party_installs
