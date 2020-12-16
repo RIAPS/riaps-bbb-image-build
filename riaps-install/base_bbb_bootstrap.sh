@@ -59,7 +59,7 @@ install_riaps() {
 source_scripts
 setup_peripherals
 user_func
-setup_ssh_keys
+#MM TODO setup_ssh_keys
 freqgov_off
 watchdog_timers
 setup_splash
