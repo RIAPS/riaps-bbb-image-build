@@ -81,7 +81,7 @@ spdlog_python_install
 prctl_install
 # MM TODO: remove_pkgs_used_to_build
 # MM TODO:  need to setup focal apt repo first - riaps_prereq
-create_riaps_version_file
+# MM TODO: create_riaps_version_file
 
 # Current method is to create the base RIAPS image without the RIAPS packages
 #install_riaps
