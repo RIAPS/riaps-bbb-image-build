@@ -38,7 +38,7 @@ externalproject_add(capnproto
                       GIT_REPOSITORY
                       "https://github.com/capnproto/capnproto"
                       GIT_TAG
-                      "v1.0.0"
+                      "v0.8.0"
                       SOURCE_DIR
                       "/tmp/3rdparty/capnproto"
                       BUILD_IN_SOURCE
@@ -118,7 +118,7 @@ externalproject_add(czmq
                      GIT_REPOSITORY
                      "https://github.com/zeromq/czmq.git"
                      GIT_TAG
-                     "fbe313cd2010bace7833fe52d419f82282343bd9"
+                     "9ee60b18e8bd8ed4adca7fdaff3e700741da706e"
                      SOURCE_DIR
                      "/tmp/3rdparty/czmq"
                      BUILD_IN_SOURCE
@@ -149,7 +149,7 @@ externalproject_add(zyre
                      GIT_REPOSITORY
                      "https://github.com/zeromq/zyre.git"
                      GIT_TAG
-                     "4b2faecdff930d9221d72e94e80ea42de0519b65"
+                     "b36470e70771a329583f9cf73598898b8ee05d14"
                      SOURCE_DIR
                      "/tmp/3rdparty/zyre"
                      BUILD_IN_SOURCE

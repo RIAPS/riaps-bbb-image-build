@@ -6,4 +6,5 @@ export LC_ALL=C
 
 cd /opt/riaps-install
 /bin/bash elinux.sh
-/bin/bash base_bbb_bootstrap.sh
+#MM TODO: remove for now to determine if kernel works
+#/bin/bash base_bbb_bootstrap.sh
