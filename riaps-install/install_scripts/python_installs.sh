@@ -42,7 +42,7 @@ czmq_pybindings_install(){
     TMP=`mktemp -d`
     git clone https://github.com/zeromq/czmq.git $TMP/czmq_pybindings
     cd $TMP/czmq_pybindings/bindings/python
-    git checkout fbe313cd2010bace7833fe52d419f82282343bd9
+    git checkout 9ee60b18e8bd8ed4adca7fdaff3e700741da706e
     sudo pip3 install . --verbose
     cd $PREVIOUS_PWD
     sudo rm -rf $TMP
@@ -55,7 +55,7 @@ zyre_pybindings_install(){
     TMP=`mktemp -d`
     git clone https://github.com/zeromq/zyre.git $TMP/zyre_pybindings
     cd $TMP/zyre_pybindings/bindings/python
-    git checkout 4b2faecdff930d9221d72e94e80ea42de0519b65
+    git checkout b36470e70771a329583f9cf73598898b8ee05d14
     sudo pip3 install . --verbose
     cd $PREVIOUS_PWD
     sudo rm -rf $TMP
@@ -63,8 +63,9 @@ zyre_pybindings_install(){
 }
 
 # Link pycapnp with installed library. Must be run after capnproto install.
+# pycapnp v1.0.0 requires libcapnp 0.8.0
 pycapnp_install() {
-    CFLAGS=-I/usr/local/include LDFLAGS=-L/usr/local/lib pip3 install 'pycapnp==0.6.3' --verbose
+    CFLAGS=-I/usr/local/include LDFLAGS=-L/usr/local/lib pip3 install 'pycapnp==1.0.0' --verbose
     echo ">>>>> linked pycapnp with capnproto"
 }
 
