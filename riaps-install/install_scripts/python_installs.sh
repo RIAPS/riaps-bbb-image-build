@@ -63,9 +63,8 @@ zyre_pybindings_install(){
 }
 
 # Link pycapnp with installed library. Must be run after capnproto install.
-# pycapnp v1.0.0 requires libcapnp 0.8.0
 pycapnp_install() {
-    CFLAGS=-I/usr/local/include LDFLAGS=-L/usr/local/lib pip3 install 'pycapnp==1.0.0' --verbose
+    CFLAGS=-I/usr/local/include LDFLAGS=-L/usr/local/lib pip3 install 'pycapnp==0.6.3' --verbose
     echo ">>>>> linked pycapnp with capnproto"
 }
 
