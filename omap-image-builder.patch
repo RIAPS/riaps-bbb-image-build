@@ -1,8 +1,8 @@
 diff --git a/tools/setup_sdcard.sh b/tools/setup_sdcard.sh
-index 72f52acf..8a592c8a 100755
+index a8af8477..50e4e83d 100755
 --- a/tools/setup_sdcard.sh
 +++ b/tools/setup_sdcard.sh
-@@ -1348,7 +1348,7 @@ populate_rootfs () {
+@@ -1368,7 +1368,7 @@ populate_rootfs () {
  		fi
  	fi
  
@@ -11,7 +11,7 @@ index 72f52acf..8a592c8a 100755
  
  	if [ ! "x${loops_per_jiffy}" = "x" ] ; then
  		cmdline="${cmdline} ${loops_per_jiffy}"
-@@ -1486,7 +1486,7 @@ populate_rootfs () {
+@@ -1510,7 +1510,7 @@ populate_rootfs () {
  			if [ "${BTRFS_FSTAB}" ] ; then
  				echo "${rootfs_drive}  /  btrfs  defaults,noatime  0  1" >> ${wfile}
  			else
@@ -20,7 +20,7 @@ index 72f52acf..8a592c8a 100755
  			fi
  		fi
  
-@@ -1508,29 +1508,8 @@ populate_rootfs () {
+@@ -1532,29 +1532,8 @@ populate_rootfs () {
  				echo "" >> ${wfile}
  				echo "# The primary network interface" >> ${wfile}
  
@@ -52,7 +52,7 @@ index 72f52acf..8a592c8a 100755
  
  				echo "# Example to keep MAC address between reboots" >> ${wfile}
  				echo "#hwaddress ether DE:AD:BE:EF:CA:FE" >> ${wfile}
-@@ -1810,7 +1789,7 @@ check_dtb_board () {
+@@ -1834,7 +1813,7 @@ check_dtb_board () {
  
  usage () {
  	echo "usage: sudo $(basename $0) --mmc /dev/sdX --dtb <dev board>"
