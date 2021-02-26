@@ -59,7 +59,7 @@ install_riaps() {
 source_scripts
 setup_peripherals
 user_func
-#MM TODO setup_ssh_keys
+setup_ssh_keys
 freqgov_off
 watchdog_timers
 setup_splash
@@ -80,7 +80,7 @@ spdlog_python_install
 prctl_install
 # MM TODO: remove_pkgs_used_to_build
 # MM TODO:  need to setup focal apt repo first - riaps_prereq
-# MM TODO: create_riaps_version_file
+create_riaps_version_file
 
 # Current method is to create the base RIAPS image without the RIAPS packages
 #install_riaps
