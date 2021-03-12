@@ -118,7 +118,7 @@ externalproject_add(czmq
                      GIT_REPOSITORY
                      "https://github.com/zeromq/czmq.git"
                      GIT_TAG
-                     "9ee60b18e8bd8ed4adca7fdaff3e700741da706e"
+                     "v4.2.1"
                      SOURCE_DIR
                      "/tmp/3rdparty/czmq"
                      BUILD_IN_SOURCE
@@ -127,6 +127,7 @@ externalproject_add(czmq
                      "./autogen.sh"
                      CONFIGURE_COMMAND
                      ./configure
+                     --enable-drafts
                      --with-uuid=no
                      --with-libsystemd=no
                      --with-liblz4=no
@@ -149,7 +150,7 @@ externalproject_add(zyre
                      GIT_REPOSITORY
                      "https://github.com/zeromq/zyre.git"
                      GIT_TAG
-                     "b36470e70771a329583f9cf73598898b8ee05d14"
+                     "v2.0.1"
                      SOURCE_DIR
                      "/tmp/3rdparty/zyre"
                      BUILD_IN_SOURCE
@@ -158,6 +159,7 @@ externalproject_add(zyre
                      "./autogen.sh"
                      CONFIGURE_COMMAND
                      ./configure
+                     --enable-drafts
                      BUILD_COMMAND
                      make
                      ${MAKE_JOB_FLAGS}

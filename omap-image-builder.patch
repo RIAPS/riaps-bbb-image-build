@@ -1,5 +1,5 @@
 diff --git a/tools/setup_sdcard.sh b/tools/setup_sdcard.sh
-index a8af8477..50e4e83d 100755
+index a8af8477..121d88dc 100755
 --- a/tools/setup_sdcard.sh
 +++ b/tools/setup_sdcard.sh
 @@ -1368,7 +1368,7 @@ populate_rootfs () {
@@ -20,7 +20,7 @@ index a8af8477..50e4e83d 100755
  			fi
  		fi
  
-@@ -1532,29 +1532,8 @@ populate_rootfs () {
+@@ -1532,30 +1532,8 @@ populate_rootfs () {
  				echo "" >> ${wfile}
  				echo "# The primary network interface" >> ${wfile}
  
@@ -47,12 +47,13 @@ index a8af8477..50e4e83d 100755
 -					sed -i 's/allow-hotplug eth0/#allow-hotplug eth0/g' ${wfile}
 -					sed -i 's/iface eth0 inet dhcp/#iface eth0 inet dhcp/g' ${wfile}
 -				fi
+-
 +				echo "auto eth0" >> ${wfile}
 +				echo "iface eth0 inet dhcp" >> ${wfile}
- 
  				echo "# Example to keep MAC address between reboots" >> ${wfile}
  				echo "#hwaddress ether DE:AD:BE:EF:CA:FE" >> ${wfile}
-@@ -1834,7 +1813,7 @@ check_dtb_board () {
+ 
+@@ -1834,7 +1812,7 @@ check_dtb_board () {
  
  usage () {
  	echo "usage: sudo $(basename $0) --mmc /dev/sdX --dtb <dev board>"

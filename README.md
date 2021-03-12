@@ -19,7 +19,7 @@ git checkout <tag>            # Where <tag> is the version which you want to mov
 ```
 - When moving to a new kernel version, the version number simply needs to be updated and the new version will be installed. In riaps-focal.conf, **repo_rcnee_pkg_list** and **repo_rcnee_pkg_version** need to contain the new kernel version.
 
-To update the **omap-image-builder.path** file: make changes in updated repository and then do following to get the new file:
+To update the **omap-image-builder.patch** file: make changes in updated repository and then do following to get the new file:
 
 ```
 git diff > omap-image-builder.patch
