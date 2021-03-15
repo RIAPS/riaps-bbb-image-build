@@ -8,13 +8,17 @@ user_func() {
     sudo usermod -aG gpio  $rfs_username
     sudo usermod -aG pwm $rfs_username
 
+    cp etc/sudoers.d/riaps /etc/sudoers.d/riaps
+    echo ">>>>> created user accounts"
+}
+
+riaps_dir_setup() {
     sudo -H -u $rfs_username mkdir -p /home/$rfs_username/riaps_apps
     sudo cp riaps_install_bbb.sh /home/$rfs_username/
     sudo chmod 500 /home/$rfs_username/riaps_install_bbb.sh
     sudo chown $rfs_username:$rfs_username /home/$rfs_username/riaps_install_bbb.sh
 
-    cp etc/sudoers.d/riaps /etc/sudoers.d/riaps
-    echo ">>>>> created user accounts"
+    echo ">>>>> setup riaps folder and install script"
 }
 
 # This function requires that riaps_initial.pub from https://github.com/RIAPS/riaps-integration/blob/master/riaps-node-creation/riaps_initial_keys/id_rsa.pub
