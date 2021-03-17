@@ -16,8 +16,8 @@ opendht_prereqs_install() {
 # To regain disk space on the BBB, remove packages that were installed as part of the build process (i.e. -dev)
 remove_pkgs_used_to_build(){
     sudo apt-get remove libboost-all-dev libcap-dev libffi-dev libgnutls28-dev libncurses5-dev -y
-    sudo apt-get remove libpcap-dev libreadline-dev libsystemd-dev libssl-dev -y
-    sudo apt-get remove libzmq3-dev libmsgpack-dev nettle-dev -y
+    sudo apt-get remove libpcap-dev libreadline-dev libsystemd-dev -y
+    sudo apt-get remove libzmq3-dev libmsgpack-dev nettle-dev libcurl4-gnutls-dev -y
     sudo apt autoremove -y
     echo ">>>>> removed packages used in building process, no longer needed"
 }
