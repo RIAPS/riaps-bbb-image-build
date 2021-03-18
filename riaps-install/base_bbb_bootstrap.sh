@@ -75,9 +75,10 @@ opendht_prereqs_install
 #zyre_pybindings_install
 apparmor_monkeys_install
 butter_install
+rpyc_install
+py_lmdb_install
 pip3_3rd_party_installs
 pycom_pip_pkgs_bbb
-spdlog_python_install
 prctl_install
 # MM TODO: remove_pkgs_used_to_build
 # MM TODO:  need to setup focal apt repo first - riaps_prereq
