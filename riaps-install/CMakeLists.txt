@@ -2,7 +2,6 @@ cmake_minimum_required(VERSION 3.16.0)
 include(ExternalProject)
 project(riaps-thirdpartypkgs)
 include(ProcessorCount)
-option(arch "armhf/arm64" "armhf")
 
 processorcount(N)
 if(NOT N EQUAL 0)
@@ -15,22 +14,11 @@ set(minor 5 CACHE INTEGER "the minor version")
 
 set(prefix /usr/local)
 set(CMAKE_INSTALL_PREFIX ${prefix})
-
-if (${arch} STREQUAL "armhf")
-  set(TOOLCHAIN_PREFIX arm-linux-gnueabihf)
-elseif (${arch} STREQUAL "arm64")
-  set(TOOLCHAIN_PREFIX aarch64-linux-gnu)
-endif()
+set(TOOLCHAIN_PREFIX arm-linux-gnueabihf)
 
 set(CMAKE_C_COMPILER gcc-9)
 set(CMAKE_CXX_COMPILER g++-9)
 set (CMAKE_C_FLAGS "-std=c99")
-
-
-
-
-
-
 
 
 #Capnproto
