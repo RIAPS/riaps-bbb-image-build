@@ -101,24 +101,24 @@ butter_install() {
 # Installing rpyc
 rpyc_install() {
     PREVIOUS_PWD=$PWD
-    cd /tmp/3rdparty
-    git clone https://github.com/tomerfiliba-org/rpyc /tmp/3rdparty/rpyc
-    cd /tmp/3rdparty/rpyc
+    TMP=`mktemp -d`
+    git clone https://github.com/tomerfiliba-org/rpyc $TMP/rpyc
+    cd $TMP/rpyc
     git checkout 5.0.1
     sudo python3 setup.py install
     cd $PREVIOUS_PWD
-    rm -rf /tmp/3rdparty/rpyc
+    rm -rf $TMP
 }
 
 py_lmdb_install() {
     PREVIOUS_PWD=$PWD
-    cd /tmp/3rdparty
-    git clone https://github.com/jnwatson/py-lmdb.git /tmp/3rdparty/py_lmdb
-    cd /tmp/3rdparty/py_lmdb
+    TMP=`mktemp -d`
+    git clone https://github.com/jnwatson/py-lmdb.git $TMP/py_lmdb
+    cd $TMP/py_lmdb
     git checkout py-lmdb_1.1.1
     sudo python3 setup.py install
     cd $PREVIOUS_PWD
-    rm -rf /tmp/3rdparty/py_lmdb
+    rm -rf $TMP
 }
 
 # Install other required packages
