@@ -124,7 +124,7 @@ py_lmdb_install() {
 # Install other required packages
 # Utilizing distribution installed pyyaml, psutil and cryptography versions
 pip3_3rd_party_installs(){
-    pip3 install 'pydevd==1.8.0' 'redis==3.5.3' 'hiredis==1.1.0' 'netifaces==0.10.7' --verbose
+    pip3 install 'pydevd==2.3.0' 'redis==3.5.3' 'hiredis==1.1.0' 'netifaces==0.10.7' --verbose
     pip3 install 'paramiko==2.7.2' 'cryptography==2.8' 'cgroups==0.1.0' 'cgroupspy==0.1.6' --verbose
     pip3 install 'fabric3==1.14.post1' 'pyroute2==0.5.14' 'minimalmodbus==0.7' 'pyserial==3.4' --verbose
     pip3 install 'pybind11==2.6.2' 'toml==0.10.2' 'pycryptodomex==3.10.1' 'spdlog==2.0.4' --verbose
