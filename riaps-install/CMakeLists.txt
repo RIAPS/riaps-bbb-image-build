@@ -14,7 +14,6 @@ set(minor 5 CACHE INTEGER "the minor version")
 
 set(prefix /usr/local)
 set(CMAKE_INSTALL_PREFIX ${prefix})
-set(TOOLCHAIN_PREFIX arm-linux-gnueabihf)
 
 set(CMAKE_C_COMPILER gcc-9)
 set(CMAKE_CXX_COMPILER g++-9)
