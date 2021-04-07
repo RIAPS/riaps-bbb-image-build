@@ -59,8 +59,8 @@ install_riaps() {
 source_scripts
 setup_peripherals
 user_func
-# MM TODO: riaps_dir_setup
-# MM TODO: setup_ssh_keys
+riaps_dir_setup
+setup_ssh_keys
 freqgov_off
 watchdog_timers
 setup_splash
@@ -68,11 +68,11 @@ setup_hostname
 python_install
 cython_install
 opendht_prereqs_install
-#externals_cmake_install
-#pycapnp_install
-#pyzmq_install
-#czmq_pybindings_install
-#zyre_pybindings_install
+externals_cmake_install
+pycapnp_install
+pyzmq_install
+czmq_pybindings_install
+zyre_pybindings_install
 apparmor_monkeys_install
 butter_install
 rpyc_install
@@ -80,12 +80,12 @@ py_lmdb_install
 pip3_3rd_party_installs
 pycom_pip_pkgs_bbb
 prctl_install
-# MM TODO: remove_pkgs_used_to_build
+remove_pkgs_used_to_build
 # MM TODO:  need to setup focal apt repo first - riaps_prereq
-# MM TODO: create_riaps_version_file
+create_riaps_version_file
 
 # Current method is to create the base RIAPS image without the RIAPS packages
 #install_riaps
 
 # Delete all of the install files from the image
-# MM TODO: sudo rm -rf /opt/riaps-install
+sudo rm -rf /opt/riaps-install
