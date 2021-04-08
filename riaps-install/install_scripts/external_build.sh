@@ -23,6 +23,7 @@ build_capnproto() {
     git checkout v0.8.0
     autoreconf -i c++
     cd c++ && ./configure --enable-shared
+    cd ..
     make -j2 -C c++
     sudo make -C c++ install
     cd $PREVIOUS_PWD
