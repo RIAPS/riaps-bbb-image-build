@@ -51,7 +51,7 @@ build_nethogs() {
     TMP=`mktemp -d`
     git clone https://github.com/raboof/nethogs $TMP/nethogs
     cd $TMP/nethogs
-    git checkout dbbee09d7939bf8efacdc90aa6c738f46e939f41
+    git checkout v0.8.6
     make -j2 libnethogs
     sudo make -j2 install_dev
     cd $PREVIOUS_PWD
@@ -97,7 +97,7 @@ build_opendht() {
     TMP=`mktemp -d`
     git clone https://github.com/savoirfairelinux/opendht.git $TMP/opendht
     cd $TMP/opendht
-    git checkout 1.7.4
+    git checkout 2.1.10
     ./autogen.sh
     ./configure PKG_CONFIG_PATH=/usr/local/pkgconfig --disable-tools --disable-python --enable-indexation MsgPack_LIBS="-L/usr/lib/arm-linux-gnueabihf -lmsgpackc" MsgPack_CFLAGS=-I/usr/include/arm-linux-gnueabihf CFLAGS=-I/tmp/3rdparty/opendht/argon2/include
     make -j2
