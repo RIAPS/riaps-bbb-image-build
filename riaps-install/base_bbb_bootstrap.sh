@@ -68,7 +68,7 @@ setup_hostname
 python_install
 cython_install
 opendht_prereqs_install
-externals_cmake_install
+build_external_libraries
 pycapnp_install
 pyzmq_install
 czmq_pybindings_install
