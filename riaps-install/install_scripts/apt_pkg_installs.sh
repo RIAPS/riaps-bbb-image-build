@@ -2,7 +2,7 @@
 set -e
 
 
-#install opendht prerequisites - expect libncurses5-dev installed
+#install opendht prerequisites - expect libreadline-dev libncurses-dev libmsgpack-dev libgnutls28-dev libasio-dev installed
 opendht_prereqs_install() {
     # run liblinks script to link gnutls and msgppack
     PREVIOUS_PWD=$PWD

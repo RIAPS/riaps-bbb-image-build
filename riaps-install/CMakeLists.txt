@@ -14,6 +14,7 @@ set(minor 5 CACHE INTEGER "the minor version")
 
 set(prefix /usr/local)
 set(CMAKE_INSTALL_PREFIX ${prefix})
+set(TOOLCHAIN_PREFIX arm-linux-gnueabihf)
 
 set(CMAKE_C_COMPILER gcc-9)
 set(CMAKE_CXX_COMPILER g++-9)
@@ -170,12 +171,14 @@ externalproject_add(zyre
                      "./autogen.sh"
                      CONFIGURE_COMMAND
                      ./configure
-                     PKG_CONFIG_PATH=${prefix}/pkgconfig
+                     PKG_CONFIG_PATH=${prefix}/lib/pkgconfig
+                     CFLAGS=-I/tmp/3rdparty/opendht/argon2/include
                      #GnuTLS_LIBS="-L/usr/lib/${TOOLCHAIN_PREFIX} -lgnutls"
                      #GnuTLS_CFLAGS=-I/usr/include/${TOOLCHAIN_PREFIX}
                      MsgPack_LIBS="-L/usr/lib/${TOOLCHAIN_PREFIX} -lmsgpackc"
                      MsgPack_CFLAGS=-I/usr/include/${TOOLCHAIN_PREFIX}
-                     CFLAGS=-I/tmp/3rdparty/opendht/argon2/include
+                     #Nettle_LIBS="-L/usr/lib/${TOOLCHAIN_PREFIX} -lgnutls"
+                     #Nettle_CFLAGS=-I/usr/include/${TOOLCHAIN_PREFIX}
                      BUILD_COMMAND
                      make
                      ${MAKE_JOB_FLAGS}
