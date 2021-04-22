@@ -129,5 +129,6 @@ pip3_3rd_party_installs(){
     pip3 install 'fabric3==1.14.post1' 'pyroute2==0.5.14' 'minimalmodbus==0.7' 'pyserial==3.4' --verbose
     pip3 install 'pybind11==2.6.2' 'toml==0.10.2' 'pycryptodomex==3.10.1' 'spdlog==2.0.4' --verbose
     pip3 install 'psutil==5.5.1' 'PyYAML==5.3.1' --verbose
+    pip3 install 'parse==1.19.0' --verbose
     echo ">>>>> installed pip3 packages"
 }

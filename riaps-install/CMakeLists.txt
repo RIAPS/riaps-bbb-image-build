@@ -171,9 +171,6 @@ externalproject_add(zyre
                      CONFIGURE_COMMAND
                      ./configure
                      PKG_CONFIG_PATH=${prefix}/pkgconfig
-                     --disable-tools
-                     --disable-python
-                     --enable-indexation
                      #GnuTLS_LIBS="-L/usr/lib/${TOOLCHAIN_PREFIX} -lgnutls"
                      #GnuTLS_CFLAGS=-I/usr/include/${TOOLCHAIN_PREFIX}
                      MsgPack_LIBS="-L/usr/lib/${TOOLCHAIN_PREFIX} -lmsgpackc"
