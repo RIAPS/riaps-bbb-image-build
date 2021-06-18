@@ -13,6 +13,7 @@ chmod +x build.sh
 ## How to update the version of omap-image-builder
 ```
 git clone https://github.com/RIAPS/riaps-bbb-image-build.git
+cd riaps-bbb-image-build
 git submodule update --init   # Clones omap-image-builder into local repo
 cd omap-image-builder
 git checkout <tag>            # Where <tag> is the version which you want to move to
