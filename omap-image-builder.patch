@@ -1,21 +1,9 @@
-diff --git a/scripts/chroot.sh b/scripts/chroot.sh
-index 11ce7dc3..dd82103a 100755
---- a/scripts/chroot.sh
-+++ b/scripts/chroot.sh
-@@ -1581,6 +1581,7 @@ fi
- 
- #Add Google IPv4 nameservers
- if [ -f "${tempdir}/etc/resolv.conf" ] ; then
-+	sudo rm ${tempdir}/etc/resolv.conf || true
- 	wfile="${tempdir}/etc/resolv.conf"
- 	sudo sh -c "echo 'nameserver 8.8.8.8' > ${wfile}"
- 	sudo sh -c "echo 'nameserver 8.8.4.4' >> ${wfile}"
 diff --git a/tools/setup_sdcard.sh b/tools/setup_sdcard.sh
-index 76789802..919d25aa 100755
+index 3d0f45db..8ee3a577 100755
 --- a/tools/setup_sdcard.sh
 +++ b/tools/setup_sdcard.sh
-@@ -1414,7 +1414,7 @@ populate_rootfs () {
- 			fi
+@@ -1324,7 +1324,7 @@ populate_rootfs () {
+ 			echo "console=${extlinux_console}" >> ${wfile}
  		fi
  
 -		cmdline="coherent_pool=1M net.ifnames=0"
@@ -23,51 +11,16 @@ index 76789802..919d25aa 100755
  
  		if [ ! "x${loops_per_jiffy}" = "x" ] ; then
  			cmdline="${cmdline} ${loops_per_jiffy}"
-@@ -1558,7 +1558,7 @@ populate_rootfs () {
- 			if [ "${BTRFS_FSTAB}" ] ; then
- 				echo "${rootfs_drive}  /  btrfs  defaults,noatime  0  1" >> ${wfile}
- 			else
--				echo "${rootfs_drive}  /  ${ROOTFS_TYPE}  noatime,errors=remount-ro  0  1" >> ${wfile}
-+				echo "${rootfs_drive}  /  ${ROOTFS_TYPE}  noatime,errors=remount-ro,usrquota,grpquota  0  1" >> ${wfile}
- 			fi
+@@ -1468,7 +1468,7 @@ populate_rootfs () {
+ 		if [ "${BTRFS_FSTAB}" ] ; then
+ 			echo "${rootfs_drive}  /  btrfs  defaults,noatime  0  1" >> ${wfile}
+ 		else
+-			echo "${rootfs_drive}  /  ${ROOTFS_TYPE}  noatime,errors=remount-ro  0  1" >> ${wfile}
++			echo "${rootfs_drive}  /  ${ROOTFS_TYPE}  noatime,errors=remount-ro,usrquota,grpquota  0  1" >> ${wfile}
  		fi
  
-@@ -1580,29 +1580,11 @@ populate_rootfs () {
- 				echo "" >> ${wfile}
- 				echo "# The primary network interface" >> ${wfile}
- 
--				if [ "${DISABLE_ETH}" ] ; then
--					echo "#auto eth0" >> ${wfile}
--					echo "#iface eth0 inet dhcp" >> ${wfile}
--				else
--					echo "auto eth0"  >> ${wfile}
--					echo "iface eth0 inet dhcp" >> ${wfile}
--				fi
--
--				#if we have systemd & wicd-gtk, disable eth0 in /etc/network/interfaces
--				if [ -f ${TEMPDIR}/disk/lib/systemd/systemd ] ; then
--					if [ -f ${TEMPDIR}/disk/usr/bin/wicd-gtk ] ; then
--						sed -i 's/auto eth0/#auto eth0/g' ${wfile}
--						sed -i 's/allow-hotplug eth0/#allow-hotplug eth0/g' ${wfile}
--						sed -i 's/iface eth0 inet dhcp/#iface eth0 inet dhcp/g' ${wfile}
--					fi
--				fi
--
--				#if we have connman, disable eth0 in /etc/network/interfaces
--				if [ -f ${TEMPDIR}/disk/etc/init.d/connman ] ; then
--					sed -i 's/auto eth0/#auto eth0/g' ${wfile}
--					sed -i 's/allow-hotplug eth0/#allow-hotplug eth0/g' ${wfile}
--					sed -i 's/iface eth0 inet dhcp/#iface eth0 inet dhcp/g' ${wfile}
--				fi
-+				echo "auto eth0" >> ${wfile}
-+				echo "iface eth0 inet dhcp" >> ${wfile}
-+				echo "# for second USB Ethernet, if desired uncomment these"
-+				echo "#auto eth1"
-+				echo "#iface eth1 inet dhcp"
- 
- 				echo "# Example to keep MAC address between reboots" >> ${wfile}
- 				echo "#hwaddress ether DE:AD:BE:EF:CA:FE" >> ${wfile}
-@@ -1885,7 +1867,7 @@ check_dtb_board () {
+ 		if [ "x${uboot_efi_mode}" = "xenable" ] ; then
+@@ -1798,7 +1798,7 @@ check_dtb_board () {
  
  usage () {
  	echo "usage: sudo $(basename $0) --mmc /dev/sdX --dtb <dev board>"
