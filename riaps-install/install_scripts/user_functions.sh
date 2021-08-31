@@ -2,11 +2,17 @@
 set -e
 
 
+# Added changes for SPI, but leaving it off for now for the BBB (work mainly done on RPi at this time - 08/31/2021)
 user_func() {
     sudo usermod -aG sudo $rfs_username
     sudo usermod -aG dialout $rfs_username
     sudo usermod -aG gpio  $rfs_username
     sudo usermod -aG pwm $rfs_username
+    #sudo usermod -aG spi $rfs_username
+    #sudo chown :spi /dev/spidev0.0
+    #sudo chmod g+rw /dev/spidev0.0
+    #sudo chown :spi /dev/spidev0.1
+    #sudo chmod g+rw /dev/spidev0.1
 
     cp etc/sudoers.d/riaps /etc/sudoers.d/riaps
     echo ">>>>> created user accounts"

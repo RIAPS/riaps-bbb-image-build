@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-# net-tools is already installed on some architectures.  It is installed here to make sure it is available.
+# Setting up for use with Ubuntu netplan methodology
 setup_network() {
     echo ">>>>> setup dhcp client configuration"
     touch /etc/systemd/network/dhcp.network
