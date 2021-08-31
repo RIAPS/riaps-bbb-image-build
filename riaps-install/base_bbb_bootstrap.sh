@@ -65,6 +65,7 @@ freqgov_off
 watchdog_timers
 setup_splash
 setup_hostname
+setup_network
 python_install
 cython_install
 opendht_prereqs_install
