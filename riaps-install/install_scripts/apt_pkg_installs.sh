@@ -31,3 +31,9 @@ riaps_prereq() {
     sudo add-apt-repository "deb [arch=${deb_arch}] https://riaps.isis.vanderbilt.edu/aptrepo/ $deb_codename main"
     echo ">>>>> riaps aptrepo setup"
 }
+
+# Chrony has an update in the focal-updates repo (which is configured after the initial install of chrony)
+# This patch is to reinstall so that the updated version 3.5-6ubuntu6.2 is installed which fixes a NTP issue.
+reinstall_chrony() {
+    sudo apt-get install chrony
+}
