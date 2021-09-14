@@ -1,5 +1,5 @@
 diff --git a/scripts/chroot.sh b/scripts/chroot.sh
-index 4d4d8773..529ac529 100755
+index 4d4d8773..2fdd9b28 100755
 --- a/scripts/chroot.sh
 +++ b/scripts/chroot.sh
 @@ -155,19 +155,19 @@ check_defines () {
@@ -31,8 +31,8 @@ index 4d4d8773..529ac529 100755
  	echo "" >> ${wfile}
  	;;
 +focal)
-+	echo "#deb http://deb.debian.org/debian ${deb_codename}-updates ${deb_components}" >> ${wfile}
-+	echo "##deb-src http://deb.debian.org/debian ${deb_codename}-updates ${deb_components}" >> ${wfile}
++	echo "deb http://${deb_mirror} ${deb_codename}-updates ${deb_components}" >> ${wfile}
++	echo "#deb-src http://${deb_mirror} ${deb_codename}-updates ${deb_components}" >> ${wfile}
 +	echo "" >> ${wfile}
 +	;;
  esac
