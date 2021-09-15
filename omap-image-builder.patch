@@ -47,11 +47,24 @@ index 4d4d8773..2fdd9b28 100755
          if [ ! "x${deb_desktop_application_pkgs}" = "x" ] ; then
              #Install the user choosen list.
              echo "Log: (chroot) Installing: ${deb_desktop_application_pkgs}"
+diff --git a/tools/hwpack/beaglebone.conf b/tools/hwpack/beaglebone.conf
+index fa525956..41359de2 100644
+--- a/tools/hwpack/beaglebone.conf
++++ b/tools/hwpack/beaglebone.conf
+@@ -28,7 +28,7 @@ dd_uboot_conf=""
+ dd_uboot_bs="384k"
+ boot_name="u-boot.img"
+ 
+-extlinux_console="ttyS0,115200n8"
++#extlinux_console="ttyS0,115200n8"
+ 
+ #Kernel:
+ usbnet_mem=
 diff --git a/tools/setup_sdcard.sh b/tools/setup_sdcard.sh
-index 3d0f45db..f64106fd 100755
+index d5fb8331..fb91d9b9 100755
 --- a/tools/setup_sdcard.sh
 +++ b/tools/setup_sdcard.sh
-@@ -1324,7 +1324,7 @@ populate_rootfs () {
+@@ -1227,7 +1227,7 @@ populate_rootfs () {
  			echo "console=${extlinux_console}" >> ${wfile}
  		fi
  
@@ -60,16 +73,16 @@ index 3d0f45db..f64106fd 100755
  
  		if [ ! "x${loops_per_jiffy}" = "x" ] ; then
  			cmdline="${cmdline} ${loops_per_jiffy}"
-@@ -1466,7 +1466,7 @@ populate_rootfs () {
- 		echo "#" >> ${wfile}
- 
+@@ -1371,7 +1371,7 @@ populate_rootfs () {
  		if [ "${BTRFS_FSTAB}" ] ; then
--			echo "${rootfs_drive}  /  btrfs  defaults,noatime  0  1" >> ${wfile}
-+			echo "${rootfs_drive}  /  btrfs  defaults,noatime,usrquota,grpquota  0  1" >> ${wfile}
+ 			echo "${rootfs_drive}  /  btrfs  defaults,noatime  0  1" >> ${wfile}
  		else
- 			echo "${rootfs_drive}  /  ${ROOTFS_TYPE}  noatime,errors=remount-ro  0  1" >> ${wfile}
+-			echo "${rootfs_drive}  /  ${ROOTFS_TYPE}  noatime,errors=remount-ro  0  1" >> ${wfile}
++			echo "${rootfs_drive}  /  ${ROOTFS_TYPE}  noatime,errors=remount-ro,usrquota,grpquota  0  1" >> ${wfile}
  		fi
-@@ -1798,7 +1798,7 @@ check_dtb_board () {
+ 
+ 		if [ "x${uboot_efi_mode}" = "xenable" ] ; then
+@@ -1701,7 +1701,7 @@ check_dtb_board () {
  
  usage () {
  	echo "usage: sudo $(basename $0) --mmc /dev/sdX --dtb <dev board>"

@@ -66,7 +66,6 @@ watchdog_timers
 setup_splash
 setup_hostname
 setup_network
-reinstall_chrony
 python_install
 cython_install
 opendht_prereqs_install
