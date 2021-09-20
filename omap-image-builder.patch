@@ -1,5 +1,5 @@
 diff --git a/scripts/chroot.sh b/scripts/chroot.sh
-index 4d4d8773..2fdd9b28 100755
+index e566727a..cab1ce3b 100755
 --- a/scripts/chroot.sh
 +++ b/scripts/chroot.sh
 @@ -155,19 +155,19 @@ check_defines () {
@@ -38,15 +38,6 @@ index 4d4d8773..2fdd9b28 100755
  esac
  
  #https://wiki.debian.org/Backports
-@@ -738,7 +743,7 @@ cat > "${DIR}/chroot_script.sh" <<-__EOF__
-             apt-get update
-             apt-get -y install ${deb_desktop_additional_pkgs}
-         fi
--        
-+
-         if [ ! "x${deb_desktop_application_pkgs}" = "x" ] ; then
-             #Install the user choosen list.
-             echo "Log: (chroot) Installing: ${deb_desktop_application_pkgs}"
 diff --git a/tools/hwpack/beaglebone.conf b/tools/hwpack/beaglebone.conf
 index fa525956..41359de2 100644
 --- a/tools/hwpack/beaglebone.conf
@@ -61,7 +52,7 @@ index fa525956..41359de2 100644
  #Kernel:
  usbnet_mem=
 diff --git a/tools/setup_sdcard.sh b/tools/setup_sdcard.sh
-index d5fb8331..fb91d9b9 100755
+index ce2724c1..abedae83 100755
 --- a/tools/setup_sdcard.sh
 +++ b/tools/setup_sdcard.sh
 @@ -1227,7 +1227,7 @@ populate_rootfs () {
@@ -82,7 +73,7 @@ index d5fb8331..fb91d9b9 100755
  		fi
  
  		if [ "x${uboot_efi_mode}" = "xenable" ] ; then
-@@ -1701,7 +1701,7 @@ check_dtb_board () {
+@@ -1703,7 +1703,7 @@ check_dtb_board () {
  
  usage () {
  	echo "usage: sudo $(basename $0) --mmc /dev/sdX --dtb <dev board>"
