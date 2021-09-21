@@ -1,31 +1,7 @@
 diff --git a/scripts/chroot.sh b/scripts/chroot.sh
-index e566727a..cab1ce3b 100755
+index e566727a..40284c63 100755
 --- a/scripts/chroot.sh
 +++ b/scripts/chroot.sh
-@@ -155,19 +155,19 @@ check_defines () {
- 	if [ ! "x${deb_desktop_pkgs}" = "x" ] ; then
- 		deb_desktop_pkgs="$(echo ${deb_desktop_pkgs} | sed 's/,/ /g' | sed 's/\t/,/g')"
- 	fi
-- 
-+
-     if [ ! "x${deb_desktop_additiona_pkgs}" = "x" ] ; then
-         deb_desktop_pkgs="$(echo ${deb_desktop_pkgs} | sed 's/,/ /g' | sed 's/\t/,/g')"
-     fi
--    
-+
-     if [ ! "x${deb_desktop_application_pkgs}" = "x" ] ; then
-         deb_desktop_pkgs="$(echo ${deb_desktop_pkgs} | sed 's/,/ /g' | sed 's/\t/,/g')"
-     fi
--    
-+
-     if [ ! "x${deb_desktop_additional_pkgs}" = "x" ] ; then
-         deb_desktop_additional_pkgs="$(echo ${deb_desktop_additional_pkgs} | sed 's/,/ /g' | sed 's/\t/,/g')"
-     fi
--    
-+
-     if [ ! "x${deb_desktop_application_pkgs}" = "x" ] ; then
-         deb_desktop_application_pkgs="$(echo ${deb_desktop_application_pkgs} | sed 's/,/ /g' | sed 's/\t/,/g')"
-     fi
 @@ -444,6 +444,11 @@ bookworm|sid)
  	echo "##deb-src http://deb.debian.org/debian ${deb_codename}-updates ${deb_components}" >> ${wfile}
  	echo "" >> ${wfile}
@@ -38,8 +14,21 @@ index e566727a..cab1ce3b 100755
  esac
  
  #https://wiki.debian.org/Backports
+diff --git a/tools/hwpack/beaglebone.conf b/tools/hwpack/beaglebone.conf
+index fa525956..41359de2 100644
+--- a/tools/hwpack/beaglebone.conf
++++ b/tools/hwpack/beaglebone.conf
+@@ -28,7 +28,7 @@ dd_uboot_conf=""
+ dd_uboot_bs="384k"
+ boot_name="u-boot.img"
+ 
+-extlinux_console="ttyS0,115200n8"
++#extlinux_console="ttyS0,115200n8"
+ 
+ #Kernel:
+ usbnet_mem=
 diff --git a/tools/setup_sdcard.sh b/tools/setup_sdcard.sh
-index ce2724c1..abedae83 100755
+index ce2724c1..0e0f3ebf 100755
 --- a/tools/setup_sdcard.sh
 +++ b/tools/setup_sdcard.sh
 @@ -1227,7 +1227,7 @@ populate_rootfs () {
@@ -60,12 +49,3 @@ index ce2724c1..abedae83 100755
  		fi
  
  		if [ "x${uboot_efi_mode}" = "xenable" ] ; then
-@@ -1703,7 +1703,7 @@ check_dtb_board () {
- 
- usage () {
- 	echo "usage: sudo $(basename $0) --mmc /dev/sdX --dtb <dev board>"
--	#tabed to match 
-+	#tabed to match
- 		cat <<-__EOF__
- 			-----------------------------
- 			Bugs email: "bugs at rcn-ee.com"
