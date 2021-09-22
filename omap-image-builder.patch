@@ -1,5 +1,5 @@
 diff --git a/scripts/chroot.sh b/scripts/chroot.sh
-index e566727a..40284c63 100755
+index a96b6e61..434140d4 100755
 --- a/scripts/chroot.sh
 +++ b/scripts/chroot.sh
 @@ -444,6 +444,11 @@ bookworm|sid)
