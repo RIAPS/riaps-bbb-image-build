@@ -14,19 +14,6 @@ index e566727a..40284c63 100755
  esac
  
  #https://wiki.debian.org/Backports
-diff --git a/tools/hwpack/beaglebone.conf b/tools/hwpack/beaglebone.conf
-index fa525956..41359de2 100644
---- a/tools/hwpack/beaglebone.conf
-+++ b/tools/hwpack/beaglebone.conf
-@@ -28,7 +28,7 @@ dd_uboot_conf=""
- dd_uboot_bs="384k"
- boot_name="u-boot.img"
- 
--extlinux_console="ttyS0,115200n8"
-+#extlinux_console="ttyS0,115200n8"
- 
- #Kernel:
- usbnet_mem=
 diff --git a/tools/setup_sdcard.sh b/tools/setup_sdcard.sh
 index ce2724c1..0e0f3ebf 100755
 --- a/tools/setup_sdcard.sh
