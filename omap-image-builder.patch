@@ -1,5 +1,5 @@
 diff --git a/scripts/chroot.sh b/scripts/chroot.sh
-index a96b6e61..d07a7ddc 100755
+index a96b6e61..ada075d3 100755
 --- a/scripts/chroot.sh
 +++ b/scripts/chroot.sh
 @@ -444,6 +444,11 @@ bookworm|sid)
@@ -20,7 +20,7 @@ index a96b6e61..d07a7ddc 100755
  		if [ ! "x${rfs_use_systemdnetworkd}" = "x" ] ; then
 -			if [ -f /etc/bbb.io/templates/eth0-DHCP.network ] ; then
 -				cp -v /etc/bbb.io/templates/eth0-DHCP.network /etc/systemd/network/eth0.network
-+			echo "[Match] > /etc/systemd/network/eth0.network
++			echo "[Match]" > /etc/systemd/network/eth0.network
 +			echo "Name=eth0" >> /etc/systemd/network/eth0.network
 +			echo "" >>  /etc/systemd/network/eth0.network
 +			echo "[Network]" >>  /etc/systemd/network/eth0.network
