@@ -1,5 +1,5 @@
 diff --git a/scripts/chroot.sh b/scripts/chroot.sh
-index a96b6e61..3b6aa301 100755
+index a96b6e61..2d4fcbad 100755
 --- a/scripts/chroot.sh
 +++ b/scripts/chroot.sh
 @@ -444,6 +444,11 @@ bookworm|sid)
@@ -14,12 +14,13 @@ index a96b6e61..3b6aa301 100755
  esac
  
  #https://wiki.debian.org/Backports
-@@ -1100,8 +1105,18 @@ cat > "${DIR}/chroot_script.sh" <<-__EOF__
+@@ -1100,9 +1105,19 @@ cat > "${DIR}/chroot_script.sh" <<-__EOF__
  		fi
  
  		if [ ! "x${rfs_use_systemdnetworkd}" = "x" ] ; then
 -			if [ -f /etc/bbb.io/templates/eth0-DHCP.network ] ; then
 -				cp -v /etc/bbb.io/templates/eth0-DHCP.network /etc/systemd/network/eth0.network
+-			fi
 +			echo "[Match]" > /etc/systemd/network/eth0.network
 +			echo "Name=eth0" >> /etc/systemd/network/eth0.network
 +			echo "Type=ether" >> /etc/systemd/network/eth0.network
@@ -30,11 +31,12 @@ index a96b6e61..3b6aa301 100755
 +			echo "[Network]" >>  /etc/systemd/network/eth0.network
 +			echo "DHCP=ipv4" >>  /etc/systemd/network/eth0.network
 +
-+			if [ -f /lib/systemd/system/systemd-resolved.service ] ; then
-+				systemctl disable systemd-resolved.service || true
- 			fi
++			#if [ -f /lib/systemd/system/systemd-resolved.service ] ; then
++			#	systemctl disable systemd-resolved.service || true
++			#fi
  
  			if [ -f /lib/systemd/system/systemd-networkd.service ] ; then
+ 				systemctl enable systemd-networkd.service || true
 @@ -1523,7 +1538,8 @@ if [ -f "${tempdir}/etc/dogtag" ] ; then
  fi
  
