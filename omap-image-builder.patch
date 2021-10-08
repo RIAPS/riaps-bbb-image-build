@@ -1,8 +1,32 @@
 diff --git a/scripts/chroot.sh b/scripts/chroot.sh
-index a96b6e61..711c9432 100755
+index fbcfe36f..016c857e 100755
 --- a/scripts/chroot.sh
 +++ b/scripts/chroot.sh
-@@ -444,6 +444,11 @@ bookworm|sid)
+@@ -155,19 +155,19 @@ check_defines () {
+ 	if [ ! "x${deb_desktop_pkgs}" = "x" ] ; then
+ 		deb_desktop_pkgs="$(echo ${deb_desktop_pkgs} | sed 's/,/ /g' | sed 's/\t/,/g')"
+ 	fi
+- 
++
+     if [ ! "x${deb_desktop_additiona_pkgs}" = "x" ] ; then
+         deb_desktop_pkgs="$(echo ${deb_desktop_pkgs} | sed 's/,/ /g' | sed 's/\t/,/g')"
+     fi
+-    
++
+     if [ ! "x${deb_desktop_application_pkgs}" = "x" ] ; then
+         deb_desktop_pkgs="$(echo ${deb_desktop_pkgs} | sed 's/,/ /g' | sed 's/\t/,/g')"
+     fi
+-    
++
+     if [ ! "x${deb_desktop_additional_pkgs}" = "x" ] ; then
+         deb_desktop_additional_pkgs="$(echo ${deb_desktop_additional_pkgs} | sed 's/,/ /g' | sed 's/\t/,/g')"
+     fi
+-    
++
+     if [ ! "x${deb_desktop_application_pkgs}" = "x" ] ; then
+         deb_desktop_application_pkgs="$(echo ${deb_desktop_application_pkgs} | sed 's/,/ /g' | sed 's/\t/,/g')"
+     fi
+@@ -445,6 +445,11 @@ bookworm|sid)
  	echo "##deb-src http://deb.debian.org/debian ${deb_codename}-updates ${deb_components}" >> ${wfile}
  	echo "" >> ${wfile}
  	;;
@@ -14,44 +38,11 @@ index a96b6e61..711c9432 100755
  esac
  
  #https://wiki.debian.org/Backports
-@@ -1100,9 +1105,19 @@ cat > "${DIR}/chroot_script.sh" <<-__EOF__
- 		fi
- 
- 		if [ ! "x${rfs_use_systemdnetworkd}" = "x" ] ; then
--			if [ -f /etc/bbb.io/templates/eth0-DHCP.network ] ; then
--				cp -v /etc/bbb.io/templates/eth0-DHCP.network /etc/systemd/network/eth0.network
--			fi
-+			echo "[Match]" > /etc/systemd/network/eth0.network
-+			echo "Name=eth0" >> /etc/systemd/network/eth0.network
-+			#echo "Type=ether" >> /etc/systemd/network/eth0.network
-+			echo "" >>  /etc/systemd/network/eth0.network
-+			#echo "[Link]" > /etc/systemd/network/eth0.network
-+			#echo "RequiredForOnline=no" >> /etc/systemd/network/eth0.network
-+			echo "" >>  /etc/systemd/network/eth0.network
-+			echo "[Network]" >>  /etc/systemd/network/eth0.network
-+			echo "DHCP=ipv4" >>  /etc/systemd/network/eth0.network
-+
-+			#if [ -f /lib/systemd/system/systemd-resolved.service ] ; then
-+			#	systemctl disable systemd-resolved.service || true
-+			#fi
- 
- 			if [ -f /lib/systemd/system/systemd-networkd.service ] ; then
- 				systemctl enable systemd-networkd.service || true
-@@ -1523,7 +1538,8 @@ if [ -f "${tempdir}/etc/dogtag" ] ; then
- fi
- 
- #Add Google IPv4 nameservers
--if [ -f "${tempdir}/etc/resolv.conf" ] ; then
-+if [ ! -f "${tempdir}/etc/resolv.conf" ] ; then
-+	sudo rm ${tempdir}/etc/resolv.conf || true
- 	wfile="${tempdir}/etc/resolv.conf"
- 	sudo sh -c "echo 'nameserver 8.8.8.8' > ${wfile}"
- 	sudo sh -c "echo 'nameserver 8.8.4.4' >> ${wfile}"
 diff --git a/tools/setup_sdcard.sh b/tools/setup_sdcard.sh
-index ce2724c1..0e0f3ebf 100755
+index acc61776..9b5470b7 100755
 --- a/tools/setup_sdcard.sh
 +++ b/tools/setup_sdcard.sh
-@@ -1227,7 +1227,7 @@ populate_rootfs () {
+@@ -1234,7 +1234,7 @@ populate_rootfs () {
  			echo "console=${extlinux_console}" >> ${wfile}
  		fi
  
@@ -60,7 +51,7 @@ index ce2724c1..0e0f3ebf 100755
  
  		if [ ! "x${loops_per_jiffy}" = "x" ] ; then
  			cmdline="${cmdline} ${loops_per_jiffy}"
-@@ -1371,7 +1371,7 @@ populate_rootfs () {
+@@ -1378,7 +1378,7 @@ populate_rootfs () {
  		if [ "${BTRFS_FSTAB}" ] ; then
  			echo "${rootfs_drive}  /  btrfs  defaults,noatime  0  1" >> ${wfile}
  		else
@@ -69,3 +60,12 @@ index ce2724c1..0e0f3ebf 100755
  		fi
  
  		if [ "x${uboot_efi_mode}" = "xenable" ] ; then
+@@ -1710,7 +1710,7 @@ check_dtb_board () {
+ 
+ usage () {
+ 	echo "usage: sudo $(basename $0) --mmc /dev/sdX --dtb <dev board>"
+-	#tabed to match 
++	#tabed to match
+ 		cat <<-__EOF__
+ 			-----------------------------
+ 			Bugs email: "bugs at rcn-ee.com"
