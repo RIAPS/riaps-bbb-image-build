@@ -22,6 +22,6 @@ git apply ../omap-image-builder.patch
 # Build image for BBB
 IMG=$(\ls deploy)
 cd deploy/$IMG
-sudo ./setup_sdcard.sh --img-4gb $IMG --dtb beaglebone
+sudo ./setup_sdcard.sh --img-4gb $IMG --dtb beaglebone --distro-bootloader --rootfs_label rootfs
 zip $IMG.zip *.img
 mv *.zip ../../../
