@@ -16,12 +16,11 @@ cp -r riaps-install omap-image-builder/
 # Build ubuntu filesystem
 cd omap-image-builder
 git apply ../omap-image-builder.patch
-#MM - ./RootStock-NG.sh -c riaps-bionic
 ./RootStock-NG.sh -c riaps-focal
 
 # Build image for BBB
 IMG=$(\ls deploy)
 cd deploy/$IMG
-sudo ./setup_sdcard.sh --img-4gb $IMG --dtb beaglebone --distro-bootloader
+sudo ./setup_sdcard.sh --img-4gb $IMG --dtb beaglebone --distro-bootloader --rootfs_label rootfs
 zip $IMG.zip *.img
 mv *.zip ../../../
