@@ -1,5 +1,5 @@
 diff --git a/scripts/chroot.sh b/scripts/chroot.sh
-index f3b2bfcd..9559e335 100755
+index f3b2bfcd..b86e575b 100755
 --- a/scripts/chroot.sh
 +++ b/scripts/chroot.sh
 @@ -445,6 +445,11 @@ bookworm|sid)
@@ -14,6 +14,20 @@ index f3b2bfcd..9559e335 100755
  esac
  
  #https://wiki.debian.org/Backports
+@@ -1011,11 +1016,11 @@ cat > "${DIR}/chroot_script.sh" <<-__EOF__
+ 		#We have systemd, so lets use it..
+ 
+ 		if [ -f /etc/systemd/systemd-journald.conf ] ; then
+-			sed -i -e 's:#SystemMaxUse=:SystemMaxUse=8M:g' /etc/systemd/systemd-journald.conf
++			sed -i -e 's:#SystemMaxUse=:SystemMaxUse=64M:g' /etc/systemd/systemd-journald.conf
+ 		fi
+ 
+ 		if [ -f /etc/systemd/journald.conf ] ; then
+-			sed -i -e 's:#SystemMaxUse=:SystemMaxUse=8M:g' /etc/systemd/journald.conf
++			sed -i -e 's:#SystemMaxUse=:SystemMaxUse=64M:g' /etc/systemd/journald.conf
+ 		fi
+ 
+ 		#systemd v215: systemd-timesyncd.service replaces ntpdate
 diff --git a/tools/setup_sdcard.sh b/tools/setup_sdcard.sh
 index 35db0e5a..fba8f66d 100755
 --- a/tools/setup_sdcard.sh
