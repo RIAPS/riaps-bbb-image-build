@@ -81,7 +81,7 @@ pip3_3rd_party_installs
 pycom_pip_pkgs_bbb
 prctl_install
 remove_pkgs_used_to_build
-# MM TODO:  need to setup focal apt repo first - riaps_prereq
+riaps_prereq
 create_riaps_version_file
 
 # Current method is to create the base RIAPS image without the RIAPS packages
