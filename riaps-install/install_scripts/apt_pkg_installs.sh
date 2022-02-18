@@ -24,6 +24,7 @@ remove_pkgs_used_to_build(){
 
 # Setup RIAPS repository
 riaps_prereq() {
+    sudo update-ca-certificates -f
     # Add RIAPS repository
     echo ">>>>> get riaps public key"
     wget -qO - https://riaps.isis.vanderbilt.edu/keys/riapspublic.key | sudo apt-key add -
