@@ -27,8 +27,10 @@ riaps_prereq() {
     sudo update-ca-certificates -f
     # Add RIAPS repository
     echo ">>>>> get riaps public key"
-    wget -qO - https://riaps.isis.vanderbilt.edu/keys/riapspublic.key | sudo apt-key add -
+    wget https://riaps.isis.vanderbilt.edu/keys/riapspublic.key
+    sudo apt-key add riapspublic.key
     echo ">>>>> add repo to sources"
     sudo add-apt-repository "deb [arch=${deb_arch}] https://riaps.isis.vanderbilt.edu/aptrepo/ $deb_codename main"
+    rm riapspublic.key
     echo ">>>>> riaps aptrepo setup"
 }
