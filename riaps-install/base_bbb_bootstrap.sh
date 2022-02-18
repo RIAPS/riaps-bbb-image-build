@@ -81,7 +81,7 @@ pip3_3rd_party_installs
 pycom_pip_pkgs_bbb
 prctl_install
 remove_pkgs_used_to_build
-riaps_prereq
+#riaps_prereq - issue with the certs here caused this to be pushed to riaps_install_node.sh
 create_riaps_version_file
 
 # Current method is to create the base RIAPS image without the RIAPS packages
