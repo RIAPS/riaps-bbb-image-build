@@ -50,7 +50,7 @@ setup_splash() {
 }
 
 install_riaps() {
-    sudo apt-get install riaps-core-$deb_arch riaps-pycom-$deb_arch riaps-timesync-$deb_arch -y
+    sudo apt-get install riaps-pycom-$deb_arch riaps-timesync-$deb_arch -y
     echo ">>>>> installed RIAPS platform"
 }
 

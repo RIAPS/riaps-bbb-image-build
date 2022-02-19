@@ -21,9 +21,9 @@ user_func() {
 riaps_dir_setup() {
     sudo mkdir -p /home/$rfs_username/riaps_apps
     sudo chown $rfs_username:$rfs_username /home/$rfs_username/riaps_apps
-    sudo cp riaps_install_bbb.sh /home/$rfs_username/
-    sudo chmod 500 /home/$rfs_username/riaps_install_bbb.sh
-    sudo chown $rfs_username:$rfs_username /home/$rfs_username/riaps_install_bbb.sh
+    sudo cp riaps_install_node.sh /home/$rfs_username/
+    sudo chmod 500 /home/$rfs_username/riaps_install_node.sh
+    sudo chown $rfs_username:$rfs_username /home/$rfs_username/riaps_install_node.sh
 
     echo ">>>>> setup riaps folder and install script"
 }
