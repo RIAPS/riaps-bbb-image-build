@@ -6,14 +6,11 @@ set -e
 # but is needed for RIAPS setup/installation. Therefore, it is installed here to make sure it is available.
 python_install() {
     sudo pip3 install --upgrade pip
-    echo ">>>>> upgraded pip"
-
-    sudo pip3 install pydevd
-    echo ">>>>> installed pydev"
+    echo ">>>>> installed upgrade pip3"
 }
 
 cython_install() {
-    sudo pip3 install 'git+https://github.com/cython/cython.git@0.28.5' --verbose
+    sudo pip3 install 'git+https://github.com/cython/cython.git@0.29.21' --verbose
     echo ">>>>> installed cython"
 }
 
@@ -24,7 +21,7 @@ externals_cmake_install(){
     mkdir -p /tmp/3rdparty/build
     cp CMakeLists.txt /tmp/3rdparty/.
     cd /tmp/3rdparty/build
-    cmake -Darch=${deb_arch} ..
+    cmake ..
     make
     cd $PREVIOUS_PWD
     sudo rm -rf /tmp/3rdparty/

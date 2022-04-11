@@ -19,9 +19,8 @@ if [ -f /etc/oib.project ] ; then
 	. /etc/oib.project
 fi
 
-
-# Indication of base release 18.04 to help in determining if a step in the install scripts are needed.
-REL_BASE_18_04='18.04'
+# Indication of base release 20.04 to help in determining if a step in the install scripts are needed.
+REL_BASE_20_04='20.04'
 
 # Source scripts needed for this bootstrap build
 source_scripts() {
@@ -32,6 +31,11 @@ source_scripts() {
         source "$PWD/$SCRIPTS/$i"
     done
     echo ">>>>> sourced install scripts"
+}
+
+pycom_pip_pkgs_bbb() {
+    sudo pip3 install 'Adafruit_BBIO == 1.2.0'
+    echo ">>>>> installed pip packages specifically for BBB"
 }
 
 setup_splash() {
@@ -52,7 +56,7 @@ setup_splash() {
 }
 
 install_riaps() {
-    sudo apt-get install riaps-core-$deb_arch riaps-pycom-$deb_arch riaps-timesync-$deb_arch -y
+    sudo apt-get install riaps-pycom-$deb_arch riaps-timesync-$deb_arch -y
     echo ">>>>> installed RIAPS platform"
 }
 
@@ -61,28 +65,29 @@ install_riaps() {
 source_scripts
 setup_peripherals
 user_func
+riaps_dir_setup
 setup_ssh_keys
-rm_snap_pkg
 freqgov_off
 watchdog_timers
 setup_splash
 setup_hostname
 python_install
 cython_install
-security_pkg_install
 opendht_prereqs_install
-externals_cmake_install
+build_external_libraries
 pycapnp_install
 pyzmq_install
 czmq_pybindings_install
 zyre_pybindings_install
 apparmor_monkeys_install
 butter_install
+rpyc_install
+py_lmdb_install
 pip3_3rd_party_installs
-spdlog_python_install
+pycom_pip_pkgs_bbb
 prctl_install
 remove_pkgs_used_to_build
-riaps_prereq
+#riaps_prereq - issue with the certs here caused this to be pushed to riaps_install_node.sh
 create_riaps_version_file
 
 # Current method is to create the base RIAPS image without the RIAPS packages

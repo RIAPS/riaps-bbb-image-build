@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.0.0)
+cmake_minimum_required(VERSION 3.16.0)
 include(ExternalProject)
 project(riaps-thirdpartypkgs)
 include(ProcessorCount)
@@ -14,17 +14,19 @@ set(minor 5 CACHE INTEGER "the minor version")
 
 set(prefix /usr/local)
 set(CMAKE_INSTALL_PREFIX ${prefix})
+set(TOOLCHAIN_PREFIX arm-linux-gnueabihf)
 
-set(CMAKE_C_COMPILER gcc-7)
-set(CMAKE_CXX_COMPILER g++-7)
+set(CMAKE_C_COMPILER gcc-9)
+set(CMAKE_CXX_COMPILER g++-9)
 set (CMAKE_C_FLAGS "-std=c99")
+
 
 #Capnproto
 externalproject_add(capnproto
                       GIT_REPOSITORY
                       "https://github.com/capnproto/capnproto"
                       GIT_TAG
-                      "v0.6.1"
+                      "v0.8.0"
                       SOURCE_DIR
                       "/tmp/3rdparty/capnproto"
                       BUILD_IN_SOURCE
@@ -56,7 +58,7 @@ externalproject_add(liblmdb
                       GIT_REPOSITORY
                       "https://github.com/LMDB/lmdb.git"
                       GIT_TAG
-                      "LMDB_0.9.24"
+                      "LMDB_0.9.28"
                       BUILD_IN_SOURCE
                       1
                       CONFIGURE_COMMAND
@@ -104,7 +106,7 @@ externalproject_add(czmq
                      GIT_REPOSITORY
                      "https://github.com/zeromq/czmq.git"
                      GIT_TAG
-                     "9ee60b18e8bd8ed4adca7fdaff3e700741da706e"
+                     "v4.2.1"
                      SOURCE_DIR
                      "/tmp/3rdparty/czmq"
                      BUILD_IN_SOURCE
@@ -113,6 +115,7 @@ externalproject_add(czmq
                      "./autogen.sh"
                      CONFIGURE_COMMAND
                      ./configure
+                     --enable-drafts
                      --with-uuid=no
                      --with-libsystemd=no
                      --with-liblz4=no
@@ -135,7 +138,7 @@ externalproject_add(zyre
                      GIT_REPOSITORY
                      "https://github.com/zeromq/zyre.git"
                      GIT_TAG
-                     "b36470e70771a329583f9cf73598898b8ee05d14"
+                     "v2.0.1"
                      SOURCE_DIR
                      "/tmp/3rdparty/zyre"
                      BUILD_IN_SOURCE
@@ -144,6 +147,7 @@ externalproject_add(zyre
                      "./autogen.sh"
                      CONFIGURE_COMMAND
                      ./configure
+                     --enable-drafts
                      BUILD_COMMAND
                      make
                      ${MAKE_JOB_FLAGS}
@@ -167,15 +171,14 @@ externalproject_add(zyre
                      "./autogen.sh"
                      CONFIGURE_COMMAND
                      ./configure
-                     PKG_CONFIG_PATH=${prefix}/pkgconfig
-                     --disable-tools
-                     --disable-python
-                     --enable-indexation
-                     #GnuTLS_LIBS="-L/usr/lib/arm-linux-gnueabihf -lgnutls"
-                     #GnuTLS_CFLAGS=-I/usr/include/arm-linux-gnueabihf
-                     MsgPack_LIBS="-L/usr/lib/arm-linux-gnueabihf -lmsgpackc"
-                     MsgPack_CFLAGS=-I/usr/include/arm-linux-gnueabihf
+                     PKG_CONFIG_PATH=${prefix}/lib/pkgconfig
                      CFLAGS=-I/tmp/3rdparty/opendht/argon2/include
+                     #GnuTLS_LIBS="-L/usr/lib/${TOOLCHAIN_PREFIX} -lgnutls"
+                     #GnuTLS_CFLAGS=-I/usr/include/${TOOLCHAIN_PREFIX}
+                     MsgPack_LIBS="-L/usr/lib/${TOOLCHAIN_PREFIX} -lmsgpackc"
+                     MsgPack_CFLAGS=-I/usr/include/${TOOLCHAIN_PREFIX}
+                     #Nettle_LIBS="-L/usr/lib/${TOOLCHAIN_PREFIX} -lgnutls"
+                     #Nettle_CFLAGS=-I/usr/include/${TOOLCHAIN_PREFIX}
                      BUILD_COMMAND
                      make
                      ${MAKE_JOB_FLAGS}

@@ -1,54 +1,52 @@
+diff --git a/scripts/chroot.sh b/scripts/chroot.sh
+index c685aa7e..f43560fc 100755
+--- a/scripts/chroot.sh
++++ b/scripts/chroot.sh
+@@ -445,6 +445,11 @@ bookworm|sid)
+ 	echo "##deb-src http://deb.debian.org/debian ${deb_codename}-updates ${deb_components}" >> ${wfile}
+ 	echo "" >> ${wfile}
+ 	;;
++focal)
++        echo "deb http://${deb_mirror} ${deb_codename}-updates ${deb_components}" >> ${wfile}
++        echo "#deb-src http://${deb_mirror} ${deb_codename}-updates ${deb_components}" >> ${wfile}
++        echo "" >> ${wfile}
++        ;;
+ esac
+ 
+ #https://wiki.debian.org/Backports
+@@ -1034,11 +1039,11 @@ cat > "${DIR}/chroot_script.sh" <<-__EOF__
+ 		#We have systemd, so lets use it..
+ 
+ 		if [ -f /etc/systemd/systemd-journald.conf ] ; then
+-			sed -i -e 's:#SystemMaxUse=:SystemMaxUse=8M:g' /etc/systemd/systemd-journald.conf
++			sed -i -e 's:#SystemMaxUse=:SystemMaxUse=64M:g' /etc/systemd/systemd-journald.conf
+ 		fi
+ 
+ 		if [ -f /etc/systemd/journald.conf ] ; then
+-			sed -i -e 's:#SystemMaxUse=:SystemMaxUse=8M:g' /etc/systemd/journald.conf
++			sed -i -e 's:#SystemMaxUse=:SystemMaxUse=64M:g' /etc/systemd/journald.conf
+ 		fi
+ 
+ 		#systemd v215: systemd-timesyncd.service replaces ntpdate
 diff --git a/tools/setup_sdcard.sh b/tools/setup_sdcard.sh
-index 3323db7b..83e6782e 100755
+index 2ee39b24..9e3d7f2b 100755
 --- a/tools/setup_sdcard.sh
 +++ b/tools/setup_sdcard.sh
-@@ -1301,7 +1301,7 @@ populate_rootfs () {
+@@ -1237,7 +1237,7 @@ populate_rootfs () {
+ 			echo "console=${extlinux_console}" >> ${wfile}
  		fi
- 	fi
-
--	cmdline="coherent_pool=1M net.ifnames=0"
-+	cmdline="coherent_pool=1M net.ifnames=0 security=apparmor"
-
- 	if [ ! "x${rng_core}" = "x" ] ; then
- 		cmdline="${cmdline} ${rng_core}"
-@@ -1435,7 +1435,7 @@ populate_rootfs () {
- 			if [ "${BTRFS_FSTAB}" ] ; then
- 				echo "${rootfs_drive}  /  btrfs  defaults,noatime  0  1" >> ${wfile}
- 			else
--				echo "${rootfs_drive}  /  ${ROOTFS_TYPE}  noatime,errors=remount-ro  0  1" >> ${wfile}
-+				echo "${rootfs_drive}  /  ${ROOTFS_TYPE}  noatime,errors=remount-ro,usrquota,grpquota  0  1" >> ${wfile}
- 			fi
+ 
+-		cmdline="coherent_pool=1M net.ifnames=0"
++		cmdline="coherent_pool=1M net.ifnames=0 security=apparmor"
+ 
+ 		if [ ! "x${loops_per_jiffy}" = "x" ] ; then
+ 			cmdline="${cmdline} ${loops_per_jiffy}"
+@@ -1381,7 +1381,7 @@ populate_rootfs () {
+ 		if [ "${BTRFS_FSTAB}" ] ; then
+ 			echo "${rootfs_drive}  /  btrfs  defaults,noatime  0  1" >> ${wfile}
+ 		else
+-			echo "${rootfs_drive}  /  ${ROOTFS_TYPE}  noatime,errors=remount-ro  0  1" >> ${wfile}
++			echo "${rootfs_drive}  /  ${ROOTFS_TYPE}  noatime,errors=remount-ro,usrquota,grpquota  0  1" >> ${wfile}
  		fi
-
-@@ -1457,29 +1457,8 @@ populate_rootfs () {
- 				echo "" >> ${wfile}
- 				echo "# The primary network interface" >> ${wfile}
-
--				if [ "${DISABLE_ETH}" ] ; then
--					echo "#auto eth0" >> ${wfile}
--					echo "#iface eth0 inet dhcp" >> ${wfile}
--				else
--					echo "auto eth0"  >> ${wfile}
--					echo "iface eth0 inet dhcp" >> ${wfile}
--				fi
--
--				#if we have systemd & wicd-gtk, disable eth0 in /etc/network/interfaces
--				if [ -f ${TEMPDIR}/disk/lib/systemd/systemd ] ; then
--					if [ -f ${TEMPDIR}/disk/usr/bin/wicd-gtk ] ; then
--						sed -i 's/auto eth0/#auto eth0/g' ${wfile}
--						sed -i 's/allow-hotplug eth0/#allow-hotplug eth0/g' ${wfile}
--						sed -i 's/iface eth0 inet dhcp/#iface eth0 inet dhcp/g' ${wfile}
--					fi
--				fi
--
--				#if we have connman, disable eth0 in /etc/network/interfaces
--				if [ -f ${TEMPDIR}/disk/etc/init.d/connman ] ; then
--					sed -i 's/auto eth0/#auto eth0/g' ${wfile}
--					sed -i 's/allow-hotplug eth0/#allow-hotplug eth0/g' ${wfile}
--					sed -i 's/iface eth0 inet dhcp/#iface eth0 inet dhcp/g' ${wfile}
--				fi
-+				echo "auto eth0" >> ${wfile}
-+				echo "iface eth0 inet dhcp" >> ${wfile}
-
- 				echo "# Example to keep MAC address between reboots" >> ${wfile}
- 				echo "#hwaddress ether DE:AD:BE:EF:CA:FE" >> ${wfile}
+ 
+ 		if [ "x${uboot_efi_mode}" = "xenable" ] ; then
