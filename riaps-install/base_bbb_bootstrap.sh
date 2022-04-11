@@ -5,6 +5,12 @@ set -e
 # GCC 7, G++ 7, GIT, pkg-config, python3-dev, python3-setuptools
 # pps-tools, libpcap0.8, nettle6, libgnutls30, libncurses5
 
+# Differences from riaps-integration/riaps-node-creation/base-bbb-bootstrap.#!/bin/sh
+# This method uses riaps-bionic.conf to setup all username and all apt packages desired, so they are not in the
+# install_scripts for this repo.  The omap-image-builder.patch handles the network_setup.sh script information and
+# the quota setup.
+# MM TODO - check this is how it happens: base file copies (i.e. /usr/bin/set-unique_hostname and /etc/sudoers.d/riaps) like DEBIAN package setup
+
 #contains: rfs_username, release_date
 if [ -f /etc/rcn-ee.conf ] ; then
 	. /etc/rcn-ee.conf
