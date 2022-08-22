@@ -83,7 +83,7 @@ externalproject_add(libnethogs
                       GIT_REPOSITORY
                       "https://github.com/raboof/nethogs"
                       GIT_TAG
-                      "dbbee09d7939bf8efacdc90aa6c738f46e939f41"
+                      "v0.8.7"
                       BUILD_IN_SOURCE
                       1
                       CONFIGURE_COMMAND
@@ -162,7 +162,7 @@ externalproject_add(zyre
                      GIT_REPOSITORY
                      "https://github.com/savoirfairelinux/opendht.git"
                      GIT_TAG
-                     "1.7.4"
+                     "2.4.9"
                      SOURCE_DIR
                      "/tmp/3rdparty/opendht"
                      BUILD_IN_SOURCE
@@ -172,13 +172,14 @@ externalproject_add(zyre
                      CONFIGURE_COMMAND
                      ./configure
                      PKG_CONFIG_PATH=${prefix}/lib/pkgconfig
-                     CFLAGS=-I/tmp/3rdparty/opendht/argon2/include
-                     #GnuTLS_LIBS="-L/usr/lib/${TOOLCHAIN_PREFIX} -lgnutls"
-                     #GnuTLS_CFLAGS=-I/usr/include/${TOOLCHAIN_PREFIX}
+                     Argon2_LIBS="-L/usr/lib/${TOOLCHAIN_PREFIX} -largon2"
+                     Argon2_CFLAGS=-I/usr/include
+                     GnuTLS_LIBS="-L/usr/lib/${TOOLCHAIN_PREFIX} -lgnutls"
+                     GnuTLS_CFLAGS=-I/usr/include
                      MsgPack_LIBS="-L/usr/lib/${TOOLCHAIN_PREFIX} -lmsgpackc"
-                     MsgPack_CFLAGS=-I/usr/include/${TOOLCHAIN_PREFIX}
-                     #Nettle_LIBS="-L/usr/lib/${TOOLCHAIN_PREFIX} -lgnutls"
-                     #Nettle_CFLAGS=-I/usr/include/${TOOLCHAIN_PREFIX}
+                     MsgPack_CFLAGS=-I/usr/include
+                     Nettle_LIBS="-L/usr/lib/${TOOLCHAIN_PREFIX} -lgnutls"
+                     Nettle_CFLAGS=-I/usr/include
                      BUILD_COMMAND
                      make
                      ${MAKE_JOB_FLAGS}
