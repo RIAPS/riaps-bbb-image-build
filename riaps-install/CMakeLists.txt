@@ -171,15 +171,15 @@ externalproject_add(zyre
                      "./autogen.sh"
                      CONFIGURE_COMMAND
                      ./configure
-                     PKG_CONFIG_PATH=${prefix}/lib/pkgconfig
-                     Argon2_LIBS="-L/usr/lib/${TOOLCHAIN_PREFIX} -largon2"
-                     Argon2_CFLAGS=-I/usr/include
-                     GnuTLS_LIBS="-L/usr/lib/${TOOLCHAIN_PREFIX} -lgnutls"
-                     GnuTLS_CFLAGS=-I/usr/include
-                     MsgPack_LIBS="-L/usr/lib/${TOOLCHAIN_PREFIX} -lmsgpackc"
-                     MsgPack_CFLAGS=-I/usr/include
-                     Nettle_LIBS="-L/usr/lib/${TOOLCHAIN_PREFIX} -lgnutls"
-                     Nettle_CFLAGS=-I/usr/include
+                     #PKG_CONFIG_PATH=${prefix}/lib/pkgconfig
+                     #Argon2_LIBS="-L/usr/lib/${TOOLCHAIN_PREFIX} -largon2"
+                     #Argon2_CFLAGS=-I/usr/include
+                     #GnuTLS_LIBS="-L/usr/lib/${TOOLCHAIN_PREFIX} -lgnutls"
+                     #GnuTLS_CFLAGS=-I/usr/include
+                     #MsgPack_LIBS="-L/usr/lib/${TOOLCHAIN_PREFIX} -lmsgpackc"
+                     #MsgPack_CFLAGS=-I/usr/include
+                     #Nettle_LIBS="-L/usr/lib/${TOOLCHAIN_PREFIX} -lgnutls"
+                     #Nettle_CFLAGS=-I/usr/include
                      BUILD_COMMAND
                      make
                      ${MAKE_JOB_FLAGS}

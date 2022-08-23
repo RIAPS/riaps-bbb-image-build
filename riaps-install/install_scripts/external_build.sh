@@ -97,11 +97,12 @@ build_opendht() {
     TMP=`mktemp -d`
     git clone https://github.com/savoirfairelinux/opendht.git $TMP/opendht
     cd $TMP/opendht
-    git checkout 2.4.9
+    git checkout v2.4.9
     ./autogen.sh
     #./configure PKG_CONFIG_PATH=/usr/local/lib/pkgconfig MsgPack_LIBS="-L/usr/lib/arm-linux-gnueabihf -lmsgpackc" MsgPack_CFLAGS=-I/usr/include/arm-linux-gnueabihf Nettle_LIBS="-L/usr/lib/arm-linux-gnueabihf -lnettle" Nettle_CFLAGS=-I/usr/include/arm-linux-gnueabihf GnuTLS_LIBS="-L/usr/lib/arm-linux-gnueabihf -lgnutls" GnuTLS_CFLAGS=-I/usr/include/arm-linux-gnueabihf CFLAGS=-I/tmp/3rdparty/opendht/argon2/include
     #./configure PKG_CONFIG_PATH=/usr/local/lib/pkgconfig MsgPack_LIBS="-L/usr/lib/arm-linux-gnueabihf -lmsgpackc" MsgPack_CFLAGS=-I/usr/include/arm-linux-gnueabihf CFLAGS=-I/tmp/3rdparty/opendht/argon2/include
-    ./configure PKG_CONFIG_PATH=/usr/local/lib/pkgconfig MsgPack_LIBS="-L/usr/lib/arm-linux-gnueabihf -lmsgpackc" MsgPack_CFLAGS=-I/usr/include Argon2_LIBS="-L/usr/lib/arm-linux-gnueabihf -largon2" Argon2_CFLAGS=-I/usr/include Nettle_LIBS="-L/usr/lib/arm-linux-gnueabihf -lnettle" Nettle_CFLAGS=-I/usr/include GnuTLS_LIBS="-L/usr/lib/arm-linux-gnueabihf -lgnutls" GnuTLS_CFLAGS=-I/usr/include
+    #./configure PKG_CONFIG_PATH=/usr/local/lib/pkgconfig MsgPack_LIBS="-L/usr/lib/arm-linux-gnueabihf -lmsgpackc" MsgPack_CFLAGS=-I/usr/include Argon2_LIBS="-L/usr/lib/arm-linux-gnueabihf -largon2" Argon2_CFLAGS=-I/usr/include Nettle_LIBS="-L/usr/lib/arm-linux-gnueabihf -lnettle" Nettle_CFLAGS=-I/usr/include GnuTLS_LIBS="-L/usr/lib/arm-linux-gnueabihf -lgnutls" GnuTLS_CFLAGS=-I/usr/include
+    ./configure
     make -j2
     sudo make install
     cd $PREVIOUS_PWD
