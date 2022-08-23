@@ -162,7 +162,7 @@ externalproject_add(zyre
                      GIT_REPOSITORY
                      "https://github.com/savoirfairelinux/opendht.git"
                      GIT_TAG
-                     "2.4.9"
+                     "v2.4.9"
                      SOURCE_DIR
                      "/tmp/3rdparty/opendht"
                      BUILD_IN_SOURCE
