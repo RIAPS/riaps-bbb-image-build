@@ -51,9 +51,9 @@ build_nethogs() {
     TMP=`mktemp -d`
     git clone https://github.com/raboof/nethogs $TMP/nethogs
     cd $TMP/nethogs
-    git checkout v0.8.7
-    make -j2 
-    sudo make install
+    git checkout v0.8.6
+    make -j2 libnethogs
+    sudo make install_dev
     cd $PREVIOUS_PWD
     sudo rm -rf $TMP
     echo ">>>>> built nethogs library"
