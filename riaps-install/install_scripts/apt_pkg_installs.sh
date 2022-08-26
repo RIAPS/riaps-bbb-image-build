@@ -18,7 +18,7 @@ remove_pkgs_used_to_build(){
     sudo apt-get remove libboost-all-dev libcap-dev libffi-dev libgnutls28-dev libncurses5-dev libncurses-dev -y
     sudo apt-get remove libreadline-dev libsystemd-dev -y
     sudo apt-get remove libzmq3-dev libmsgpack-dev nettle-dev libcurl4-gnutls-dev libasio-dev -y
-    sudo apt-get remove libargon2-0-dev libfmt-dev libhttp-parser-dev -y
+    sudo apt-get remove libargon2-0-dev libfmt-dev libhttp-parser-dev rustc -y
     sudo apt autoremove -y
     echo ">>>>> removed packages used in building process, no longer needed"
 }
