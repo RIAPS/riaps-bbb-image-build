@@ -10,7 +10,7 @@ python_install() {
 }
 
 cython_install() {
-    sudo pip3 install 'git+https://github.com/cython/cython.git@0.29.21' --verbose
+    sudo pip3 install 'git+https://github.com/cython/cython.git@0.29.32' --verbose
     echo ">>>>> installed cython"
 }
 
