@@ -117,7 +117,7 @@ py_lmdb_install() {
     TMP=`mktemp -d`
     git clone https://github.com/jnwatson/py-lmdb.git $TMP/py_lmdb
     cd $TMP/py_lmdb
-    git checkout py-lmdb_1.3.1
+    git checkout py-lmdb_1.3.0
     sudo python3 setup.py install
     cd $PREVIOUS_PWD
     rm -rf $TMP
