@@ -2,7 +2,6 @@
 set -e
 
 # Install spdlog python logger
-# No longer using this (remove once tested)
 spdlog_python_install() {
     PREVIOUS_PWD=$PWD
     TMP=`mktemp -d`
@@ -106,7 +105,7 @@ rpyc_install() {
     TMP=`mktemp -d`
     git clone https://github.com/tomerfiliba-org/rpyc $TMP/rpyc
     cd $TMP/rpyc
-    git checkout 5.0.1
+    git checkout 5.2.3
     sudo python3 setup.py install
     cd $PREVIOUS_PWD
     rm -rf $TMP
