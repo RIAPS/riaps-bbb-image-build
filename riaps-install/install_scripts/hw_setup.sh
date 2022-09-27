@@ -38,7 +38,7 @@ setup_peripherals() {
     getent group gpio ||groupadd gpio
     getent group dialout ||groupadd dialout
     getent group pwm ||groupadd pwm
-    #getent group spi ||groupadd spi
+    getent group spi ||groupadd spi
     echo ">>>>> setup peripherals - gpio, uart, pwm and spi"
 }
 

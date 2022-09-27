@@ -8,12 +8,13 @@ user_func() {
     sudo usermod -aG dialout $rfs_username
     sudo usermod -aG gpio  $rfs_username
     sudo usermod -aG pwm $rfs_username
-    getent group spi || sudo groupadd spi
     sudo usermod -aG spi $rfs_username
-    sudo chown :spi /dev/spidev0.0
-    sudo chmod g+rw /dev/spidev0.0
-    sudo chown :spi /dev/spidev0.1
-    sudo chmod g+rw /dev/spidev0.1
+
+    # This can not be done at this point (files not available, probably need a reboot first)
+    #sudo chown :spi /dev/spidev0.0
+    #sudo chmod g+rw /dev/spidev0.0
+    #sudo chown :spi /dev/spidev0.1
+    #sudo chmod g+rw /dev/spidev0.1
 
     cp etc/sudoers.d/riaps /etc/sudoers.d/riaps
     echo ">>>>> created user accounts"
