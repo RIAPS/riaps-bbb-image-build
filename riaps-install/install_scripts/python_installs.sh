@@ -103,7 +103,7 @@ butter_install() {
 rpyc_install() {
     PREVIOUS_PWD=$PWD
     TMP=`mktemp -d`
-    git clone https://github.com/tomerfiliba-org/rpyc $TMP/rpyc
+    git clone https://github.com/tomerfiliba-org/rpyc.git $TMP/rpyc
     cd $TMP/rpyc
     git checkout 5.2.3
     sudo python3 setup.py install
