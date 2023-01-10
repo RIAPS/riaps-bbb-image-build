@@ -8,7 +8,9 @@ user_func() {
     sudo usermod -aG dialout $rfs_username
     sudo usermod -aG gpio  $rfs_username
     sudo usermod -aG pwm $rfs_username
-    #sudo usermod -aG spi $rfs_username
+    sudo usermod -aG spi $rfs_username
+
+    # This can not be done at this point (files not available, probably need a reboot first)
     #sudo chown :spi /dev/spidev0.0
     #sudo chmod g+rw /dev/spidev0.0
     #sudo chown :spi /dev/spidev0.1

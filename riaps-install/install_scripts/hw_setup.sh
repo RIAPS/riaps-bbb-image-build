@@ -38,6 +38,11 @@ setup_peripherals() {
     getent group gpio ||groupadd gpio
     getent group dialout ||groupadd dialout
     getent group pwm ||groupadd pwm
-    #getent group spi ||groupadd spi
+    getent group spi ||groupadd spi
     echo ">>>>> setup peripherals - gpio, uart, pwm and spi"
+}
+
+# To create an image with a date close to the creation date
+set_date() {
+    sudo rdate -n -4 time.nist.gov
 }

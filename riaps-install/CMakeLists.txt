@@ -58,7 +58,7 @@ externalproject_add(liblmdb
                       GIT_REPOSITORY
                       "https://github.com/LMDB/lmdb.git"
                       GIT_TAG
-                      "LMDB_0.9.28"
+                      "LMDB_0.9.29"
                       BUILD_IN_SOURCE
                       1
                       CONFIGURE_COMMAND
@@ -83,7 +83,7 @@ externalproject_add(libnethogs
                       GIT_REPOSITORY
                       "https://github.com/raboof/nethogs"
                       GIT_TAG
-                      "dbbee09d7939bf8efacdc90aa6c738f46e939f41"
+                      "v0.8.6"
                       BUILD_IN_SOURCE
                       1
                       CONFIGURE_COMMAND
@@ -162,7 +162,7 @@ externalproject_add(zyre
                      GIT_REPOSITORY
                      "https://github.com/savoirfairelinux/opendht.git"
                      GIT_TAG
-                     "1.7.4"
+                     "v2.4.10"
                      SOURCE_DIR
                      "/tmp/3rdparty/opendht"
                      BUILD_IN_SOURCE
@@ -171,14 +171,15 @@ externalproject_add(zyre
                      "./autogen.sh"
                      CONFIGURE_COMMAND
                      ./configure
-                     PKG_CONFIG_PATH=${prefix}/lib/pkgconfig
-                     CFLAGS=-I/tmp/3rdparty/opendht/argon2/include
+                     #PKG_CONFIG_PATH=${prefix}/lib/pkgconfig
+                     #Argon2_LIBS="-L/usr/lib/${TOOLCHAIN_PREFIX} -largon2"
+                     #Argon2_CFLAGS=-I/usr/include
                      #GnuTLS_LIBS="-L/usr/lib/${TOOLCHAIN_PREFIX} -lgnutls"
-                     #GnuTLS_CFLAGS=-I/usr/include/${TOOLCHAIN_PREFIX}
-                     MsgPack_LIBS="-L/usr/lib/${TOOLCHAIN_PREFIX} -lmsgpackc"
-                     MsgPack_CFLAGS=-I/usr/include/${TOOLCHAIN_PREFIX}
+                     #GnuTLS_CFLAGS=-I/usr/include
+                     #MsgPack_LIBS="-L/usr/lib/${TOOLCHAIN_PREFIX} -lmsgpackc"
+                     #MsgPack_CFLAGS=-I/usr/include
                      #Nettle_LIBS="-L/usr/lib/${TOOLCHAIN_PREFIX} -lgnutls"
-                     #Nettle_CFLAGS=-I/usr/include/${TOOLCHAIN_PREFIX}
+                     #Nettle_CFLAGS=-I/usr/include
                      BUILD_COMMAND
                      make
                      ${MAKE_JOB_FLAGS}
