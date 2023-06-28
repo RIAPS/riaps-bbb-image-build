@@ -28,6 +28,8 @@ riaps_prereq() {
     sudo update-ca-certificates -f
     # Add RIAPS repository
     echo ">>>>> get riaps public key"
+    sudo rdate -n -4 time.nist.gov
+    ## MM TODO: why is this next command not working (try rdate first and next try --no-check-certificate)
     wget https://riaps.isis.vanderbilt.edu/keys/riapspublic.key
     sudo apt-key add riapspublic.key
     echo ">>>>> add repo to sources"
