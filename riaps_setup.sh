@@ -8,4 +8,4 @@
 export LC_ALL=C
 
 sudo cp -r riaps-install $1/opt/
-sudo cp target/chroot/elinux.sh $1/opt/riaps-install/
+sudo cp target/chroot/elinux-arm64.sh $1/opt/riaps-install/

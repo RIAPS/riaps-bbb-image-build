@@ -19,9 +19,6 @@ if [ -f /etc/oib.project ] ; then
 	. /etc/oib.project
 fi
 
-# Indication of base release 20.04 to help in determining if a step in the install scripts are needed.
-REL_BASE_20_04='20.04'
-
 # Source scripts needed for this bootstrap build
 source_scripts() {
     PWD=$(pwd)
@@ -66,7 +63,7 @@ source_scripts
 setup_peripherals
 user_func
 riaps_dir_setup
-setup_ssh_keys
+#setup_ssh_keys - removed, must put dev vm keys on bbb during initial setup
 freqgov_off
 watchdog_timers
 setup_splash
@@ -88,6 +85,7 @@ pycom_pip_pkgs_bbb
 prctl_install
 remove_pkgs_used_to_build
 #riaps_prereq - issue with the certs here caused this to be pushed to riaps_install_node.sh
+riaps_prereq # putting back in to see it will work now
 create_riaps_version_file
 set_date
 

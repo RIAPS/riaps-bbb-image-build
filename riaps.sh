@@ -5,5 +5,5 @@
 export LC_ALL=C
 
 cd /opt/riaps-install
-/bin/bash elinux.sh
+/bin/bash elinux-arm64.sh
 /bin/bash base_bbb_bootstrap.sh
