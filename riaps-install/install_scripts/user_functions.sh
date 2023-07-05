@@ -28,6 +28,7 @@ riaps_dir_setup() {
     #sudo chmod 500 /home/$rfs_username/riaps_install_node.sh
     #sudo chown $rfs_username:$rfs_username /home/$rfs_username/riaps_install_node.sh
     sudo mkdir -p /home/$rfs_username/.ssh
+    sudo chown $rfs_username:$rfs_username /home/$rfs_username/.ssh
 
     echo ">>>>> setup riaps folder and install script"
 }
