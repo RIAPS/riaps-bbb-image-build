@@ -10,8 +10,11 @@ python_install() {
 }
 
 cython_install() {
+    start=`date +%s`
     sudo pip3 install 'git+https://github.com/cython/cython.git@0.29.32' --verbose
+    end=`date +%s`
     echo ">>>>> installed cython"
+    echo ">>>>> Execution time was `expr $end - $start` seconds."
 }
 
 # install external packages using cmake
