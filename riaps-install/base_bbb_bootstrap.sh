@@ -85,7 +85,7 @@ pycom_pip_pkgs_bbb
 prctl_install
 remove_pkgs_used_to_build
 #riaps_prereq - issue with the certs here caused this to be pushed to riaps_install_node.sh
-#riaps_prereq # putting back in to see it will work now
+riaps_prereq # putting back in to see it will work now
 create_riaps_version_file
 set_date
 

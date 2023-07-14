@@ -31,7 +31,8 @@ build_capnproto() {
     sudo rm -rf $TMP
     end=`date +%s`
     echo ">>>>> built capnproto library"
-    echo ">>>>> Execution time was `expr $end - $start` seconds."
+    diff=`expr $end - $start`
+    echo ">>>>> Execution time was $(($diff/60)) minutes and $(($diff%60)) seconds."
 }
 
 # LMDB
@@ -48,7 +49,8 @@ build_lmdb() {
     cd $PREVIOUS_PWD
     sudo rm -rf $TMP
     echo ">>>>> built lmdb library"
-    echo ">>>>> Execution time was `expr $end - $start` seconds."
+    diff=`expr $end - $start`
+    echo ">>>>> Execution time was $(($diff/60)) minutes and $(($diff%60)) seconds."
 }
 
 # libnethogs
@@ -65,7 +67,8 @@ build_nethogs() {
     cd $PREVIOUS_PWD
     sudo rm -rf $TMP
     echo ">>>>> built nethogs library"
-    echo ">>>>> Execution time was `expr $end - $start` seconds."
+    diff=`expr $end - $start`
+    echo ">>>>> Execution time was $(($diff/60)) minutes and $(($diff%60)) seconds."
 }
 
 # High-level C binding for ØMQ
@@ -84,7 +87,8 @@ build_czmq() {
     cd $PREVIOUS_PWD
     sudo rm -rf $TMP
     echo ">>>>> built czmq library"
-    echo ">>>>> Execution time was `expr $end - $start` seconds."
+    diff=`expr $end - $start`
+    echo ">>>>> Execution time was $(($diff/60)) minutes and $(($diff%60)) seconds."
 }
 
 # Zyre
@@ -103,7 +107,8 @@ build_zyre() {
     cd $PREVIOUS_PWD
     sudo rm -rf $TMP
     echo ">>>>> built zyre library"
-    echo ">>>>> Execution time was `expr $end - $start` seconds."
+    diff=`expr $end - $start`
+    echo ">>>>> Execution time was $(($diff/60)) minutes and $(($diff%60)) seconds."
 }
 
 # OpenDHT - cython must be install prior to this to allow python package to be installed
@@ -125,7 +130,8 @@ build_opendht() {
     cd $PREVIOUS_PWD
     sudo rm -rf $TMP
     echo ">>>>> built opendht library"
-    echo ">>>>> Execution time was `expr $end - $start` seconds."
+    diff=`expr $end - $start`
+    echo ">>>>> Execution time was $(($diff/60)) minutes and $(($diff%60)) seconds."
 }
 
 # libsoc
@@ -144,5 +150,6 @@ build_libsoc() {
     cd $PREVIOUS_PWD
     sudo rm -rf $TMP
     echo ">>>>> built libsoc library"
-    echo ">>>>> Execution time was `expr $end - $start` seconds."
+    diff=`expr $end - $start`
+    echo ">>>>> Execution time was $(($diff/60)) minutes and $(($diff%60)) seconds."
 }

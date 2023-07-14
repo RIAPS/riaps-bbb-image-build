@@ -14,7 +14,8 @@ spdlog_python_install() {
     cd $PREVIOUS_PWD
     sudo rm -rf $TMP
     echo ">>>>> installed spdlog"
-    echo ">>>>> Execution time was `expr $end - $start` seconds."
+    diff=`expr $end - $start`
+    echo ">>>>> Execution time was $(($diff/60)) minutes and $(($diff%60)) seconds."
 }
 
 apparmor_monkeys_install() {
@@ -139,5 +140,6 @@ pip3_3rd_party_installs(){
     pip3 install 'gpiod==1.5.3' --verbose
     end=`date +%s`
     echo ">>>>> installed pip3 packages"
-    echo ">>>>> Execution time was `expr $end - $start` seconds."
+    diff=`expr $end - $start`
+    echo ">>>>> Execution time was $(($diff/60)) minutes and $(($diff%60)) seconds."
 }
