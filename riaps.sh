@@ -6,6 +6,7 @@ export LC_ALL=C
 
 cd /opt/riaps-install
 rcn_start=`date +%s`
+echo ">>>>> RCN Execution start time was $rcn_start."
 /bin/bash elinux.sh
 rcn_end=`date +%s`
 diff=`expr $rcn_end - $rcn_start`
