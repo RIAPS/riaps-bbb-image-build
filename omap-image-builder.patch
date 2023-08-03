@@ -1,8 +1,8 @@
 diff --git a/tools/setup_sdcard.sh b/tools/setup_sdcard.sh
-index 72936193..6fa52036 100755
+index 84bfec50..15cea267 100755
 --- a/tools/setup_sdcard.sh
 +++ b/tools/setup_sdcard.sh
-@@ -1328,7 +1328,7 @@ populate_rootfs () {
+@@ -1331,7 +1331,7 @@ populate_rootfs () {
  			echo "console=${extlinux_console}" >> ${wfile}
  		fi
  
@@ -11,7 +11,7 @@ index 72936193..6fa52036 100755
  
  		if [ ! "x${loops_per_jiffy}" = "x" ] ; then
  			cmdline="${cmdline} ${loops_per_jiffy}"
-@@ -1451,7 +1451,7 @@ populate_rootfs () {
+@@ -1454,7 +1454,7 @@ populate_rootfs () {
  		if [ "${BTRFS_FSTAB}" ] ; then
  			echo "${rootfs_drive}  /  btrfs  defaults,noatime  0  1" >> ${wfile}
  		else
