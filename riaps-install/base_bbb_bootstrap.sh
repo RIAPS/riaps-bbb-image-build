@@ -64,7 +64,7 @@ setup_peripherals
 user_func
 riaps_dir_setup
 #setup_ssh_keys - removed, must put dev vm keys on bbb during initial setup
-freqgov_off
+#freqgov_off
 watchdog_timers
 setup_splash
 setup_hostname
