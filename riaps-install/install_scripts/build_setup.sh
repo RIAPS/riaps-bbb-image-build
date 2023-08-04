@@ -5,7 +5,7 @@ set -e
 # Python3-dev and python3-setuptools are already in the base image of some architectures,
 # but is needed for RIAPS setup/installation. Therefore, it is installed here to make sure it is available.
 python_install() {
-    sudo pip3 install --upgrade pip
+    sudo python -m pip3 install --upgrade pip
     echo ">>>>> installed upgrade pip3"
 }
 
