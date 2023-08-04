@@ -81,7 +81,7 @@ spdlog_python_install
 #butter_install - this may no longer be needed (MM - 092022)
 py_lmdb_install
 pip3_3rd_party_installs
-pycom_pip_pkgs_bbb
+#pycom_pip_pkgs_bbb
 prctl_install
 remove_pkgs_used_to_build
 #riaps_prereq - issue with the certs here caused this to be pushed to riaps_install_node.sh
