@@ -69,7 +69,7 @@ watchdog_timers
 setup_splash
 setup_hostname
 #python_install MM: upgrading pip using pip3 is failing in debian bookworm
-cython_install
+#cython_install MM: move to apt install
 opendht_prereqs_install
 build_external_libraries
 pycapnp_install
