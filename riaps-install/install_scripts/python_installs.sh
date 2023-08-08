@@ -139,15 +139,14 @@ py_lmdb_install() {
 }
 
 # Install other required packages
-# Utilizing distribution installed pyyaml (5.3.1), psutil (5.5.1) and cryptography versions
-# Specified bcrypt (a dependency of other needed security packages) since the new versions include rustc (which we do not need)
+# Utilizing distribution installed psutil (5.5.1) and cryptography versions
 pip3_3rd_party_installs(){
     echo ">>>>> installing pip3 packages"
     start=`date +%s`
     pip3 install 'redis==4.3.4' 'hiredis==2.0.0' 'netifaces==0.11.0' --verbose
-    pip3 install 'bcrypt==3.2.2' 'cgroups==0.1.0' 'cgroupspy==0.2.2' --verbose
+    pip3 install 'cgroups==0.1.0' 'cgroupspy==0.2.2' --verbose
     pip3 install 'fabric3==1.14.post1' 'pyserial==3.5' --verbose
-    pip3 install 'pycryptodomex==3.15.0' --verbose
+    pip3 install 'pycryptodomex==3.15.0' pyyaml==6.0.1 --verbose
     pip3 install 'psutil==5.5.1' 'rpyc==5.2.3' --verbose
     pip3 install 'parse==1.19.0' 'butter==0.13.1' --verbose
     end=`date +%s`
