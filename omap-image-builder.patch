@@ -1,3 +1,15 @@
+diff --git a/scripts/chroot.sh b/scripts/chroot.sh
+index 949f2583..4709213e 100755
+--- a/scripts/chroot.sh
++++ b/scripts/chroot.sh
+@@ -1073,6 +1073,7 @@ cat > "${DIR}/chroot_script.sh" <<-__EOF__
+ 		#echo "SUBSYSTEM==\"rpmsg_rpc\", GROUP=\"tisdk\", MODE=\"0660\"" >> /etc/udev/rules.d/tisdk.rules
+ 
+ 		default_groups="admin,adm,cloud9ide,dialout,gpio,i2c,input,kmem,cdrom,floppy,audio,dip,video,netdev,plugdev,bluetooth,users,render,systemd-journal,tisdk,weston-launch"
++		default_groups="admin,dialout,gpio,i2c,users,systemd-journal"
+ 
+ 		pkg="sudo"
+ 		dpkg_check
 diff --git a/tools/setup_sdcard.sh b/tools/setup_sdcard.sh
 index 84bfec50..15cea267 100755
 --- a/tools/setup_sdcard.sh
