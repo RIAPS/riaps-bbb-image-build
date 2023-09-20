@@ -1,12 +1,15 @@
 #!/usr/bin/env bash
 set -e
 
+RIAPS_PREFIX="/opt/riaps"
+
 # Note that using CMake with qemu for an arm 32 processor is a known issue
 # (https://gitlab.kitware.com/cmake/cmake/-/issues/20568). So doing individual builds
 build_external_libraries() {
     build_capnproto
     build_lmdb
     build_nethogs
+    build_libzmq
     build_czmq
     build_zyre
     build_opendht
@@ -71,6 +74,22 @@ build_nethogs() {
     echo ">>>>> Execution time was $(($diff/60)) minutes and $(($diff%60)) seconds."
 }
 
+# libzmq with Draft APIs
+build_libzmq() {
+    PREVIOUS_PWD=$PWD
+    TMP=`mktemp -d`
+    git clone https://github.com/zeromq/libzmq.git $TMP/libzmq
+    cd $TMP/libzmq
+    git checkout v4.3.2
+    ./autogen.sh
+    ./configure --prefix=$RIAPS_PREFIX --enable-drafts
+    make -j2
+    sudo make install
+    cd $PREVIOUS_PWD
+    sudo rm -rf $TMP
+    echo ">>>>> built czmq library"
+}
+
 # High-level C binding for ØMQ
 build_czmq() {
     PREVIOUS_PWD=$PWD
@@ -80,7 +99,7 @@ build_czmq() {
     git checkout v4.2.1
     start=`date +%s`
     ./autogen.sh
-    ./configure --enable-drafts --with-uuid=no --with-libsystemd=no --with-liblz4=no --enable-zmakecert=no --enable-zsp=no --enable-test_randof=no --enable-czmq_selftest=no
+    ./configure --with-uuid=no --with-libsystemd=no --with-liblz4=no --enable-zmakecert=no --enable-zsp=no --enable-test_randof=no --enable-czmq_selftest=no --prefix=$RIAPS_PREFIX libzmq_LIBS="-L$RIAPS_PREFIX/lib -lzmq" libzmq_CFLAGS=-I$RIAPS_PREFIX/include
     make -j2
     sudo make install
     end=`date +%s`
@@ -100,7 +119,7 @@ build_zyre() {
     git checkout v2.0.1
     start=`date +%s`
     ./autogen.sh
-    ./configure --enable-drafts
+    ./configure --prefix=$RIAPS_PREFIX libzmq_LIBS="-L$RIAPS_PREFIX/lib -lzmq" libzmq_CFLAGS=-I$RIAPS_PREFIX/include czmq_LIBS="-L$RIAPS_PREFIX/lib -lczmq" czmq_CFLAGS=-I$RIAPS_PREFIX/include
     make -j2
     sudo make install
     end=`date +%s`
@@ -120,9 +139,6 @@ build_opendht() {
     git checkout v2.4.10
     start=`date +%s`
     ./autogen.sh
-    #./configure PKG_CONFIG_PATH=/usr/local/lib/pkgconfig MsgPack_LIBS="-L/usr/lib/arm-linux-gnueabihf -lmsgpackc" MsgPack_CFLAGS=-I/usr/include/arm-linux-gnueabihf Nettle_LIBS="-L/usr/lib/arm-linux-gnueabihf -lnettle" Nettle_CFLAGS=-I/usr/include/arm-linux-gnueabihf GnuTLS_LIBS="-L/usr/lib/arm-linux-gnueabihf -lgnutls" GnuTLS_CFLAGS=-I/usr/include/arm-linux-gnueabihf CFLAGS=-I/tmp/3rdparty/opendht/argon2/include
-    #./configure PKG_CONFIG_PATH=/usr/local/lib/pkgconfig MsgPack_LIBS="-L/usr/lib/arm-linux-gnueabihf -lmsgpackc" MsgPack_CFLAGS=-I/usr/include/arm-linux-gnueabihf CFLAGS=-I/tmp/3rdparty/opendht/argon2/include
-    #./configure PKG_CONFIG_PATH=/usr/local/lib/pkgconfig MsgPack_LIBS="-L/usr/lib/arm-linux-gnueabihf -lmsgpackc" MsgPack_CFLAGS=-I/usr/include Argon2_LIBS="-L/usr/lib/arm-linux-gnueabihf -largon2" Argon2_CFLAGS=-I/usr/include Nettle_LIBS="-L/usr/lib/arm-linux-gnueabihf -lnettle" Nettle_CFLAGS=-I/usr/include GnuTLS_LIBS="-L/usr/lib/arm-linux-gnueabihf -lgnutls" GnuTLS_CFLAGS=-I/usr/include
     ./configure
     make -j2
     sudo make install

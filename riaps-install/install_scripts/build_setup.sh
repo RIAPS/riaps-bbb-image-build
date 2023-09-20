@@ -18,16 +18,3 @@ cython_install() {
     echo ">>>>> Execution time was $(($diff/60)) minutes and $(($diff%60)) seconds."
 }
 
-# install external packages using cmake
-# libraries installed: capnproto, lmdb, libnethogs, CZMQ, Zyre, opendht, libsoc
-externals_cmake_install(){
-    PREVIOUS_PWD=$PWD
-    mkdir -p /tmp/3rdparty/build
-    cp CMakeLists.txt /tmp/3rdparty/.
-    cd /tmp/3rdparty/build
-    cmake ..
-    make
-    cd $PREVIOUS_PWD
-    sudo rm -rf /tmp/3rdparty/
-    echo ">>>>> cmake install complete"
-}
