@@ -14,7 +14,15 @@ build_external_libraries() {
     build_zyre
     build_opendht
     build_libsoc
+    configure_library_path
     echo ">>>>> built all external libraries"
+}
+
+configure_library_path() {
+    sudo touch /etc/ld.so.conf.d/riaps.conf
+    sudo echo "# Add RIAPS Library for ZeroMQ specific builds" >> /etc/ld.so.conf.d/riaps.conf
+    sudo echo "/opt/riaps/lib" >> /etc/ld.so.conf.d/riaps.conf
+    sudo ldconfig
 }
 
 #Capnproto
