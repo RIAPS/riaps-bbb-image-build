@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 set -e
 
-RIAPS_PREFIX="/opt/riaps"
-
 # Note that using CMake with qemu for an arm 32 processor is a known issue
 # (https://gitlab.kitware.com/cmake/cmake/-/issues/20568). So doing individual builds
 build_external_libraries() {
@@ -21,7 +19,7 @@ build_external_libraries() {
 configure_library_path() {
     sudo touch /etc/ld.so.conf.d/riaps.conf
     sudo echo "# Add RIAPS Library for ZeroMQ specific builds" >> /etc/ld.so.conf.d/riaps.conf
-    sudo echo "/opt/riaps/lib" >> /etc/ld.so.conf.d/riaps.conf
+    sudo echo "$RIAPS_PREFIX/lib" >> /etc/ld.so.conf.d/riaps.conf
     sudo ldconfig
 }
 
@@ -89,13 +87,17 @@ build_libzmq() {
     git clone https://github.com/zeromq/libzmq.git $TMP/libzmq
     cd $TMP/libzmq
     git checkout v4.3.2
+    start=`date +%s`
     ./autogen.sh
     ./configure --prefix=$RIAPS_PREFIX --enable-drafts
     make -j2
     sudo make install
+    end=`date +%s`
     cd $PREVIOUS_PWD
     sudo rm -rf $TMP
-    echo ">>>>> built czmq library"
+    echo ">>>>> built libzmq library"
+    diff=`expr $end - $start`
+    echo ">>>>> Execution time was $(($diff/60)) minutes and $(($diff%60)) seconds."
 }
 
 # High-level C binding for ØMQ
