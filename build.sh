@@ -8,7 +8,7 @@ rm -rf omap-image-builder/deploy/      # Remove any existing builds
 
 # Copy RIAPS files into omap-image-builder repo
 #MM - cp riaps-bionic.conf omap-image-builder/configs/
-cp riaps-focal.conf omap-image-builder/configs/
+cp riaps-jammy.conf omap-image-builder/configs/
 cp riaps_setup.sh omap-image-builder/target/chroot/
 cp riaps.sh omap-image-builder/target/chroot/
 cp -r riaps-install omap-image-builder/
@@ -16,7 +16,7 @@ cp -r riaps-install omap-image-builder/
 # Build ubuntu filesystem
 cd omap-image-builder
 git apply ../omap-image-builder.patch
-./RootStock-NG.sh -c riaps-focal
+./RootStock-NG.sh -c riaps-jammy
 
 # Build image for BBB
 IMG=$(\ls deploy)

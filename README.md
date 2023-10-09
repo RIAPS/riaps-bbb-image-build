@@ -29,7 +29,7 @@ git diff > omap-image-builder.patch
 ```
 
 ## File explanation
-- riaps-focal.conf: This file is modeled after the files inside omap-image-builder/config. It tells the builder which packages need to be installed in the newly generated image.
+- riaps-jammy.conf: This file is modeled after the files inside omap-image-builder/config. It tells the builder which packages need to be installed in the newly generated image.
 - riaps-install/: This folder will be copied into the image at /opt/riaps-install/. Any files which need to be available from inside the image, need to be inside this folder.
 - riaps_setup.sh: Script which is automatically called from outside the chroot, before the image is fully setup. This script can copy files such as riaps-install/ into the chroot directory.
 - riaps.sh: Script which is called from inside the chroot. Responsible for performing RIAPS configuration from inside the virtual environment.
