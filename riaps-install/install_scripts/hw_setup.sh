@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
+# MM TODO: check that the rng-tools.service is started with install of rng-tools
 
 # cpufrequtils is already installed on some architectures, but is needed to set this performance.
 # Therefore, it is installed here to make sure it is available.
