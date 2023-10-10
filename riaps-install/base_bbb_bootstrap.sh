@@ -73,7 +73,7 @@ python_install
 cython_install
 opendht_prereqs_install
 build_external_libraries
-#pycapnp_install - MM TODO: commented out until able to build libcapnproto
+pycapnp_install
 apparmor_monkeys_install
 #spdlog_python_install
 py_lmdb_install
