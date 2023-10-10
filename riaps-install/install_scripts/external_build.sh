@@ -4,7 +4,7 @@ set -e
 # Note that using CMake with qemu for an arm 32 processor is a known issue
 # (https://gitlab.kitware.com/cmake/cmake/-/issues/20568). So doing individual builds
 build_external_libraries() {
-    build_capnproto
+    #build_capnproto
     build_lmdb
     build_nethogs
     build_libzmq
