@@ -77,16 +77,16 @@ opendht_prereqs_install
 apparmor_monkeys_install
 #spdlog_python_install
 #py_lmdb_install
-pip3_3rd_party_installs
-pycom_pip_pkgs_bbb
-prctl_install
+#pip3_3rd_party_installs
+#pycom_pip_pkgs_bbb
+#prctl_install
 # move zmq python installs to last due to cython being updated to 3.0.2 for the pyzmq build
 #pyzmq_install
 #czmq_pybindings_install
 #zyre_pybindings_install
-remove_pkgs_used_to_build
+#remove_pkgs_used_to_build
 #riaps_prereq - DEV: currently working with a non-apt release, no repo to add yet
-create_riaps_version_file
+#create_riaps_version_file
 set_date
 
 # Current method is to create the base RIAPS image without the RIAPS packages
