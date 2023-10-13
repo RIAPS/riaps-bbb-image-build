@@ -15,7 +15,7 @@ cp -r riaps-install omap-image-builder/
 
 # Build ubuntu filesystem
 cd omap-image-builder
-git apply ../omap-image-builder.patch
+#git apply ../omap-image-builder.patch
 ./RootStock-NG.sh -c riaps-jammy
 
 # Build image for BBB
