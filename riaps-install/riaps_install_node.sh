@@ -19,5 +19,5 @@ echo ">>>>> riaps aptrepo setup"
 
 # install RIAPS packages
 sudo apt-get update
-sudo apt-get install riaps-pycom-armhf riaps-timesync-armhf -y
+sudo apt-get install riaps-pycom riaps-timesync-armhf -y
 echo "installed RIAPS platform"
