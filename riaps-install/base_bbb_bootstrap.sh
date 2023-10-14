@@ -70,7 +70,6 @@ watchdog_timers
 setup_splash
 setup_hostname
 python_install
-cython_install
 opendht_prereqs_install
 build_external_libraries
 pycapnp_install
