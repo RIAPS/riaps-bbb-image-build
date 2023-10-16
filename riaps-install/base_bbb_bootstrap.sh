@@ -69,8 +69,8 @@ freqgov_off
 watchdog_timers
 setup_splash
 setup_hostname
-python_install
-opendht_prereqs_install
+#python_install
+#opendht_prereqs_install
 build_external_libraries
 pycapnp_install
 apparmor_monkeys_install
