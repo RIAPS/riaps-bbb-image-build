@@ -10,7 +10,6 @@ build_external_libraries() {
     build_libzmq
     build_czmq
     build_zyre
-    cython_install
     build_opendht
     #build_libsoc
     configure_library_path
