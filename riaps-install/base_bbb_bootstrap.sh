@@ -69,9 +69,9 @@ freqgov_off
 watchdog_timers
 setup_splash
 setup_hostname
-#python_install
 cython_install
 build_external_libraries
+python_install
 pycapnp_install
 apparmor_monkeys_install
 spdlog_python_install
