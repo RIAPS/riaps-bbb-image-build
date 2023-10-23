@@ -77,7 +77,10 @@ pycapnp_install() {
     git clone https://github.com/capnproto/pycapnp.git $TMP/pycapnp
     cd $TMP/pycapnp
     git checkout v1.2.2
-    CFLAGS=-I/usr/local/include LDFLAGS=-L/usr/local/lib sudo pip3 install . --verbose
+    # Force this release to use Cython installed (0.29.36), otherwise it tries Cython 3.0.4 and fails
+    #    Note: newer versions pf pycapnp add this restriction 
+    sed -i 's/cython/cython<3/g' pyproject.toml
+    sudo pip3 install . -C force-system-libcapnp=True --verbose
     cd $PREVIOUS_PWD
     sudo rm -rf $TMP
     echo ">>>>> linked pycapnp with capnproto"
