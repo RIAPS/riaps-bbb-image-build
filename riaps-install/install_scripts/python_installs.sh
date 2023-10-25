@@ -140,7 +140,9 @@ py_lmdb_install() {
 }
 
 # Install other required packages
-# Utilizing distribution installed pyyaml (5.3.1), psutil (5.5.1) and cryptography versions
+# Utilizing distribution installed
+#     For 20.04: pyyaml = 5.3.1, psutil = 5.5.1 
+#     For 22.04: pyyaml = 5.4.1, cryptography = 3.4.8, netifaces = 0.11.0
 pip3_3rd_party_installs(){
     start=`date +%s`
     pip3 install 'pydevd==2.9.6' 'redis==4.6.0' 'hiredis==2.2.3' 'netifaces==0.11.0' --verbose
@@ -150,6 +152,7 @@ pip3_3rd_party_installs(){
     pip3 install 'psutil==5.5.1' 'rpyc==5.3.1' --verbose
     pip3 install 'parse==1.19.1' 'butter==0.13.1' --verbose
     pip3 install 'gpiod==1.5.4', 'spdlog==2.0.6' --verbose
+    pip3 install 'psutil==5.9.0' --verbose
     end=`date +%s`
     echo ">>>>> installed pip3 packages"
     diff=`expr $end - $start`
