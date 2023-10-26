@@ -63,34 +63,34 @@ source_scripts
 RIAPS_PREFIX="/opt/riaps" # for location of compiled zmq libraries
 setup_peripherals
 user_func
-#riaps_dir_setup
+riaps_dir_setup
 # setup_ssh_keys - removed, must put dev vm keys on bbb during initial setup
-#freqgov_off
-#watchdog_timers
-#setup_splash
+freqgov_off
+watchdog_timers
+setup_splash
 setup_hostname
-#cython_install
-#build_external_libraries
+cython_install
+build_external_libraries
 python_install
-#pycapnp_install
-#apparmor_monkeys_install
-#spdlog_python_install
-#py_lmdb_install
-rust_install
+pycapnp_install
+apparmor_monkeys_install
+spdlog_python_install
+py_lmdb_install
+#rust_install
 pip3_3rd_party_installs
-#pycom_pip_pkgs_bbb
-#prctl_install
+pycom_pip_pkgs_bbb
+prctl_install
 # move zmq python installs to last due to cython being updated to 3.0.2 for the pyzmq build
-#pyzmq_install
-#czmq_pybindings_install
-#zyre_pybindings_install
+pyzmq_install
+czmq_pybindings_install
+zyre_pybindings_install
 #remove_pkgs_used_to_build
 #riaps_prereq - DEV: currently working with a non-apt release, no repo to add yet
-#create_riaps_version_file
-#set_date
+create_riaps_version_file
+set_date
 
 # Current method is to create the base RIAPS image without the RIAPS packages
 #install_riaps
 
 # Delete all of the install files from the image
-#sudo rm -rf /opt/riaps-install
+sudo rm -rf /opt/riaps-install

@@ -145,16 +145,17 @@ py_lmdb_install() {
 #     For 22.04: pyyaml = 5.4.1, cryptography = 3.4.8, netifaces = 0.11.0
 pip3_3rd_party_installs(){
     start=`date +%s`
-    #pip3 install 'pydevd==2.9.6' 'redis==4.6.0' 'hiredis==2.2.3' 'netifaces==0.11.0' --verbose
-    pip3 install 'paramiko==3.3.1' --verbose 
+    pip3 install 'pydevd==2.9.6' 'redis==4.6.0' 'hiredis==2.2.3' 'netifaces==0.11.0' --verbose
+    #pip3 install 'paramiko==3.3.1' --verbose 
     #pip3 install 'cryptography==3.4.8' --verbose
-    #pip3 install 'cgroups==0.1.0' 'cgroupspy==0.2.2' --verbose
-    #pip3 install 'fabric3==1.14.post1' 'pyroute2==0.7.9' 'pyserial==3.5' --verbose
-    #pip3 install 'pybind11==2.11.1' 'toml==0.10.2' 'pycryptodomex==3.19.0' --verbose
-    #pip3 install 'psutil==5.5.1' 'rpyc==5.3.1' --verbose
-    #pip3 install 'parse==1.19.1' 'butter==0.13.1' --verbose
-    #pip3 install 'gpiod==1.5.4', 'spdlog==2.0.6' --verbose
-    #pip3 install 'psutil==5.9.0' --verbose
+    pip3 install 'cgroups==0.1.0' 'cgroupspy==0.2.2' --verbose
+    pip3 install 'fabric3==1.14.post1' 'pyroute2==0.7.9' 'pyserial==3.5' --verbose
+    pip3 install 'pybind11==2.11.1' 'toml==0.10.2' --verbose
+    #pip3 install 'pycryptodomex==3.19.0' --verbose
+    pip3 install 'rpyc==5.3.1' --verbose
+    pip3 install 'parse==1.19.1' 'butter==0.13.1' --verbose
+    pip3 install 'gpiod==1.5.4', 'spdlog==2.0.6' --verbose
+    pip3 install 'psutil==5.9.0' --verbose
     end=`date +%s`
     echo ">>>>> installed pip3 packages"
     diff=`expr $end - $start`
