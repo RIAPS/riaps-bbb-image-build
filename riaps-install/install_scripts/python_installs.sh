@@ -149,7 +149,8 @@ pip3_3rd_party_installs(){
     #pip3 install 'paramiko==3.3.1' --verbose 
     #pip3 install 'cryptography==3.4.8' --verbose
     pip3 install 'cgroups==0.1.0' 'cgroupspy==0.2.2' --verbose
-    pip3 install 'fabric3==1.14.post1' 'pyroute2==0.7.9' 'pyserial==3.5' --verbose
+    #pip3 install 'fabric3==1.14.post1' --verbose
+    pip3 install 'pyroute2==0.7.9' 'pyserial==3.5' --verbose
     pip3 install 'pybind11==2.11.1' 'toml==0.10.2' --verbose
     #pip3 install 'pycryptodomex==3.19.0' --verbose
     pip3 install 'rpyc==5.3.1' --verbose
