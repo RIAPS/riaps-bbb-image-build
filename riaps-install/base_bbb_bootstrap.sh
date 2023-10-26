@@ -61,7 +61,7 @@ install_riaps() {
 # Start of script actions
 source_scripts
 RIAPS_PREFIX="/opt/riaps" # for location of compiled zmq libraries
-#setup_peripherals
+setup_peripherals
 user_func
 #riaps_dir_setup
 # setup_ssh_keys - removed, must put dev vm keys on bbb during initial setup
