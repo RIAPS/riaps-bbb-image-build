@@ -36,3 +36,7 @@ riaps_prereq() {
     rm riapspublic.key
     echo ">>>>> riaps aptrepo setup"
 }
+
+rust_install() {
+    curl https://sh.rustup.rs -sSf | sh
+}

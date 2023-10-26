@@ -76,6 +76,7 @@ python_install
 #apparmor_monkeys_install
 #spdlog_python_install
 #py_lmdb_install
+rust_install
 pip3_3rd_party_installs
 pycom_pip_pkgs_bbb
 prctl_install
