@@ -153,10 +153,12 @@ pip3_3rd_party_installs(){
     pip3 install 'parse==1.19.1' 'butter==0.13.1' --verbose
     pip3 install 'gpiod==1.5.4' 'spdlog==2.0.6' --verbose
     pip3 install 'psutil==5.9.0' --verbose
+    pip3 install 'pycryptodomex==3.19.0' --verbose
     # Note: Currently manually installing these - issue with dependency install for paramiko (bcrypt) when 
     #       installing with a 64 bit host and 32 bit QEMU environment. Paramiko is a dependency of fabric3.
     #       Use at least 16 GB SD card for this.
-    # Try installing paramiko dependencies separately to minimize manual effort, try pynacl
+    # Installing paramiko dependencies separately to minimize manual effort: pynacl
+    # Note: fabric3 uninstalls paramiko and moves it back to 2.x due to a dependency
     pip3 install 'pynacl==1.5.0' --verbose
     #pip3 install 'paramiko==3.3.1' --verbose
     #pip3 install 'fabric3==1.14.post1' --verbose
