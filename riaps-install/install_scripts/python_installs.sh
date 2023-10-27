@@ -155,7 +155,7 @@ pip3_3rd_party_installs(){
     #pip3 install 'pycryptodomex==3.19.0' --verbose
     pip3 install 'rpyc==5.3.1' --verbose
     pip3 install 'parse==1.19.1' 'butter==0.13.1' --verbose
-    pip3 install 'gpiod==1.5.4', 'spdlog==2.0.6' --verbose
+    pip3 install 'gpiod==1.5.4' 'spdlog==2.0.6' --verbose
     pip3 install 'psutil==5.9.0' --verbose
     end=`date +%s`
     echo ">>>>> installed pip3 packages"
