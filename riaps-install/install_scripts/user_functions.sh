@@ -21,6 +21,7 @@ user_func() {
 }
 
 # package install changed 06/23, utilize riaps_fab to install riaps packages
+# Ubuntu 22.04 now sets the user directory permissions to 750, need 755 for riaps apps to load
 riaps_dir_setup() {
     sudo mkdir -p /home/$rfs_username/riaps_apps
     sudo chown $rfs_username:$rfs_username /home/$rfs_username/riaps_apps
@@ -29,6 +30,7 @@ riaps_dir_setup() {
     #sudo chown $rfs_username:$rfs_username /home/$rfs_username/riaps_install_node.sh
     sudo mkdir -p /home/$rfs_username/.ssh
     sudo chown $rfs_username:$rfs_username /home/$rfs_username/.ssh
+    sudo chmod 755 /home/$rfs_username
 
     echo ">>>>> setup riaps folder and install script"
 }
