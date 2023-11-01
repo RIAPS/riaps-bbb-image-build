@@ -160,7 +160,7 @@ pip3_3rd_party_installs(){
     # Installing paramiko dependencies separately to minimize manual effort: pynacl
     # Note: fabric3 uninstalls paramiko and moves it back to 2.x due to a dependency
     pip3 install 'pynacl==1.5.0' --verbose
-    pip3 install 'paramiko==3.3.1' --verbose
+    #pip3 install 'paramiko==3.3.1' --verbose
     #pip3 install 'fabric3==1.14.post1' --verbose
     end=`date +%s`
     echo ">>>>> installed pip3 packages"

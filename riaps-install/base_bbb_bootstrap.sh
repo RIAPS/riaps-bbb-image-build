@@ -69,7 +69,7 @@ freqgov_off
 watchdog_timers
 setup_splash
 setup_hostname
-cython_install
+#cython_install -- try not preinstalling cython
 build_external_libraries
 python_install
 pycapnp_install
