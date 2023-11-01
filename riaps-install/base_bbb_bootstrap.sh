@@ -76,7 +76,7 @@ pycapnp_install
 apparmor_monkeys_install
 #spdlog_python_install
 py_lmdb_install
-#pip3_3rd_party_installs
+pip3_3rd_party_installs
 pycom_pip_pkgs_bbb
 prctl_install
 # move zmq python installs to last due to cython being updated to 3.0.2 for the pyzmq build
