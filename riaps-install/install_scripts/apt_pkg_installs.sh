@@ -20,6 +20,7 @@ remove_pkgs_used_to_build(){
     sudo apt-get remove nettle-dev libcurl4-gnutls-dev libasio-dev -y
     sudo apt-get remove libargon2-0-dev libfmt-dev libhttp-parser-dev libjsoncpp-dev -y
     sudo apt autoremove -y
+    sudo pip3 uninstall cython -y
     echo ">>>>> removed packages used in building process, no longer needed"
 }
 
@@ -37,6 +38,3 @@ riaps_prereq() {
     echo ">>>>> riaps aptrepo setup"
 }
 
-rust_install() {
-    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -y
-}

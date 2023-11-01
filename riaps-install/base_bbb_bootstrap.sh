@@ -69,15 +69,14 @@ freqgov_off
 watchdog_timers
 setup_splash
 setup_hostname
-#cython_install -- try not preinstalling cython
+#cython_install -- installing cython using .conf file, get latest
 build_external_libraries
 python_install
 pycapnp_install
 apparmor_monkeys_install
-spdlog_python_install
+#spdlog_python_install
 py_lmdb_install
-#rust_install
-pip3_3rd_party_installs
+#pip3_3rd_party_installs
 pycom_pip_pkgs_bbb
 prctl_install
 # move zmq python installs to last due to cython being updated to 3.0.2 for the pyzmq build

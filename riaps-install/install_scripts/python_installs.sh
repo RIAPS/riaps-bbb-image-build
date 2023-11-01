@@ -122,7 +122,7 @@ rpyc_install() {
     TMP=`mktemp -d`
     git clone https://github.com/tomerfiliba-org/rpyc.git $TMP/rpyc
     cd $TMP/rpyc
-    git checkout 5.2.3
+    git checkout 5.3.1
     sudo python3 setup.py install
     cd $PREVIOUS_PWD
     rm -rf $TMP
