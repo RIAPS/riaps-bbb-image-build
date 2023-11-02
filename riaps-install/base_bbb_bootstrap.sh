@@ -1,17 +1,14 @@
 #!/usr/bin/env bash
 set -e
 
-# Packages already in base 18.04 image that are utilized by RIAPS Components:
-# GCC 7, G++ 7, GIT, pkg-config, python3-dev, python3-setuptools
-# pps-tools, libpcap0.8, nettle6, libgnutls30, libncurses5
-
-# Differences from riaps-integration/riaps-node-creation/base-bbb-bootstrap.#!/bin/sh
-# This method uses riaps-bionic.conf to setup all username and all apt packages desired, so they are not in the
-# install_scripts for this repo.  The omap-image-builder.patch handles the network_setup.sh script information and
+# Differences from riaps-integration/riaps-node-creation/base-bbb-bootstrap:
+# This method uses riaps-jammy.conf to setup username, all apt packages desired 
+# and most of the python packages (python3_pkgs), so they are not in the
+# install_scripts for this repo.  
+# The omap-image-builder.patch handles the network_setup.sh script information and
 # the quota setup.
-# MM TODO - check this is how it happens: base file copies (i.e. /usr/bin/set-unique_hostname and /etc/sudoers.d/riaps) like DEBIAN package setup
 
-#contains: rfs_username, release_date
+# contains: rfs_username, release_date
 if [ -f /etc/rcn-ee.conf ] ; then
 	. /etc/rcn-ee.conf
 fi
@@ -64,19 +61,16 @@ RIAPS_PREFIX="/opt/riaps" # for location of compiled zmq libraries
 setup_peripherals
 user_func
 riaps_dir_setup
-# setup_ssh_keys - removed, must put dev vm keys on bbb during initial setup
 freqgov_off
 watchdog_timers
 setup_splash
 setup_hostname
-#cython_install -- installing cython using .conf file, get latest
 build_external_libraries
 python_install
 pycapnp_install
 apparmor_monkeys_install
-#spdlog_python_install
 py_lmdb_install
-pip3_3rd_party_installs
+pip3_additional_installs
 pycom_pip_pkgs_bbb
 prctl_install
 # move zmq python installs to last due to cython being updated to 3.0.2 for the pyzmq build

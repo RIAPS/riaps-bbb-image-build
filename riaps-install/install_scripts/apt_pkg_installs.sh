@@ -1,27 +1,16 @@
 #!/usr/bin/env bash
 set -e
 
-
-#install opendht prerequisites - expect libreadline-dev libncurses-dev libmsgpack-dev libgnutls28-dev libasio-dev installed
-opendht_prereqs_install() {
-    # run liblinks script to link gnutls and msgppack
-    PREVIOUS_PWD=$PWD
-    chmod +x $PREVIOUS_PWD/liblinks.sh
-    cd /usr/lib/arm-linux-gnueabihf
-    sudo $PREVIOUS_PWD/liblinks.sh
-    cd $PREVIOUS_PWD
-    echo ">>>>> installed opendht prerequisites"
-}
-
 # To regain disk space on the BBB, remove packages that were installed as part of the build process (i.e. -dev)
 remove_pkgs_used_to_build(){
-    sudo apt-get remove libboost-all-dev libcap-dev libffi-dev libgnutls28-dev libncurses5-dev libncurses-dev -y
-    sudo apt-get remove libsystemd-dev -y
+    sudo apt-get remove libboost-dev libcap-dev libffi-dev libgnutls28-dev libncurses5-dev libncurses-dev -y
+    sudo apt-get remove libsystemd-dev libmsgpack-dev libpcap-dev -y
     sudo apt-get remove nettle-dev libcurl4-gnutls-dev libasio-dev -y
     sudo apt-get remove libargon2-0-dev libfmt-dev libhttp-parser-dev libjsoncpp-dev -y
+    sudo apt-get remove libssl-dev -y
     sudo apt autoremove -y
     sudo pip3 uninstall cython -y
-    echo ">>>>> removed packages used in building process, no longer needed"
+    echo ">>>>> removed packages used in building process that are no longer needed"
 }
 
 # Setup RIAPS repository

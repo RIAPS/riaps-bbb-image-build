@@ -141,6 +141,7 @@ build_zyre() {
 }
 
 # OpenDHT - cython must be install prior to this to allow python package to be installed
+# Dependencies: libreadline-dev libncurses-dev libmsgpack-dev libgnutls28-dev libasio-dev 
 build_opendht() {
     PREVIOUS_PWD=$PWD
     TMP=`mktemp -d`
