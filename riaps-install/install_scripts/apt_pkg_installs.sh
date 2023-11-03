@@ -7,7 +7,6 @@ remove_pkgs_used_to_build(){
     sudo apt-get remove libsystemd-dev libmsgpack-dev libpcap-dev -y
     sudo apt-get remove nettle-dev libcurl4-gnutls-dev libasio-dev -y
     sudo apt-get remove libargon2-0-dev libfmt-dev libhttp-parser-dev libjsoncpp-dev -y
-    sudo apt-get remove libssl-dev -y
     sudo apt autoremove -y
     sudo pip3 uninstall cython -y
     echo ">>>>> removed packages used in building process that are no longer needed"
