@@ -62,7 +62,8 @@ pycapnp_install() {
     sudo pip3 install pkgconfig
     PREVIOUS_PWD=$PWD
     TMP=`mktemp -d`
-    git clone https://github.com/capnproto/pycapnp.git $TMP/pycapnp
+    #git clone https://github.com/capnproto/pycapnp.git $TMP/pycapnp
+    git clone https://github.com/LasseBlaauwbroek/pycapnp.git $TMP/pycapnp
     cd $TMP/pycapnp
     git checkout upgrade-cython
     # Force this release to use Cython 0.29.36, otherwise it tries Cython 3.x and fails
