@@ -64,10 +64,10 @@ pycapnp_install() {
     TMP=`mktemp -d`
     git clone https://github.com/capnproto/pycapnp.git $TMP/pycapnp
     cd $TMP/pycapnp
-    git checkout v1.2.2
+    git checkout upgrade-cython
     # Force this release to use Cython 0.29.36, otherwise it tries Cython 3.x and fails
     # Note: newer versions pf pycapnp add this restriction 
-    sed -i 's/cython/cython<3/g' pyproject.toml
+    #sed -i 's/cython/cython<3/g' pyproject.toml
     sudo pip3 install . -C force-system-libcapnp=True --verbose
     cd $PREVIOUS_PWD
     sudo rm -rf $TMP
