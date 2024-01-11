@@ -57,7 +57,6 @@ install_riaps() {
 
 # Start of script actions
 source_scripts
-RIAPS_PREFIX="/opt/riaps" # for location of compiled zmq libraries
 setup_peripherals
 user_func
 riaps_dir_setup
@@ -65,6 +64,7 @@ freqgov_off
 watchdog_timers
 setup_splash
 setup_hostname
+zmq_draft_apt_install
 build_external_libraries
 python_install
 pycapnp_install

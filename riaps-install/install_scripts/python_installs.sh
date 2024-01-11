@@ -24,8 +24,8 @@ pyzmq_install(){
     TMP=`mktemp -d`
     git clone https://github.com/zeromq/pyzmq.git $TMP/pyzmq
     cd $TMP/pyzmq
-    git checkout v23.2.1
-    ZMQ_DRAFT_API=1 ZMQ_PREFIX=$RIAPS_PREFIX sudo -E pip install . -v --no-binary pyzmq --pre pyzmq --verbose
+    git checkout v25.1.2
+    ZMQ_DRAFT_API=1 sudo -E pip install -v --no-binary pyzmq --pre pyzmq 
     cd $PREVIOUS_PWD
     sudo rm -rf $TMP
     echo ">>>>> installed pyzmq"
@@ -38,7 +38,7 @@ czmq_pybindings_install(){
     git clone https://github.com/zeromq/czmq.git $TMP/czmq_pybindings
     cd $TMP/czmq_pybindings/bindings/python
     git checkout v4.2.1
-    ZMQ_PREFIX=$RIAPS_PREFIX sudo pip3 install . --verbose
+    sudo pip3 install . --verbose
     cd $PREVIOUS_PWD
     sudo rm -rf $TMP
     echo ">>>>> installed CZMQ pybindings"
@@ -51,7 +51,7 @@ zyre_pybindings_install(){
     git clone https://github.com/zeromq/zyre.git $TMP/zyre_pybindings
     cd $TMP/zyre_pybindings/bindings/python
     git checkout v2.0.1
-    ZMQ_PREFIX=$RIAPS_PREFIX sudo pip3 install . --verbose
+    sudo pip3 install . --verbose
     cd $PREVIOUS_PWD
     sudo rm -rf $TMP
     echo ">>>>> installed Zyre pybindings"
@@ -62,14 +62,10 @@ pycapnp_install() {
     sudo pip3 install pkgconfig
     PREVIOUS_PWD=$PWD
     TMP=`mktemp -d`
-    #git clone https://github.com/capnproto/pycapnp.git $TMP/pycapnp
-    git clone https://github.com/LasseBlaauwbroek/pycapnp.git $TMP/pycapnp
+    git clone https://github.com/capnproto/pycapnp.git $TMP/pycapnp
     cd $TMP/pycapnp
-    git checkout upgrade-cython
-    # Force this release to use Cython 0.29.36, otherwise it tries Cython 3.x and fails
-    # Note: newer versions pf pycapnp add this restriction 
-    #sed -i 's/cython/cython<3/g' pyproject.toml
-    sudo pip3 install . -C force-system-libcapnp=True --verbose
+    git checkout v2.0.0b2
+    sudo pip3 install . --verbose
     cd $PREVIOUS_PWD
     sudo rm -rf $TMP
     echo ">>>>> installed pycapnp with system built capnproto"
@@ -88,20 +84,25 @@ prctl_install() {
     echo ">>>>> installed prctl"
 }
 
+# Installing py-lmdb
 py_lmdb_install() {
+    export LMDB_FORCE_SYSTEM=1
+    export LMDB_INCLUDEDIR=/usr/local/include
+    export LMDB_LIBDIR=/usr/local/lib
     PREVIOUS_PWD=$PWD
     TMP=`mktemp -d`
-    git clone https://github.com/jnwatson/py-lmdb.git $TMP/py_lmdb
-    cd $TMP/py_lmdb
-    git checkout py-lmdb_1.3.0
-    sudo python3 setup.py install
+    git clone https://github.com/jnwatson/py-lmdb.git $TMP/lmdb
+    cd $TMP/lmdb/
+    git checkout py-lmdb_1.4.1
+    sudo -E pip3 install . --verbose 
     cd $PREVIOUS_PWD
-    rm -rf $TMP
+    sudo rm -rf $TMP
+    echo ">>>>> installed lmdb"
 }
 
 # These are packages that should be installed separately from the packages listed in
 # python3_pkgs= section of the .conf file
-#     Packages needed are: paramiko (3.3.1), pynacl and fabric2 (3.2.2)
+#     Packages needed are: paramiko (3.4.0), pynacl and fabric2 (3.2.2)
 #     - pynacl has a conflict between distribution install cffi (1.15.0) and the 
 #       latest version it pulls (1.16.0) when installing with python3_pkgs. "butter" 
 #       updates the cffi version to 1.16.0, so the install works here since the version check 
