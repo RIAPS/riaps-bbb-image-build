@@ -6,7 +6,8 @@ zmq_draft_apt_install() {
     echo "deb http://download.opensuse.org/repositories/network:/messaging:/zeromq:/release-draft/xUbuntu_22.04/ ./" >> /etc/apt/sources.list.d/zeromq.list
     wget https://download.opensuse.org/repositories/network:/messaging:/zeromq:/release-draft/xUbuntu_22.04/Release.key -O- | sudo apt-key add
     sudo apt-get update
-    sudo apt-get install libzmq3-dev
+    sudo apt-get install libzmq3-dev -y
+    echo ">>>>> installed libzmq with draft APIs"
 }
 
 # To regain disk space on the BBB, remove packages that were installed as part of the build process (i.e. -dev)
