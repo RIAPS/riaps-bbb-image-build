@@ -11,7 +11,7 @@ zmq_draft_apt_install() {
     # MM TODO: next line is for debugging and can be remove when things are working correctly
     file Release.key.gpg
     sudo mv Release.key.gpg /usr/share/keyrings/zeromq-archive-keyring.gpg
-    echo "deb [signed-by/usr/share/keyrings/zeromq-archive-keyring.gpg] http://download.opensuse.org/repositories/network:/messaging:/zeromq:/release-draft/xUbuntu_22.04/ ./" >> /etc/apt/sources.list.d/zeromq.list
+    echo "deb [signed-by=/usr/share/keyrings/zeromq-archive-keyring.gpg] http://download.opensuse.org/repositories/network:/messaging:/zeromq:/release-draft/xUbuntu_22.04/ ./" >> /etc/apt/sources.list.d/zeromq.list
     sudo apt-get update
     sudo apt-get install libzmq3-dev -y
     cd $PREVIOUS_PWD
