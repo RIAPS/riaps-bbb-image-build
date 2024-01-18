@@ -1,22 +1,3 @@
-diff --git a/scripts/chroot.sh b/scripts/chroot.sh
-index 158deb57..73340505 100755
---- a/scripts/chroot.sh
-+++ b/scripts/chroot.sh
-@@ -513,6 +513,14 @@ bionic|focal|jammy|lunar|mantic)
- 	;;
- esac
- 
-+case "${deb_codename}" in
-+jammy)
-+	echo "deb [signed-by=/usr/share/keyrings/zeromq-archive-keyring.gpg] http://download.opensuse.org/repositories/network:/messaging:/zeromq:/release-draft/xUbuntu_22.04/ ./" >> ${wfile}
-+	wget -O- https://download.opensuse.org/repositories/network:/messaging:/zeromq:/release-draft/xUbuntu_22.04/Release.key | gpg --dearmor | sudo tee /usr/share/keyrings/zeromq-archive-keyring.gpg >/dev/null
-+	echo "" >> ${wfile}
-+	;;
-+esac
-+
- #https://wiki.debian.org/Backports
- if [ "x${chroot_enable_debian_backports}" = "xenable" ] ; then
- 	case "${deb_codename}" in
 diff --git a/tools/setup_sdcard.sh b/tools/setup_sdcard.sh
 index 89bec361..9ce21c06 100755
 --- a/tools/setup_sdcard.sh

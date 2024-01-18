@@ -64,7 +64,7 @@ freqgov_off
 watchdog_timers
 setup_splash
 setup_hostname
-#zmq_draft_apt_install
+zmq_draft_apt_install
 build_external_libraries
 python_install
 pycapnp_install
