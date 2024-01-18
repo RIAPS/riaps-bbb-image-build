@@ -3,19 +3,10 @@ set -e
 
 # Set apt sources list grab the released packages with draft APIs
 zmq_draft_apt_install() {
-    PREVIOUS_PWD=$PWD
-    TMP=`mktemp -d`
-    cd $TMP
-    wget https://download.opensuse.org/repositories/network:/messaging:/zeromq:/release-draft/xUbuntu_22.04/Release.key
-    gpg --dearmor Release.key
-    # MM TODO: next line is for debugging and can be remove when things are working correctly
-    file Release.key.gpg
-    sudo mv Release.key.gpg /usr/share/keyrings/zeromq-archive-keyring.gpg
+    wget -O- https://download.opensuse.org/repositories/network:/messaging:/zeromq:/release-draft/xUbuntu_22.04/Release.key | gpg --dearmor | sudo tee /usr/share/keyrings/zeromq-archive-keyring.gpg >/dev/null
     echo "deb [signed-by=/usr/share/keyrings/zeromq-archive-keyring.gpg] http://download.opensuse.org/repositories/network:/messaging:/zeromq:/release-draft/xUbuntu_22.04/ ./" >> /etc/apt/sources.list.d/zeromq.list
     sudo apt-get update
     sudo apt-get install libzmq3-dev -y
-    cd $PREVIOUS_PWD
-    sudo rm -rf $TMP
     echo ">>>>> installed libzmq with draft APIs"
 }
 
