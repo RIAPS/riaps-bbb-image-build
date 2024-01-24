@@ -4,9 +4,9 @@ set -e
 # Set apt sources list grab the released packages with draft APIs
 zmq_draft_apt_install() {
     wget -O- https://download.opensuse.org/repositories/network:/messaging:/zeromq:/release-draft/xUbuntu_22.04/Release.key | gpg --dearmor | sudo tee /usr/share/keyrings/zeromq-archive-keyring.gpg >/dev/null
-    echo "deb [arch=armhf signed-by=/usr/share/keyrings/zeromq-archive-keyring.gpg] http://download.opensuse.org/repositories/network:/messaging:/zeromq:/release-draft/xUbuntu_22.04/ ./" >> /etc/apt/sources.list.d/zeromq.list
+    sudo echo "deb [arch=armhf signed-by=/usr/share/keyrings/zeromq-archive-keyring.gpg] http://download.opensuse.org/repositories/network:/messaging:/zeromq:/release-draft/xUbuntu_22.04/ ./" >> /etc/apt/sources.list.d/zeromq.list
     sudo apt-get update
-    sudo apt-get install libzmq3-dev -y
+    DEBIAN_FRONTEND=noninteractive sudo apt-get install libzmq3-dev -y
     echo ">>>>> installed libzmq with draft APIs"
 }
 
@@ -17,6 +17,7 @@ remove_pkgs_used_to_build(){
     sudo apt-get remove uuid-dev liblz4-dev -y
     sudo apt-get remove nettle-dev libcurl4-gnutls-dev libasio-dev -y
     sudo apt-get remove libargon2-0-dev libhttp-parser-dev libjsoncpp-dev -y
+    sudo apt-get remove libzmq3-dev -y
     sudo apt autoremove -y
     sudo pip3 uninstall cython -y
     echo ">>>>> removed packages used in building process that are no longer needed"
