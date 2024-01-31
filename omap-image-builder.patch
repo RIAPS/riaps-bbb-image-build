@@ -7,7 +7,7 @@ index 89bec361..9ce21c06 100755
  		fi
  
 -		cmdline="coherent_pool=1M net.ifnames=0"
-+		cmdline="coherent_pool=1M net.ifnames=0 security=apparmor"
++		cmdline="coherent_pool=1M net.ifnames=0 security=apparmor systemd.unified_cgroup_hierarchy=0 "
  
  		if [ ! "x${loops_per_jiffy}" = "x" ] ; then
  			cmdline="${cmdline} ${loops_per_jiffy}"
