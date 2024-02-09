@@ -107,9 +107,6 @@ py_lmdb_install() {
 #       latest version it pulls (1.16.0) when installing with python3_pkgs. "butter" 
 #       updates the cffi version to 1.16.0, so the install works here since the version check 
 #       is not longer conflicting.  Note: did not see this issue the VM which has cffi=1.5.0. 
-#     - Packages desired here, but built manually on a BBB setup for now
-#       * paramiko has issues build in 32-bit qemu environment on a 64-bit host
-#       * fabric2 requires paramiko
 pip3_additional_installs(){
     start=`date +%s`
 
