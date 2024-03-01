@@ -184,7 +184,7 @@ build_libply() {
     cd $TMP/libply
     git checkout 2.3.0
     start=`date +%s`
-    ./autogen.h 
+    ./autogen.sh 
     ./configure 
     make -j2
     sudo make install
