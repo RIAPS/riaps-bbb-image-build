@@ -18,7 +18,7 @@ remove_pkgs_used_to_build(){
     sudo apt-get remove uuid-dev liblz4-dev -y
     sudo apt-get remove nettle-dev libcurl4-gnutls-dev libasio-dev -y
     sudo apt-get remove libargon2-0-dev libhttp-parser-dev libjsoncpp-dev -y
-    sudo apt-get remove libzmq3-dev -y
+    sudo apt-get remove libzmq3-dev bison -y
     sudo apt autoremove -y
     sudo pip3 uninstall cython -y
     echo ">>>>> removed packages used in building process that are no longer needed"

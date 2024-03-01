@@ -12,6 +12,7 @@ build_external_libraries() {
     build_zyre
     build_opendht
     #build_libsoc
+    build_libply
     sudo ldconfig
     echo ">>>>> built all external libraries"
 }
@@ -171,6 +172,26 @@ build_libsoc() {
     cd $PREVIOUS_PWD
     sudo rm -rf $TMP
     echo ">>>>> built libsoc library"
+    diff=`expr $end - $start`
+    echo ">>>>> Execution time was $(($diff/60)) minutes and $(($diff%60)) seconds."
+}
+
+# libply
+build_libply() {
+    PREVIOUS_PWD=$PWD
+    TMP=`mktemp -d`
+    git clone https://github.com/wkz/ply.git $TMP/libply
+    cd $TMP/libply
+    git checkout 2.3.0
+    start=`date +%s`
+    ./autogen.h 
+    ./configure 
+    make -j2
+    sudo make install
+    end=`date +%s`
+    cd $PREVIOUS_PWD
+    sudo rm -rf $TMP
+    echo ">>>>> built libply library"
     diff=`expr $end - $start`
     echo ">>>>> Execution time was $(($diff/60)) minutes and $(($diff%60)) seconds."
 }
