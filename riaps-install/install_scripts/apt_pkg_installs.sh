@@ -28,13 +28,9 @@ remove_pkgs_used_to_build(){
 riaps_prereq() {
     sudo update-ca-certificates -f
     # Add RIAPS repository
-    echo ">>>>> get riaps public key"
     sudo rdate -n -4 time.nist.gov
-    wget https://riaps.isis.vanderbilt.edu/keys/riapspublic.key --no-check-certificate
-    sudo apt-key add riapspublic.key
-    echo ">>>>> add repo to sources"
-    sudo add-apt-repository "deb [arch=${deb_arch}] https://riaps.isis.vanderbilt.edu/aptrepo/ $deb_codename main"
-    rm riapspublic.key
+    wget -O- https://riaps.isis.vanderbilt.edu/keys/riapspublic.key --no-check-certificate | gpg --dearmor | sudo tee /usr/share/keyrings/riaps-archive-keyring.gpg >/dev/null
+    sudo echo "deb [arch=${deb_arch} signed-by=/usr/share/keyrings/riaps-archive-keyring.gpg] https://riaps.isis.vanderbilt.edu/aptrepo/ $deb_codename main" >> /etc/apt/sources.list.d/riaps.list
     echo ">>>>> riaps aptrepo setup"
 }
 

@@ -78,7 +78,7 @@ pyzmq_install
 czmq_pybindings_install
 zyre_pybindings_install
 remove_pkgs_used_to_build
-#riaps_prereq - DEV: currently working with a non-apt release, no repo to add yet
+riaps_prereq
 create_riaps_version_file
 set_date
 
