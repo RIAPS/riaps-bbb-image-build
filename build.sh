@@ -18,8 +18,10 @@ git apply ../omap-image-builder.patch
 ./RootStock-NG.sh -c riaps-jammy
 
 # Build image for BBB
-IMG=$(\ls deploy)
+filesize=8gb
+IMG=$(basename $(find deploy -maxdepth 1 -type f -name "*.tar" -print -quit) .tar)
+echo "Image name: $IMG"
 cd "deploy/$IMG"
-sudo ./setup_sdcard.sh --img-8gb $IMG --dtb beaglebone --distro-bootloader --rootfs_label rootfs --enable-cape-universal
-zip $IMG.zip *.img
+sudo ./setup_sdcard.sh --img-${filesize} $IMG --dtb beaglebone --distro-bootloader --rootfs_label rootfs --enable-cape-universal
+zip $IMG-${filesize}.zip *.img
 mv *.zip ../../../
