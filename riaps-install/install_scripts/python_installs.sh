@@ -25,7 +25,7 @@ pyzmq_install(){
     git clone https://github.com/zeromq/pyzmq.git $TMP/pyzmq
     cd $TMP/pyzmq
     git checkout v25.1.2
-    ZMQ_DRAFT_API=1 sudo -E pip install -v --no-binary pyzmq --pre pyzmq 
+    ZMQ_DRAFT_API=1 sudo -E pip3 install -v --no-cache-dir .
     cd $PREVIOUS_PWD
     sudo rm -rf $TMP
     echo ">>>>> installed pyzmq"
