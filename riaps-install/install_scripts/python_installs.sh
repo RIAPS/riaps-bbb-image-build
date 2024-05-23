@@ -13,7 +13,7 @@ apparmor_monkeys_install() {
     TMP=`mktemp -d`
     git clone https://github.com/RIAPS/apparmor_monkeys.git $TMP/apparmor_monkeys
     cd $TMP/apparmor_monkeys
-    sudo python3 setup.py install
+    sudo pip3 install .
     cd $PREVIOUS_PWD
     sudo rm -rf $TMP
     echo ">>>>> installed apparmor_monkeys"
@@ -78,7 +78,7 @@ prctl_install() {
     git clone https://github.com/RIAPS/python-prctl.git $TMP/python-prctl
     cd $TMP/python-prctl/
     git checkout feature-ambient
-    sudo python3 setup.py install
+    sudo pip3 install . --verbose
     cd $PREVIOUS_PWD
     sudo rm -rf $TMP
     echo ">>>>> installed prctl"
