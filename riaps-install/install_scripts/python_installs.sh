@@ -111,7 +111,7 @@ pip3_additional_installs(){
     start=`date +%s`
 
     pip3 install 'pynacl==1.5.0' --verbose
-    pip3 install 'paramiko==3.4.0' 'fabric2==3.2.2' --verbose
+    pip3 install 'paramiko==3.4.0' 'fabric==3.2.2' --verbose
 
     end=`date +%s`
     echo ">>>>> installed additional pip3 packages"
