@@ -1,17 +1,14 @@
 #!/usr/bin/env bash
 set -e
 
-# Packages already in base 18.04 image that are utilized by RIAPS Components:
-# GCC 7, G++ 7, GIT, pkg-config, python3-dev, python3-setuptools
-# pps-tools, libpcap0.8, nettle6, libgnutls30, libncurses5
-
-# Differences from riaps-integration/riaps-node-creation/base-bbb-bootstrap.#!/bin/sh
-# This method uses riaps-bionic.conf to setup all username and all apt packages desired, so they are not in the
-# install_scripts for this repo.  The omap-image-builder.patch handles the network_setup.sh script information and
+# Differences from riaps-integration/riaps-node-creation/base-bbb-bootstrap:
+# This method uses riaps-jammy.conf to setup username, all apt packages desired 
+# and most of the python packages (python3_pkgs), so they are not in the
+# install_scripts for this repo.  
+# The omap-image-builder.patch handles the network_setup.sh script information and
 # the quota setup.
-# MM TODO - check this is how it happens: base file copies (i.e. /usr/bin/set-unique_hostname and /etc/sudoers.d/riaps) like DEBIAN package setup
 
-#contains: rfs_username, release_date
+# contains: rfs_username, release_date
 if [ -f /etc/rcn-ee.conf ] ; then
 	. /etc/rcn-ee.conf
 fi
@@ -53,7 +50,7 @@ setup_splash() {
 }
 
 install_riaps() {
-    sudo apt-get install riaps-pycom-$deb_arch riaps-timesync-$deb_arch -y
+    sudo apt-get install riaps-pycom riaps-timesync-$deb_arch -y
     echo ">>>>> installed RIAPS platform"
 }
 
@@ -63,29 +60,25 @@ source_scripts
 setup_peripherals
 user_func
 riaps_dir_setup
-# setup_ssh_keys - removed, must put dev vm keys on bbb during initial setup
 freqgov_off
 watchdog_timers
 setup_splash
 setup_hostname
-python_install
-cython_install
-opendht_prereqs_install
+zmq_draft_apt_install
 build_external_libraries
+python_install
 pycapnp_install
+apparmor_monkeys_install
+py_lmdb_install
+pip3_additional_installs
+pycom_pip_pkgs_bbb
+prctl_install
+# move zmq python installs to last due to cython being updated to 3.0.2 for the pyzmq build
 pyzmq_install
 czmq_pybindings_install
 zyre_pybindings_install
-apparmor_monkeys_install
-spdlog_python_install
-#butter_install - this may no longer be needed (MM - 092022)
-py_lmdb_install
-pip3_3rd_party_installs
-pycom_pip_pkgs_bbb
-prctl_install
 remove_pkgs_used_to_build
-#riaps_prereq - issue with the certs here caused this to be pushed to riaps_install_node.sh
-riaps_prereq # putting back in to see it will work now
+riaps_prereq
 create_riaps_version_file
 set_date
 

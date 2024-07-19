@@ -6,11 +6,14 @@ set -e
 build_external_libraries() {
     build_capnproto
     build_lmdb
+    build_fmt
     build_nethogs
     build_czmq
     build_zyre
     build_opendht
-    build_libsoc
+    #build_libsoc
+    build_libply
+    sudo ldconfig
     echo ">>>>> built all external libraries"
 }
 
@@ -20,7 +23,7 @@ build_capnproto() {
     TMP=`mktemp -d`
     git clone https://github.com/capnproto/capnproto $TMP/capnproto
     cd $TMP/capnproto
-    git checkout v0.8.0
+    git checkout v1.0.1.1
     start=`date +%s`
     autoreconf -i c++
     cd c++ && ./configure --enable-shared
@@ -41,7 +44,7 @@ build_lmdb() {
     TMP=`mktemp -d`
     git clone https://github.com/LMDB/lmdb.git $TMP/lmdb
     cd $TMP/lmdb
-    git checkout LMDB_0.9.29
+    git checkout LMDB_0.9.31
     start=`date +%s`
     make -j2 -C ./libraries/liblmdb
     sudo make -C ./libraries/liblmdb install
@@ -49,6 +52,27 @@ build_lmdb() {
     cd $PREVIOUS_PWD
     sudo rm -rf $TMP
     echo ">>>>> built lmdb library"
+    diff=`expr $end - $start`
+    echo ">>>>> Execution time was $(($diff/60)) minutes and $(($diff%60)) seconds."
+}
+
+# LIBFMT
+build_fmt() {
+    PREVIOUS_PWD=$PWD
+    TMP=`mktemp -d`
+    git clone https://github.com/fmtlib/fmt.git $TMP/fmt
+    cd $TMP/fmt
+    git checkout 10.1.1
+    mkdir $TMP/fmt/build
+    cd build
+    start=`date +%s`
+    cmake -DBUILD_SHARED_LIBS=TRUE -DCMAKE_INSTALL_PREFIX=/usr/local ..
+    make -j2
+    sudo make install
+    end=`date +%s`
+    cd $PREVIOUS_PWD
+    sudo rm -rf $TMP
+    echo ">>>>> built fmt library"
     diff=`expr $end - $start`
     echo ">>>>> Execution time was $(($diff/60)) minutes and $(($diff%60)) seconds."
 }
@@ -80,7 +104,7 @@ build_czmq() {
     git checkout v4.2.1
     start=`date +%s`
     ./autogen.sh
-    ./configure --enable-drafts --with-uuid=no --with-libsystemd=no --with-liblz4=no --enable-zmakecert=no --enable-zsp=no --enable-test_randof=no --enable-czmq_selftest=no
+    ./configure --enable-drafts=yes
     make -j2
     sudo make install
     end=`date +%s`
@@ -100,7 +124,7 @@ build_zyre() {
     git checkout v2.0.1
     start=`date +%s`
     ./autogen.sh
-    ./configure --enable-drafts
+    ./configure --enable-drafts=yes
     make -j2
     sudo make install
     end=`date +%s`
@@ -112,18 +136,16 @@ build_zyre() {
 }
 
 # OpenDHT - cython must be install prior to this to allow python package to be installed
+# Dependencies: libreadline-dev libncurses-dev libmsgpack-dev libgnutls28-dev libasio-dev 
 build_opendht() {
     PREVIOUS_PWD=$PWD
     TMP=`mktemp -d`
     git clone https://github.com/savoirfairelinux/opendht.git $TMP/opendht
     cd $TMP/opendht
-    git checkout v2.4.10
+    git checkout v3.1.6
     start=`date +%s`
     ./autogen.sh
-    #./configure PKG_CONFIG_PATH=/usr/local/lib/pkgconfig MsgPack_LIBS="-L/usr/lib/arm-linux-gnueabihf -lmsgpackc" MsgPack_CFLAGS=-I/usr/include/arm-linux-gnueabihf Nettle_LIBS="-L/usr/lib/arm-linux-gnueabihf -lnettle" Nettle_CFLAGS=-I/usr/include/arm-linux-gnueabihf GnuTLS_LIBS="-L/usr/lib/arm-linux-gnueabihf -lgnutls" GnuTLS_CFLAGS=-I/usr/include/arm-linux-gnueabihf CFLAGS=-I/tmp/3rdparty/opendht/argon2/include
-    #./configure PKG_CONFIG_PATH=/usr/local/lib/pkgconfig MsgPack_LIBS="-L/usr/lib/arm-linux-gnueabihf -lmsgpackc" MsgPack_CFLAGS=-I/usr/include/arm-linux-gnueabihf CFLAGS=-I/tmp/3rdparty/opendht/argon2/include
-    #./configure PKG_CONFIG_PATH=/usr/local/lib/pkgconfig MsgPack_LIBS="-L/usr/lib/arm-linux-gnueabihf -lmsgpackc" MsgPack_CFLAGS=-I/usr/include Argon2_LIBS="-L/usr/lib/arm-linux-gnueabihf -largon2" Argon2_CFLAGS=-I/usr/include Nettle_LIBS="-L/usr/lib/arm-linux-gnueabihf -lnettle" Nettle_CFLAGS=-I/usr/include GnuTLS_LIBS="-L/usr/lib/arm-linux-gnueabihf -lgnutls" GnuTLS_CFLAGS=-I/usr/include
-    ./configure
+    ./configure --prefix=/usr/local
     make -j2
     sudo make install
     end=`date +%s`
@@ -150,6 +172,26 @@ build_libsoc() {
     cd $PREVIOUS_PWD
     sudo rm -rf $TMP
     echo ">>>>> built libsoc library"
+    diff=`expr $end - $start`
+    echo ">>>>> Execution time was $(($diff/60)) minutes and $(($diff%60)) seconds."
+}
+
+# libply
+build_libply() {
+    PREVIOUS_PWD=$PWD
+    TMP=`mktemp -d`
+    git clone https://github.com/wkz/ply.git $TMP/libply
+    cd $TMP/libply
+    git checkout 2.3.0
+    start=`date +%s`
+    ./autogen.sh 
+    ./configure 
+    make -j2
+    sudo make install
+    end=`date +%s`
+    cd $PREVIOUS_PWD
+    sudo rm -rf $TMP
+    echo ">>>>> built libply library"
     diff=`expr $end - $start`
     echo ">>>>> Execution time was $(($diff/60)) minutes and $(($diff%60)) seconds."
 }
